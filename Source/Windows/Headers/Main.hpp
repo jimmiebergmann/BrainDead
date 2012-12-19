@@ -1,6 +1,7 @@
 #ifndef __BRAINDEAD_MAIN_HPP__
 #define __BRAINDEAD_MAIN_HPP__
 
-#include <Application.hpp>
+#include <windows.h>
+#include <Game/Game.hpp>
 
 #endif

@@ -3,7 +3,7 @@
 int __stdcall WinMain( HINSTANCE p_ThisInst, HINSTANCE p_PrevInst,
 	LPSTR p_pCmdLine, int p_CmdShow )
 {
-	Application application;
+	Game game;
 
-	return application.Run();
+	return game.Run(0, 0);
 }

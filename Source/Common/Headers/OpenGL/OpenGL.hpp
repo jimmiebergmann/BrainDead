@@ -62,10 +62,10 @@ public:
 
 private:
 
-	static bool m_pLoaded;
-	static std::map<std::string, void*> m_pExtensionMap;
-	static std::string m_pExtensionError;
-	static unsigned int m_pExtensionErrorCount;
+	static bool s_Loaded;
+	static std::map<std::string, void*> s_ExtensionMap;
+	static std::string s_ExtensionError;
+	static unsigned int s_ExtensionErrorCount;
 
 };
 

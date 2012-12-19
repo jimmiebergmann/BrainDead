@@ -1,16 +1,23 @@
 #ifndef __BRAINDEAD_OPENGL_RENDERER_HPP__
 #define __BRAINDEAD_OPENGL_RENDERER_HPP__
 
-#include <windows.h>
+#include <Window/Window.hpp>
 
 class OpenGLRenderer
 {
 
 public:
 
+	enum eRendererType
+	{
+		RENDERERTYPE_NONE = 0,
+		RENDERERTYPE_OPENGL3 = 1,
+		RENDERERTYPE_OPENGL2 = 2
+	};
+
 	~OpenGLRenderer();
 	OpenGLRenderer();
-	int Create(Window & window);
+	int Create(Window & p_window);
 	void StartScene();
 	void EndScene();
 	void SetClearColor(const float r, const float g, const float b, const float a);
@@ -30,8 +37,9 @@ public:
 	
 private:
 
-	HGLRC m_pContext;
+	HGLRC m_Context;
 	HDC * m_pHDC;
+	eRendererType m_eRenderType;
 
 
 };

@@ -13,11 +13,7 @@ OpenGLRenderer::OpenGLRenderer() :
 
 }
 
-<<<<<<< HEAD
 int OpenGLRenderer::Create(Window & p_window)
-=======
-/*int OpenGLRenderer::Create(Window & window)
->>>>>>> 7656c21ed3eac87e2ad54430c83915cab53c09b2
 {
 	// Make sure the window is loaded before we do anything.
 	if(p_window.IsLoaded() == false)
@@ -114,43 +110,13 @@ int OpenGLRenderer::Create(Window & p_window)
 	}
 
 	// Load all the opengl extensions
-	GlExt::Load();
-
-	/*/// Initialize GlExt
-	if (GlExt::Init())
+	if(GlExt::Load() == false)
 	{
-		Log::AddNoteMessage("[RendererOpenGL3::Create] Can't initialize GlExt:\n");
-		Log::AddNoteMessage("   " + GlExt::GetError());
-		return RENDERER_ERROR;
+		return 1;
 	}
-*/
-	/// Setup opengl viewport and some other things
-	/*glDisable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
-	EnableAlpha();
-
-	glClearColor(0, 0, 0, 1);
-	glClearDepth(1);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 0);
-	glViewport(0, 0, window->GetSize().x, window->GetSize().y);
-
-	/// Opengl is fully loaded
-	int OpenGLVersion[2];
-	glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersion[0]);
-	glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersion[1]);
-*/
-
-
-
-
-
-	// Load the rest of the renderer.
-	
-
 
 	return 0;
-}*/
+}
 
 void OpenGLRenderer::StartScene()
 {

@@ -1,9 +1,12 @@
-#include "Main.hpp"
+#include <Windows.h>
+#include <Main.hpp>
+#include <DataTypes.hpp>
 
 int __stdcall WinMain( HINSTANCE p_ThisInst, HINSTANCE p_PrevInst,
 	LPSTR p_pCmdLine, int p_CmdShow )
 {
-	Application application;
+	//Application application;
 
-	return application.Run();
+	//return application.Run();
+	return 0;
 }

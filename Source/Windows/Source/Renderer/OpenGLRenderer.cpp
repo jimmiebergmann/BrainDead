@@ -11,7 +11,7 @@ OpenGLRenderer::OpenGLRenderer() :
 
 }
 
-int OpenGLRenderer::Create(Window & window)
+/*int OpenGLRenderer::Create(Window & window)
 {
 	// Make sure the window is loaded before we do anything.
 	if(window.IsLoaded() == false)
@@ -32,7 +32,7 @@ int OpenGLRenderer::Create(Window & window)
 
 
 	return 0;
-}
+}*/
 
 void OpenGLRenderer::StartScene()
 {

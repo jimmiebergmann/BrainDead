@@ -1,0 +1,33 @@
+# Directories #
+Obj
+obj
+Bin
+bin
+Lib
+lib
+Debug
+debug
+Release
+release
+Profile
+profile
+ipch
+
+# Compiled #
+*.obj
+*.exe
+
+# Build #
+*.ncb
+*.suo
+*.user
+*.sdf
+*.opensdf
+
+# Temporary vim #
+*.swp
+*.swo
+
+# Documentation #
+*.~lock.*
+*.docstates

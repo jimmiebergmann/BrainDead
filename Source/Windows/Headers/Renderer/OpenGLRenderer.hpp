@@ -3,45 +3,49 @@
 
 #include <Window/Window.hpp>
 
-class OpenGLRenderer
+namespace BD
 {
-
-public:
-
-	enum eRendererType
+	class OpenGLRenderer
 	{
-		RENDERERTYPE_NONE = 0,
-		RENDERERTYPE_OPENGL3 = 1,
-		RENDERERTYPE_OPENGL2 = 2
+
+	public:
+
+		enum eRendererType
+		{
+			RENDERERTYPE_NONE = 0,
+			RENDERERTYPE_OPENGL3 = 1,
+			RENDERERTYPE_OPENGL2 = 2
+		};
+
+		~OpenGLRenderer();
+		OpenGLRenderer();
+		int Create(Window & p_window);
+		void StartScene();
+		void EndScene();
+		void SetClearColor(const float r, const float g, const float b, const float a);
+		void SetClearDepth(float depth);
+		void SetViewport(const int lx, const int ly,const int hx, const int hy); // Lower and higher coordinates
+		void SetLineWidth(const float width);
+		void ClearColor();
+		void ClearDepth();
+		void EnableTexture();
+		void DisableTexture();
+		void EnableAlpha();
+		void DisableAlpha();
+		void EnableDepthTest();
+		void DisableDepthTest();
+		void EnableSmoothLines();
+		void DisableSmoothLines();
+		
+	private:
+
+		HGLRC m_Context;
+		HDC * m_pHDC;
+		eRendererType m_eRenderType;
+
+
 	};
 
-	~OpenGLRenderer();
-	OpenGLRenderer();
-	int Create(Window & p_window);
-	void StartScene();
-	void EndScene();
-	void SetClearColor(const float r, const float g, const float b, const float a);
-	void SetClearDepth(float depth);
-	void SetViewport(const int lx, const int ly,const int hx, const int hy); // Lower and higher coordinates
-	void SetLineWidth(const float width);
-	void ClearColor();
-	void ClearDepth();
-	void EnableTexture();
-	void DisableTexture();
-	void EnableAlpha();
-	void DisableAlpha();
-	void EnableDepthTest();
-	void DisableDepthTest();
-	void EnableSmoothLines();
-	void DisableSmoothLines();
-	
-private:
-
-	HGLRC m_Context;
-	HDC * m_pHDC;
-	eRendererType m_eRenderType;
-
-
-};
+}
 
 #endif

@@ -1,16 +1,20 @@
 #include <Game/Game.hpp>
 
-Game::~Game()
+namespace BD
 {
-}
+	Game::~Game()
+	{
+	}
 
-Game::Game()
-{
-}
+	Game::Game()
+	{
+	}
 
-int Game::Run(int p_ArgCount, char **p_ArgVector)
-{
+	int Game::Run(int p_ArgCount, char **p_ArgVector)
+	{
 
 
-	return 0;
+		return 0;
+	}
+
 }

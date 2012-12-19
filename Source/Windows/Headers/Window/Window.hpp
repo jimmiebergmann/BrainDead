@@ -3,22 +3,25 @@
 
 #include <windows.h>
 
-class Window
+namespace BD
 {
+	class Window
+	{
 
-public:
+	public:
 
-	~Window();
-	Window();
-	bool IsLoaded() const;
-	HDC * GetHDC();
-	
-private:
+		~Window();
+		Window();
+		bool IsLoaded() const;
+		HDC * GetHDC();
+		
+	private:
 
-	bool m_Loaded;
-	HDC m_HDC;
+		bool m_Loaded;
+		HDC m_HDC;
 
+	};
 
-};
+}
 
 #endif

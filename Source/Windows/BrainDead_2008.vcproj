@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_DEBUG;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_DEBUG;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -510,6 +510,22 @@
 			<Filter
 				Name="Headers"
 				>
+				<File
+					RelativePath="..\Common\Headers\Compiler.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Compiler_GCC.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Compiler_MSVC.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\DataTypes.hpp"
+					>
+				</File>
 				<Filter
 					Name="OpenGL"
 					>
@@ -552,6 +568,10 @@
 					<Filter
 						Name="VertexObject"
 						>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\VertexObject\VertexObject.hpp"
+							>
+						</File>
 					</Filter>
 				</Filter>
 				<Filter

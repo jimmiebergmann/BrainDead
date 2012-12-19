@@ -11,7 +11,7 @@ namespace BD
 		virtual ~Window( ){ }
 
 		virtual BD_UINT32 Initialise( const BD_UINT32 p_Width,
-			const BD_UINT32 p_Height ) = 0;
+			const BD_UINT32 p_Height, const BD_BOOL p_Fullscreen ) = 0;
 	};
 }
 

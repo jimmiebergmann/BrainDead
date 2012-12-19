@@ -17,7 +17,11 @@ public:
 
 	~OpenGLRenderer();
 	OpenGLRenderer();
+<<<<<<< HEAD
 	int Create(Window & p_window);
+=======
+//	int Create(Window & window);
+>>>>>>> 7656c21ed3eac87e2ad54430c83915cab53c09b2
 	void StartScene();
 	void EndScene();
 	void SetClearColor(const float r, const float g, const float b, const float a);

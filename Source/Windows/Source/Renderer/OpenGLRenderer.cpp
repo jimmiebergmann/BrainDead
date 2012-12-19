@@ -19,14 +19,17 @@ int OpenGLRenderer::Create(Window & window)
 		return 1;
 	}
 
-	// Get tje HDC from the window class, also make sure it's not null.
+	// Get the HDC from the window class, also make sure it's not null.
 	if((m_pHDC = window.GetHDC()) == NULL)
 	{
 		return 1;
 	}
 
+	// Load all the opengl extensions
 
 	// Load the rest of the renderer.
+	
+
 
 	return 0;
 }

@@ -525,6 +525,54 @@
 						RelativePath="..\Common\Headers\OpenGL\OpenGL.hpp"
 						>
 					</File>
+					<Filter
+						Name="Shader"
+						>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\Shader\FragmentShader.hpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\Shader\Shader.hpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderProgram.hpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\Shader\VertexShader.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Texture"
+						>
+						<File
+							RelativePath="..\Common\Headers\OpenGL\Texture\Texture.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="VertexObject"
+						>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Utility"
+					>
+					<Filter
+						Name="Math"
+						>
+						<File
+							RelativePath="..\Common\Headers\Utility\Math\Matrix.hpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Headers\Utility\Math\Vector.hpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -534,6 +582,66 @@
 					RelativePath="..\Common\Source\stub.cpp"
 					>
 				</File>
+				<Filter
+					Name="OpenGL"
+					>
+					<File
+						RelativePath="..\Common\Source\OpenGL\OpenGL.cpp"
+						>
+					</File>
+					<Filter
+						Name="Texture"
+						>
+						<File
+							RelativePath="..\Common\Source\OpenGL\Texture\Texture.cpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="VertexObject"
+						>
+						<File
+							RelativePath="..\Common\Source\OpenGL\VertexObject\VertexObject.cpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Shader"
+						>
+						<File
+							RelativePath="..\Common\Source\OpenGL\Shader\FragmentShader.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Source\OpenGL\Shader\Shader.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Source\OpenGL\Shader\ShaderProgram.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Source\OpenGL\Shader\VertexShader.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Utility"
+					>
+					<Filter
+						Name="Math"
+						>
+						<File
+							RelativePath="..\Common\Source\Utility\Math\Matrix.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\Common\Source\Utility\Math\Vector.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

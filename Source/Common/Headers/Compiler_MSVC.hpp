@@ -10,9 +10,9 @@
 
 // VS 2010 and greater support C++11
 #if( _MSC_VER >= 1600 )
-#define D_NULL nullptr
+#define BD_NULL nullptr
 #else
-#define D_NULL NULL
+#define BD_NULL NULL
 #endif
 
 #endif

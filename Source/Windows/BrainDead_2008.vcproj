@@ -541,19 +541,11 @@
 						Name="Shader"
 						>
 						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\FragmentShader.hpp"
+							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderOGL.hpp"
 							>
 						</File>
 						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\Shader.hpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderProgram.hpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\VertexShader.hpp"
+							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderProgramOGL.hpp"
 							>
 						</File>
 					</Filter>
@@ -614,6 +606,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Shader"
+					>
+					<File
+						RelativePath="..\Common\Headers\Shader\Shader.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Headers\Shader\ShaderProgram.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -645,19 +649,11 @@
 						Name="Shader"
 						>
 						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\FragmentShader.cpp"
+							RelativePath="..\Common\Source\OpenGL\Shader\ShaderOGL.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\Shader.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\ShaderProgram.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\VertexShader.cpp"
+							RelativePath="..\Common\Source\OpenGL\Shader\ShaderProgramOGL.cpp"
 							>
 						</File>
 					</Filter>

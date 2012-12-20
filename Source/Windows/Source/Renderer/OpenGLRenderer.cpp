@@ -18,7 +18,7 @@ namespace BD
 	BD_UINT32 OpenGLRenderer::Create(Window & p_window)
 	{
 		// Make sure the window is loaded before we do anything.
-		if(p_window.IsLoaded() == false)
+		/*if(p_window.IsLoaded() == false)
 		{
 			return BD_ERROR;
 		}
@@ -28,7 +28,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-
+*/
 		// Filling the pixel fromat structure.
 		static PIXELFORMATDESCRIPTOR PFD = {
 			sizeof(PIXELFORMATDESCRIPTOR),

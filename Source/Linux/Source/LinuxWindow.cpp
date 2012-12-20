@@ -1,11 +1,14 @@
 #include <LinuxWindow.hpp>
+#include <cstring>
 #include <cstdio>
+
 namespace BD
 {
 	LinuxWindow::LinuxWindow( )
 	{
 		m_pDisplay = BD_NULL;
 		m_Fullscreen = BD_FALSE;
+		m_Created = BD_FALSE;
 	}
 
 	LinuxWindow::~LinuxWindow( )
@@ -17,7 +20,7 @@ namespace BD
 		}
 	}
 
-	BD_UINT32 LinuxWindow::Initialise( const BD_UINT32 p_Width,
+	BD_UINT32 LinuxWindow::Create( const BD_UINT32 p_Width,
 		const BD_UINT32 p_Height, const BD_BOOL p_Fullscreen )
 	{
 		m_pDisplay = XOpenDisplay( 0 );
@@ -63,7 +66,28 @@ namespace BD
 		XMoveWindow( m_pDisplay, m_Window, 0, 0 );
 		XRaiseWindow( m_pDisplay, m_Window );
 
+		// Wait for the MapNotify event to 
+		for( ; ; )
+		{
+	    	XEvent Event;
+		    XNextEvent( m_pDisplay, &Event );
+		    if( Event.type == MapNotify)
+			{
+				break;
+			}
+      	}
+
+		m_Created = BD_TRUE;
+
 		return BD_OK;
+	}
+
+	WINDATA LinuxWindow::Data( ) const
+	{
+		WINDATA Data;
+		memset( &Data, 0, sizeof( WINDATA ) );
+
+		return Data;
 	}
 }
 

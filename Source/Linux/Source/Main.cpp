@@ -5,9 +5,9 @@
 int main( int p_Argc, char **p_ppArgv )
 {
 	BD::LinuxWindow Test;
-	Test.Initialise( 800, 600, BD_FALSE );
+	Test.Create( 800, 600 );
 
-	sleep( 10 );
+	sleep( 5 );
 	std::cout << "BrainDead" << std::endl;
 	return 0;
 }

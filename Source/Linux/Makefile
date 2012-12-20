@@ -75,10 +75,10 @@ $(TARGET): OBJSDIR TARGETDIR $(OBJS) $(COBJS)
 	cd $(OBJSDIR) && $(CC) -o ../$(TARGETDIR)/$(TARGET) $(OBJS) $(COBJS) $(SYSLIBS)
 
 %.o: ../Common/Source/%.cpp
-	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
+	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_LINUX -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
 
 %.o: $(SOURCEDIR)/%.cpp 
-	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
+	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_LINUX -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
 
 endif
 

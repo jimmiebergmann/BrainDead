@@ -2,14 +2,15 @@
 #define __BRAINDEAD_WINDOW_WINDOW_HPP__
 
 #include <DataTypes.hpp>
-#include <Windows.h>
 
 #ifdef PLATFORM_WINDOWS
+#include <Windows.h>
 typedef struct __WINDATA
 {
 	HDC DeviceContext;
 }WINDATA;
 #elif PLATFORM_LINUX
+#include <X11/Xlib.h>
 typedef struct __WINDATA
 {
 	::Window	Window;

@@ -26,11 +26,8 @@ namespace BD
 		BD_BOOL m_Loaded;
 		BD_BOOL m_Running;
 
-#ifdef PLATFORM_WINDOWS
-		WindowsWindow m_Window;
-		WindowsRendererOGL m_Renderer;
-#endif
-		
+		Window * m_pWindow;
+		Renderer * m_pRenderer;
 
 
 	};

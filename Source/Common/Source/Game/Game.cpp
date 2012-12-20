@@ -9,7 +9,9 @@ namespace BD
 
 	Game::Game() :
 		m_Loaded(BD_FALSE),
-		m_Running(BD_FALSE)
+		m_Running(BD_FALSE),
+		m_pWindow(BD_NULL),
+		m_pRenderer(BD_NULL)
 	{
 	}
 
@@ -27,16 +29,16 @@ namespace BD
 		// Main loop
 		while(m_Running)
 		{
-			if(m_Window.DoEvents() == BD_ERROR)
+			if(m_pWindow->DoEvents() == BD_ERROR)
 			{
 				break;
 			}
 
-			m_Renderer.StartScene();
+			m_pRenderer->StartScene();
 
 			// Draw things here
 
-			m_Renderer.EndScene();
+			m_pRenderer->EndScene();
 
 		}
 		
@@ -44,10 +46,10 @@ namespace BD
 		// Unload the game
 		if(Unload() != BD_OK)
 		{
-#ifdef PLATFORM_WINDOWS
+#ifdef PLATFORm_pWindowS
 			::MessageBox(NULL, L"Failed to unload BrainDead", L"BrainDead Erorr.", MB_OK | MB_ICONEXCLAMATION);
 #elif PLATFORM_LINUX
-			std::cout << "Error: Failed to unload BrainDead" << std::endl;
+			std::cout << "Error: Failed to unload BrainDead." << std::endl;
 #endif
 		}
 		
@@ -58,17 +60,27 @@ namespace BD
 	{
 		m_Loaded = false;
 
+#ifdef PLATFORM_WINDOWS	
+		m_pWindow = new WindowsWindow();
+		m_pRenderer = new WindowsRendererOGL();
+#elif PLATFORM_LINUX
+#error No Linux Renderer.
+		m_pWindow = new LinuxWindow();
+		m_pRenderer = new LinuxRendererOGL();
+#endif
+
 		// Create the window
-		if(m_Window.Create( 800, 600 ) != BD_OK)
+		if(m_pWindow->Create( 800, 600, false ) != BD_OK)
+		{
+			return BD_ERROR;
+		}
+		if(m_pRenderer->Create(*m_pWindow) != BD_OK)
 		{
 			return BD_ERROR;
 		}
 
-		// Create the renderer by using the window we just created
-		if(m_Renderer.Create(m_Window) != BD_OK)
-		{
-			return BD_ERROR;
-		}
+		// Output debug information about the renderer
+		// Renderer::eRendererType RendererType = m_Renderer.GetRendererType();
 
 		m_Loaded = true;
 		return BD_OK;
@@ -76,8 +88,18 @@ namespace BD
 
 	BD_UINT32 Game::Unload()
 	{
-		//m_Renderer.Destroy();
-		//m_Window.Destory();
+		if(m_pWindow)
+		{
+			delete m_pWindow;
+			m_pWindow = BD_NULL;
+		}
+
+		if(m_pRenderer)
+		{
+			delete m_pRenderer;
+			m_pRenderer = BD_NULL;
+		}
+		
 		
 		return BD_OK;
 	}

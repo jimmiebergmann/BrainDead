@@ -1,6 +1,7 @@
 #ifndef __BRAINDEAD_WINDOW_HPP__
 #define __BRAINDEAD_WINDOW_HPP__
 
+#include <DataTypes.hpp>
 #include <windows.h>
 
 namespace BD
@@ -12,12 +13,12 @@ namespace BD
 
 		~Window();
 		Window();
-		bool IsLoaded() const;
+		BD_BOOL IsLoaded() const;
 		HDC * GetHDC();
 		
 	private:
 
-		bool m_Loaded;
+		BD_BOOL m_Loaded;
 		HDC m_HDC;
 
 	};

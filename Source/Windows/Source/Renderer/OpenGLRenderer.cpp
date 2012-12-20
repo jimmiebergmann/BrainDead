@@ -15,18 +15,18 @@ namespace BD
 
 	}
 
-	int OpenGLRenderer::Create(Window & p_window)
+	BD_UINT32 OpenGLRenderer::Create(Window & p_window)
 	{
 		// Make sure the window is loaded before we do anything.
 		if(p_window.IsLoaded() == false)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
 		// Get the HDC from the window class, also make sure it's not null.
 		if((m_pHDC = p_window.GetHDC()) == NULL)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
 		// Filling the pixel fromat structure.
@@ -54,13 +54,13 @@ namespace BD
 		// Choose and set the pixel format
 		GLuint PixelFormat;
 
-		if(!(PixelFormat = ChoosePixelFormat(*m_pHDC, &PFD)))
+		if((PixelFormat = ChoosePixelFormat(*m_pHDC, &PFD)) == 0)
 		{
-			return 1;
+			return BD_ERROR;
 		}
-		if(!(SetPixelFormat(*m_pHDC, PixelFormat, &PFD)))
+		if((SetPixelFormat(*m_pHDC, PixelFormat, &PFD)) == false)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
 		// Create a temporary regual context.
@@ -69,7 +69,7 @@ namespace BD
 
 		if(TemporaryContext == NULL)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
 		// Make the temporary context to the current one
@@ -89,7 +89,7 @@ namespace BD
 		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
 		if((wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB")) = NULL)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
 		// Create the context
@@ -114,14 +114,15 @@ namespace BD
 		// Load all the opengl extensions
 		if(GlExt::Load() == false)
 		{
-			return 1;
+			return BD_ERROR;
 		}
 
-		return 0;
+		return BD_OK;
 	}
 
 	void OpenGLRenderer::StartScene()
 	{
+
 	}
 
 	void OpenGLRenderer::EndScene()
@@ -129,7 +130,7 @@ namespace BD
 		SwapBuffers(*m_pHDC);
 	}
 
-	void OpenGLRenderer::SetClearColor(const float r, const float g, const float b, const float a)
+	void OpenGLRenderer::SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a)
 	{
 		glClearColor(r, g, b, a);
 	}
@@ -139,12 +140,12 @@ namespace BD
 		glClearDepth(depth);
 	}
 
-	void OpenGLRenderer::SetViewport(const int lx, const int ly,const int hx, const int hy)
+	void OpenGLRenderer::SetViewport(const BD_UINT32 lx, const BD_UINT32 ly, const BD_UINT32 hx, const BD_UINT32 hy)
 	{
 		glViewport(lx, ly, hx, hy);
 	}
 
-	void OpenGLRenderer::SetLineWidth(const float width)
+	void OpenGLRenderer::SetLineWidth(const BD_FLOAT32 width)
 	{
 		glLineWidth(width);
 	}

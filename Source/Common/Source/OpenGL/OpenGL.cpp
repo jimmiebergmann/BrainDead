@@ -41,12 +41,12 @@ PFNGLVERTEXATTRIBPOINTERARBPROC glVertexAttribPointerARB = NULL;
 
 namespace BD
 {
-	bool GlExt::s_Loaded = false;
+	BD_BOOL GlExt::s_Loaded = false;
 	std::map<std::string, void*> GlExt::s_ExtensionMap;
 	std::string GlExt::s_ExtensionError = "";
-	unsigned int GlExt::s_ExtensionErrorCount = 0;
+	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
 
-	bool GlExt::Load()
+	BD_UINT32 GlExt::Load()
 	{
 		// Make sure everything is clear.
 		s_Loaded = false;
@@ -57,7 +57,7 @@ namespace BD
 		// Store the extension pointers in a std::map as well.
 		// Then, we can easily check which extension failed.
 		s_ExtensionMap["glActiveTextureARB"] = (void*)( glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC) GETPROCADDRESS("glActiveTextureARB"));
-		/*s_ExtensionMap["glAttachObjectARB"] = (void*)( glAttachObjectARB = (PFNGLATTACHOBJECTARBPROC) GETPROCADDRESS("glAttachObjectARB"));
+		s_ExtensionMap["glAttachObjectARB"] = (void*)( glAttachObjectARB = (PFNGLATTACHOBJECTARBPROC) GETPROCADDRESS("glAttachObjectARB"));
 		s_ExtensionMap["glBindAttribLocationARB"] = (void*)( glBindAttribLocationARB = (PFNGLBINDATTRIBLOCATIONARBPROC) GETPROCADDRESS("glBindAttribLocationARB"));
 		s_ExtensionMap["glGetAttribLocationARB"] = (void*)( glGetAttribLocationARB = (PFNGLGETATTRIBLOCATIONARBPROC) GETPROCADDRESS("glGetAttribLocationARB"));
 		s_ExtensionMap["glBindBufferARB"] = (void*)( glBindBufferARB = (PFNGLBINDBUFFERARBPROC) GETPROCADDRESS("glBindBufferARB"));
@@ -90,8 +90,8 @@ namespace BD
 		s_ExtensionMap["glUseProgramObjectARB"] = (void*)( glUseProgramObjectARB = (PFNGLUSEPROGRAMOBJECTARBPROC)GETPROCADDRESS("glUseProgramObjectARB"));
 		s_ExtensionMap["glValidateProgram"] = (void*)( glValidateProgram = (PFNGLVALIDATEPROGRAMPROC)GETPROCADDRESS("glValidateProgram"));
 		s_ExtensionMap["glVertexAttribPointerARB"] = (void*)( glVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC)GETPROCADDRESS("glVertexAttribPointerARB"));
-*/
-		// Make sure all the extensions are ok.
+
+		// Make sure all the extensions are ok by checking if any function is NULL.
 		for(std::map<std::string, void*>::iterator it = s_ExtensionMap.begin(); it != s_ExtensionMap.end(); it++)
 		{
 			if(it->second == NULL)
@@ -111,7 +111,7 @@ namespace BD
 		return (s_Loaded = true);
 	}
 
-	bool GlExt::IsLoaded()
+	BD_BOOL GlExt::IsLoaded()
 	{
 		return s_Loaded;
 	}

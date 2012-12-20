@@ -1,7 +1,9 @@
 #ifndef __BRAINDEAD_VECTOR_HPP__
 #define __BRAINDEAD_VECTOR_HPP__
 
+#include <DataTypes.hpp>
 #include <ostream>
+#include <float.h>
 
 namespace BD
 {
@@ -15,11 +17,8 @@ namespace BD
 
 		Vector2() : x(0), y(0) { }
 		Vector2(T x, T y) { this->x = (T)x; this->y = (T)y; }
-		Vector2(const Vector2<unsigned char>& v) {this->x = v.x; this->y = v.y; }
-		Vector2(const Vector2<int>& v) {this->x = v.x; this->y = v.y; }
-		Vector2(const Vector2<unsigned int>& v) {this->x = v.x; this->y = v.y; }
-		Vector2(const Vector2<float>& v) {this->x = v.x; this->y = v.y; }
-		Vector2(const Vector2<double>& v) {this->x = v.x; this->y = v.y; }
+		Vector2(const Vector2<BD_SINT32>& v) {this->x = v.x; this->y = v.y; }
+		Vector2(const Vector2<BD_FLOAT32>& v) {this->x = v.x; this->y = v.y; }
 		V2 operator- (V2& v) const { return V2(x - v.x, y - v.y); }
 		V2 operator- () const { return V2(-x, -y); }
 		V2 operator+ (V2& v) const { return V2(x + v.x, y + v.y); }
@@ -59,8 +58,8 @@ namespace BD
 	}
 
 	// Typedef some vector classes.
-	typedef Vector2<int> Vector2i;
-	typedef Vector2<float> Vector2f;
+	typedef Vector2<BD_SINT32> Vector2i;
+	typedef Vector2<BD_FLOAT32> Vector2f;
 
 }
 

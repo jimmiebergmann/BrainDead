@@ -1,6 +1,7 @@
 #ifndef __BRAINDEAD_OPENGL_HPP__
 #define __BRAINDEAD_OPENGL_HPP__
 
+#include <DataTypes.hpp>
 #include <Windows.h>
 #include <gl/gl.h>
 #include <GL/gl.h>
@@ -55,17 +56,17 @@ namespace BD
 
 	public:
 
-		static bool Load();
-		static bool IsLoaded();
+		static BD_UINT32 Load();
+		static BD_BOOL IsLoaded();
 		static std::string GetError();
-		static unsigned int GetErrorCount();
+		static BD_UINT32 GetErrorCount();
 
 	private:
 
-		static bool s_Loaded;
+		static BD_BOOL s_Loaded;
 		static std::map<std::string, void*> s_ExtensionMap;
 		static std::string s_ExtensionError;
-		static unsigned int s_ExtensionErrorCount;
+		static BD_UINT32 s_ExtensionErrorCount;
 
 	};
 

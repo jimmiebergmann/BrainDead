@@ -4,7 +4,6 @@ namespace BD
 {
 	Window::~Window()
 	{
-
 	}
 
 	Window::Window() :
@@ -14,7 +13,7 @@ namespace BD
 
 	}
 
-	bool Window::IsLoaded() const
+	BD_BOOL Window::IsLoaded() const
 	{
 		return m_Loaded;
 	}

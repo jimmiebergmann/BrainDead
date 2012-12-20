@@ -2,6 +2,7 @@
 #define __BRAINDEAD_WINDOW_WINDOW_HPP__
 
 #include <DataTypes.hpp>
+#include <Windows.h>
 
 namespace BD
 {

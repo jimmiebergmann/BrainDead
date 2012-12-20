@@ -7,23 +7,16 @@ namespace BD
 	}
 
 	WindowsRendererOGL::WindowsRendererOGL() :
-		Renderer(),
+		//Renderer(),
 		m_Context(BD_NULL),
 		m_pHDC(BD_NULL)
 	{
-
 	}
 
 	BD_UINT32 WindowsRendererOGL::Create(Window & p_window)
 	{
-		// Make sure the window is loaded before we do anything.
-		if(p_window.IsLoaded() == false)
-		{
-			return BD_ERROR;
-		}
-
 		// Get the HDC from the window class, also make sure it's not null.
-		if((m_pHDC = p_window.GetHDC()) == BD_NULL)
+		if((m_pHDC = p_window.Data().DeviceContext) == BD_NULL)
 		{
 			return BD_ERROR;
 		}
@@ -57,7 +50,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-		if((SetPixelFormat(*m_pHDC, PixelFormat, &PFD)) == false)
+		if((SetPixelFormat(*m_pHDC, PixelFormat, &PFD)) == BD_FALSE)
 		{
 			return BD_ERROR;
 		}
@@ -111,7 +104,7 @@ namespace BD
 		}
 
 		// Load all the opengl extensions
-		if(GlExt::Load() == false)
+		if(GlExt::Load() == BD_ERROR)
 		{
 			return BD_ERROR;
 		}
@@ -204,6 +197,5 @@ namespace BD
 	{
 		glDisable(GL_LINE_SMOOTH);
 	}
-
 
 }

@@ -1,6 +1,7 @@
 #ifndef __BRAINDEAD_GAME_HPP__
 #define __BRAINDEAD_GAME_HPP__
 
+#include <DataTypes.hpp>
 #include <windows.h>
 #ifdef PLATFORM_WINDOWS
 #include <Renderer/WindowsRendererOGL.hpp>
@@ -24,7 +25,8 @@ namespace BD
 
 
 #ifdef PLATFORM_WINDOWS
-		WindowsRendererOGL * m_Renderer;
+		WindowsWindow m_Window;
+		WindowsRendererOGL m_pRenderer;
 #endif
 		
 

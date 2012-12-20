@@ -3,6 +3,7 @@
 
 #include <DataTypes.hpp>
 #include <Window/Window.hpp>
+#include <GL/gl.h>
 
 
 namespace BD

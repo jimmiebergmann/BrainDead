@@ -44,6 +44,7 @@ namespace BD
 
 	BD_UINT32 Game::Load()
 	{
+
 		return BD_OK;
 	}
 

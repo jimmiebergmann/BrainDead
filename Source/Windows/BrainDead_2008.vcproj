@@ -127,7 +127,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_RELEASE;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_RELEASE;"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -206,7 +206,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_PROFILE;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_32;BUILD_PROFILE;"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -285,7 +285,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_DEBUG;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_DEBUG;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -368,7 +368,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_RELEASE;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_RELEASE;"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -448,7 +448,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="Headers;../Common/Headers;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_PROFILE;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PLATFORM_WINDOWS;PLATFORM_WINDOWS_X86_64;BUILD_PROFILE;"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -591,18 +591,18 @@
 					</Filter>
 				</Filter>
 				<Filter
-					Name="Game"
-					>
-					<File
-						RelativePath="..\Common\Headers\Game\Game.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
 					Name="Window"
 					>
 					<File
 						RelativePath="..\Common\Headers\Window\Window.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Game"
+					>
+					<File
+						RelativePath="..\Common\Headers\Game\Game.hpp"
 						>
 					</File>
 				</Filter>
@@ -734,7 +734,7 @@
 					Name="Window"
 					>
 					<File
-						RelativePath=".\Headers\Window\Window.hpp"
+						RelativePath=".\Headers\Window\WindowsWindow.hpp"
 						>
 					</File>
 				</Filter>
@@ -758,7 +758,7 @@
 					Name="Window"
 					>
 					<File
-						RelativePath=".\Source\Window\Window.cpp"
+						RelativePath=".\Source\Window\WindowsWindow.cpp"
 						>
 					</File>
 				</Filter>

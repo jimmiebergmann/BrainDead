@@ -104,11 +104,12 @@ namespace BD
 		// Return false if any of the extensions failed.
 		if(s_ExtensionErrorCount > 0)
 		{
-			return BD_FALSE;
+			return BD_ERROR;
 		}
 
 		// Everything went fine.
-		return (s_Loaded = BD_TRUE);
+		s_Loaded = BD_TRUE;
+		return BD_OK;
 	}
 
 	BD_BOOL GlExt::IsLoaded()

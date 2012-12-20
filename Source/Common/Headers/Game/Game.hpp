@@ -16,12 +16,15 @@ namespace BD
 		
 		~Game();
 		Game();
-		int Run(LPSTR p_pCmdLine, int p_CmdShow);
+		int Run(int argc, char ** argv);
 		
 	private:
 
 		BD_UINT32 Load();
 		BD_UINT32 Unload();
+
+		BD_BOOL m_Loaded;
+		BD_BOOL m_Running;
 
 #ifdef PLATFORM_WINDOWS
 		WindowsWindow m_Window;

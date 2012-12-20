@@ -140,14 +140,16 @@ namespace BD
 		}
 
 		ReleaseDC( DesktopWindow, DesktopContext );
-		AdjustWindowRectEx( &m_WindowRect, Style, FALSE, ExStyle );
+ 		AdjustWindowRectEx( &m_WindowRect, Style, FALSE, ExStyle );
 
 		m_Window = CreateWindowEx( ExStyle, m_pWindowTitle, m_pWindowTitle,
 			Style, m_WindowRect.left, m_WindowRect.top, m_WindowRect.right,
 			m_WindowRect.bottom, BD_NULL, BD_NULL, GetModuleHandle( BD_NULL ),
 			BD_NULL );
 
-		if( m_Window == BD_NULL )
+		DWORD Err = GetLastError( );
+
+ 		if( m_Window == BD_NULL )
 		{
 			m_Created = BD_FALSE;
 			return BD_ERROR;
@@ -164,6 +166,35 @@ namespace BD
 		return BD_OK;
 	}
 
+	BD_UINT32 WindowsWindow::DoEvents()
+	{
+		MSG Mesage;
+		bool Close = BD_FALSE;
+		while( PeekMessage(&Mesage, NULL, NULL, NULL, PM_REMOVE))
+		{
+			// Disable the VK_MENU key by skipping it.
+			if(Mesage.wParam == VK_MENU)
+			{
+				continue;
+			}
+
+			if(Mesage.message == WM_KEYDOWN)
+			{
+				Close = BD_TRUE;
+			}
+
+			TranslateMessage( &Mesage );
+			DispatchMessage( &Mesage );
+		}
+
+		if(Close == BD_TRUE)
+		{
+			return BD_ERROR;
+		}
+
+		return BD_OK;
+	}
+
 	WINDATA WindowsWindow::Data( ) const
 	{
 		WINDATA WinData;
@@ -176,6 +207,21 @@ namespace BD
 	LRESULT WindowsWindow::WindowProc( HWND p_HWND, UINT p_Message, WPARAM p_WParam,
 		LPARAM p_LParam )
 	{
+		switch( p_Message )
+		{
+		case WM_DESTROY:
+			{
+				PostQuitMessage( 0 );
+				break;
+			}
+		case WM_CLOSE:
+			{
+				PostQuitMessage( 0 );
+				break;
+			}
+		default:
+			return DefWindowProc( p_HWND, p_Message, p_WParam, p_LParam );
+		}
 		return 0L;
 	}
 

@@ -85,7 +85,7 @@ namespace BD
 		// We need the proc address for the function
 		// we are going to use for OGL 3.3 context creation.
 		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
-		if((wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB")) = BD_NULL)
+		if((wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB")) == BD_NULL)
 		{
 			return BD_ERROR;
 		}

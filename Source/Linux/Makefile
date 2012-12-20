@@ -64,7 +64,6 @@ OBJSDIR:
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 COMFILES	:= $(foreach dir,../Common/Source,$(notdir $(wildcard $(dir)/*.cpp)))
 
-
 ###############
 OBJS	= $(CPPFILES:.cpp=.o)
 COBJS	= $(COMFILES:.cpp=.o)

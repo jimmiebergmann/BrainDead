@@ -598,6 +598,22 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Window"
+					>
+					<File
+						RelativePath="..\Common\Headers\Window\Window.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Renderer"
+					>
+					<File
+						RelativePath="..\Common\Headers\Renderer\Renderer.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -670,6 +686,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Renderer"
+					>
+					<File
+						RelativePath="..\Common\Source\Renderer\Renderer.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -694,7 +718,7 @@
 					Name="Renderer"
 					>
 					<File
-						RelativePath=".\Headers\Renderer\OpenGLRenderer.hpp"
+						RelativePath=".\Headers\Renderer\WindowsRendererOGL.hpp"
 						>
 					</File>
 				</Filter>
@@ -726,7 +750,7 @@
 					Name="Renderer"
 					>
 					<File
-						RelativePath=".\Source\Renderer\OpenGLRenderer.cpp"
+						RelativePath=".\Source\Renderer\WindowsRendererOGL.cpp"
 						>
 					</File>
 				</Filter>

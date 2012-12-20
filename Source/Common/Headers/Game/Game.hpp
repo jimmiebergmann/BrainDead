@@ -1,6 +1,11 @@
 #ifndef __BRAINDEAD_GAME_HPP__
 #define __BRAINDEAD_GAME_HPP__
 
+#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Renderer/WindowsRendererOGL.hpp>
+#endif
+
 namespace BD
 {
 	class Game
@@ -10,9 +15,18 @@ namespace BD
 		
 		~Game();
 		Game();
-		int Run(int p_ArgCount, char **p_ArgVector);
+		int Run(LPSTR p_pCmdLine, int p_CmdShow);
 		
 	private:
+
+		BD_UINT32 Load();
+		BD_UINT32 Unload();
+
+
+#ifdef PLATFORM_WINDOWS
+		WindowsRendererOGL * m_Renderer;
+#endif
+		
 
 
 	};

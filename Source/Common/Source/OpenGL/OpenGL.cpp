@@ -4,52 +4,52 @@
 	#define GETPROCADDRESS(x) (wglGetProcAddress(x))
 #endif
 
-PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = NULL;
-PFNGLATTACHOBJECTARBPROC glAttachObjectARB = NULL;
-PFNGLBINDATTRIBLOCATIONARBPROC glBindAttribLocationARB = NULL;
-PFNGLGETATTRIBLOCATIONARBPROC glGetAttribLocationARB = NULL;
-PFNGLBINDBUFFERARBPROC glBindBufferARB = NULL;
-PFNGLBINDVERTEXARRAYPROC glBindVertexArray = NULL;
-PFNGLBUFFERDATAARBPROC glBufferDataARB = NULL;
-PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB = NULL;
-PFNGLCOMPILESHADERARBPROC glCompileShaderARB = NULL;
-PFNGLCREATEPROGRAMOBJECTARBPROC glCreateProgramObjectARB = NULL;
-PFNGLCREATESHADEROBJECTARBPROC glCreateShaderObjectARB = NULL;
-PFNGLDELETEOBJECTARBPROC glDeleteObjectARB = NULL;
-PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = NULL;
-PFNGLENABLEVERTEXATTRIBARRAYARBPROC glEnableVertexAttribArrayARB = NULL;
-PFNGLGENBUFFERSARBPROC glGenBuffersARB = NULL;
-PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = NULL;
-PFNGLGETPROGRAMINFOLOGPROC glGetProgramInfoLog = NULL;
-PFNGLGETPROGRAMIVPROC glGetProgramiv = NULL;
-PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog = NULL;
-PFNGLGETSHADERIVPROC glGetShaderiv = NULL;
-PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB = NULL;
-PFNGLLINKPROGRAMARBPROC glLinkProgramARB = NULL;
-PFNGLSHADERSOURCEARBPROC glShaderSourceARB = NULL;
-PFNGLUNIFORM1FARBPROC glUniform1fARB = NULL;
-PFNGLUNIFORM1IARBPROC glUniform1iARB = NULL;
-PFNGLUNIFORM2FARBPROC glUniform2fARB = NULL;
-PFNGLUNIFORM2IARBPROC glUniform2iARB = NULL;
-PFNGLUNIFORM3FARBPROC glUniform3fARB = NULL;
-PFNGLUNIFORM4FARBPROC glUniform4fARB = NULL;
-PFNGLUNIFORMMATRIX4FVARBPROC glUniformMatrix4fvARB = NULL;
-PFNGLUSEPROGRAMPROC glUseProgram = NULL;
-PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB = NULL;
-PFNGLVALIDATEPROGRAMPROC glValidateProgram = NULL;
-PFNGLVERTEXATTRIBPOINTERARBPROC glVertexAttribPointerARB = NULL;
+PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = BD_NULL;
+PFNGLATTACHOBJECTARBPROC glAttachObjectARB = BD_NULL;
+PFNGLBINDATTRIBLOCATIONARBPROC glBindAttribLocationARB = BD_NULL;
+PFNGLGETATTRIBLOCATIONARBPROC glGetAttribLocationARB = BD_NULL;
+PFNGLBINDBUFFERARBPROC glBindBufferARB = BD_NULL;
+PFNGLBINDVERTEXARRAYPROC glBindVertexArray = BD_NULL;
+PFNGLBUFFERDATAARBPROC glBufferDataARB = BD_NULL;
+PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB = BD_NULL;
+PFNGLCOMPILESHADERARBPROC glCompileShaderARB = BD_NULL;
+PFNGLCREATEPROGRAMOBJECTARBPROC glCreateProgramObjectARB = BD_NULL;
+PFNGLCREATESHADEROBJECTARBPROC glCreateShaderObjectARB = BD_NULL;
+PFNGLDELETEOBJECTARBPROC glDeleteObjectARB = BD_NULL;
+PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = BD_NULL;
+PFNGLENABLEVERTEXATTRIBARRAYARBPROC glEnableVertexAttribArrayARB = BD_NULL;
+PFNGLGENBUFFERSARBPROC glGenBuffersARB = BD_NULL;
+PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = BD_NULL;
+PFNGLGETPROGRAMINFOLOGPROC glGetProgramInfoLog = BD_NULL;
+PFNGLGETPROGRAMIVPROC glGetProgramiv = BD_NULL;
+PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog = BD_NULL;
+PFNGLGETSHADERIVPROC glGetShaderiv = BD_NULL;
+PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB = BD_NULL;
+PFNGLLINKPROGRAMARBPROC glLinkProgramARB = BD_NULL;
+PFNGLSHADERSOURCEARBPROC glShaderSourceARB = BD_NULL;
+PFNGLUNIFORM1FARBPROC glUniform1fARB = BD_NULL;
+PFNGLUNIFORM1IARBPROC glUniform1iARB = BD_NULL;
+PFNGLUNIFORM2FARBPROC glUniform2fARB = BD_NULL;
+PFNGLUNIFORM2IARBPROC glUniform2iARB = BD_NULL;
+PFNGLUNIFORM3FARBPROC glUniform3fARB = BD_NULL;
+PFNGLUNIFORM4FARBPROC glUniform4fARB = BD_NULL;
+PFNGLUNIFORMMATRIX4FVARBPROC glUniformMatrix4fvARB = BD_NULL;
+PFNGLUSEPROGRAMPROC glUseProgram = BD_NULL;
+PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB = BD_NULL;
+PFNGLVALIDATEPROGRAMPROC glValidateProgram = BD_NULL;
+PFNGLVERTEXATTRIBPOINTERARBPROC glVertexAttribPointerARB = BD_NULL;
 
 namespace BD
 {
-	BD_BOOL GlExt::s_Loaded = false;
+	BD_BOOL GlExt::s_Loaded = BD_FALSE;
 	std::map<std::string, void*> GlExt::s_ExtensionMap;
 	std::string GlExt::s_ExtensionError = "";
 	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
 
-	BD_UINT32 GlExt::Load()
+	BD_BOOL GlExt::Load()
 	{
 		// Make sure everything is clear.
-		s_Loaded = false;
+		s_Loaded = BD_FALSE;
 		s_ExtensionMap.clear();
 		s_ExtensionError = "";
 		s_ExtensionErrorCount = 0;
@@ -91,10 +91,10 @@ namespace BD
 		s_ExtensionMap["glValidateProgram"] = (void*)( glValidateProgram = (PFNGLVALIDATEPROGRAMPROC)GETPROCADDRESS("glValidateProgram"));
 		s_ExtensionMap["glVertexAttribPointerARB"] = (void*)( glVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC)GETPROCADDRESS("glVertexAttribPointerARB"));
 
-		// Make sure all the extensions are ok by checking if any function is NULL.
+		// Make sure all the extensions are ok by checking if any function is BD_NULL.
 		for(std::map<std::string, void*>::iterator it = s_ExtensionMap.begin(); it != s_ExtensionMap.end(); it++)
 		{
-			if(it->second == NULL)
+			if(it->second == BD_NULL)
 			{
 				s_ExtensionErrorCount ++;
 				s_ExtensionError += it->first + "\n";
@@ -104,11 +104,11 @@ namespace BD
 		// Return false if any of the extensions failed.
 		if(s_ExtensionErrorCount > 0)
 		{
-			return false;
+			return BD_FALSE;
 		}
 
 		// Everything went fine.
-		return (s_Loaded = true);
+		return (s_Loaded = BD_TRUE);
 	}
 
 	BD_BOOL GlExt::IsLoaded()
@@ -121,7 +121,7 @@ namespace BD
 		return s_ExtensionError;
 	}
 
-	unsigned int GlExt::GetErrorCount()
+	BD_UINT32 GlExt::GetErrorCount()
 	{
 
 		return s_ExtensionErrorCount;

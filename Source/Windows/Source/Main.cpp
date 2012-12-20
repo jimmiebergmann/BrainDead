@@ -7,6 +7,6 @@ int __stdcall WinMain( HINSTANCE p_ThisInst, HINSTANCE p_PrevInst,
 {
 	BD::Game game;
 
-	return game.Run(0, 0);
+	return game.Run(p_pCmdLine, p_CmdShow);
 
 }

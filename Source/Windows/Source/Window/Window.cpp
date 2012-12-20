@@ -7,8 +7,8 @@ namespace BD
 	}
 
 	Window::Window() :
-		m_Loaded(false),
-		m_HDC(NULL)
+		m_Loaded(BD_FALSE),
+		m_HDC(BD_NULL)
 	{
 
 	}

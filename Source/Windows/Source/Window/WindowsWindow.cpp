@@ -157,6 +157,8 @@ namespace BD
 		SetForegroundWindow( m_Window );
 		SetFocus( m_Window );
 
+		m_Created = BD_TRUE;
+
 		return BD_OK;
 	}
 

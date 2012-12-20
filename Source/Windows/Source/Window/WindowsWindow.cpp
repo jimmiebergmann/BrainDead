@@ -75,6 +75,7 @@ namespace BD
 
 		if( !RegisterClassEx( &WinClass ) )
 		{
+			m_Created = BD_FALSE;
 			return BD_ERROR;
 		}
 
@@ -148,6 +149,7 @@ namespace BD
 
 		if( m_Window == BD_NULL )
 		{
+			m_Created = BD_FALSE;
 			return BD_ERROR;
 		}
 

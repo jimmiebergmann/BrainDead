@@ -1,24 +1,28 @@
 #ifndef __BRAINDEAD_WINDOW_HPP__
 #define __BRAINDEAD_WINDOW_HPP__
 
+#include <DataTypes.hpp>
 #include <windows.h>
 
-class Window
+namespace BD
 {
+	class Window
+	{
 
-public:
+	public:
 
-	~Window();
-	Window();
-	bool IsLoaded() const;
-	HDC * GetHDC();
-	
-private:
+		~Window();
+		Window();
+		BD_BOOL IsLoaded() const;
+		HDC * GetHDC();
+		
+	private:
 
-	bool m_Loaded;
-	HDC m_HDC;
+		BD_BOOL m_Loaded;
+		HDC m_HDC;
 
+	};
 
-};
+}
 
 #endif

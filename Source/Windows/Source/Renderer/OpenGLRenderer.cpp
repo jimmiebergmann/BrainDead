@@ -1,236 +1,207 @@
 #include <Renderer/OpenGLRenderer.hpp>
 #include <OpenGL/OpenGL.hpp>
 
-OpenGLRenderer::~OpenGLRenderer()
+namespace BD
 {
-}
-
-OpenGLRenderer::OpenGLRenderer() :
-	m_Context(NULL),
-	m_pHDC(NULL),
-	m_eRenderType(RENDERERTYPE_NONE)
-{
-
-}
-
-<<<<<<< HEAD
-int OpenGLRenderer::Create(Window & p_window)
-=======
-/*int OpenGLRenderer::Create(Window & window)
->>>>>>> 7656c21ed3eac87e2ad54430c83915cab53c09b2
-{
-	// Make sure the window is loaded before we do anything.
-	if(p_window.IsLoaded() == false)
+	OpenGLRenderer::~OpenGLRenderer()
 	{
-		return 1;
 	}
 
-	// Get the HDC from the window class, also make sure it's not null.
-	if((m_pHDC = p_window.GetHDC()) == NULL)
+	OpenGLRenderer::OpenGLRenderer() :
+		m_Context(NULL),
+		m_pHDC(NULL),
+		m_eRenderType(RENDERERTYPE_NONE)
 	{
-		return 1;
+
 	}
 
-	// Filling the pixel fromat structure.
-	static PIXELFORMATDESCRIPTOR PFD = {
-		sizeof(PIXELFORMATDESCRIPTOR),
-		1,
-		PFD_DRAW_TO_WINDOW |
-		PFD_SUPPORT_OPENGL |
-		PFD_DOUBLEBUFFER,
-		PFD_TYPE_RGBA,
-		16,
-		0, 0, 0, 0, 0, 0,
-		0,
-		0,
-		0,
-		0, 0, 0, 0,
-		16,
-		0,
-		0,
-		PFD_MAIN_PLANE,
-		0,
-		0, 0, 0
-	};
-
-	// Choose and set the pixel format
-	GLuint PixelFormat;
-
-	if(!(PixelFormat = ChoosePixelFormat(*m_pHDC, &PFD)))
+	BD_UINT32 OpenGLRenderer::Create(Window & p_window)
 	{
-		return 1;
-	}
-	if(!(SetPixelFormat(*m_pHDC, PixelFormat, &PFD)))
-	{
-		return 1;
-	}
+		// Make sure the window is loaded before we do anything.
+		if(p_window.IsLoaded() == false)
+		{
+			return BD_ERROR;
+		}
 
-	// Create a temporary regual context.
-	// We need this context to create the 3.x context.
-	HGLRC TemporaryContext = wglCreateContext(*m_pHDC);
+		// Get the HDC from the window class, also make sure it's not null.
+		if((m_pHDC = p_window.GetHDC()) == NULL)
+		{
+			return BD_ERROR;
+		}
 
-	if(TemporaryContext == NULL)
-	{
-		return 1;
-	}
+		// Filling the pixel fromat structure.
+		static PIXELFORMATDESCRIPTOR PFD = {
+			sizeof(PIXELFORMATDESCRIPTOR),
+			1,
+			PFD_DRAW_TO_WINDOW |
+			PFD_SUPPORT_OPENGL |
+			PFD_DOUBLEBUFFER,
+			PFD_TYPE_RGBA,
+			16,
+			0, 0, 0, 0, 0, 0,
+			0,
+			0,
+			0,
+			0, 0, 0, 0,
+			16,
+			0,
+			0,
+			PFD_MAIN_PLANE,
+			0,
+			0, 0, 0
+		};
 
-	// Make the temporary context to the current one
-	wglMakeCurrent(NULL, NULL);
-	wglMakeCurrent(*m_pHDC, TemporaryContext);
+		// Choose and set the pixel format
+		GLuint PixelFormat;
 
-	// Attributes for the OGL 3.3 context
-	int Attribs[] =
-	{
-		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 3,
-		0
-	};
+		if((PixelFormat = ChoosePixelFormat(*m_pHDC, &PFD)) == 0)
+		{
+			return BD_ERROR;
+		}
+		if((SetPixelFormat(*m_pHDC, PixelFormat, &PFD)) == false)
+		{
+			return BD_ERROR;
+		}
 
-	// We need the proc address for the function
-	// we are going to use for OGL 3.3 context creation.
-	PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
-	if((wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB")) = NULL)
-	{
-		return 1;
-	}
+		// Create a temporary regual context.
+		// We need this context to create the 3.x context.
+		HGLRC TemporaryContext = wglCreateContext(*m_pHDC);
 
-	// Create the context
-	if((m_Context = wglCreateContextAttribsARB(*m_pHDC, 0, Attribs)) != NULL)
-	{
-		// Delete the old temporary context
+		if(TemporaryContext == NULL)
+		{
+			return BD_ERROR;
+		}
+
+		// Make the temporary context to the current one
 		wglMakeCurrent(NULL, NULL);
-		wglDeleteContext(TemporaryContext);
+		wglMakeCurrent(*m_pHDC, TemporaryContext);
 
-		// Make the new ogl 3 context to the current one.
-		wglMakeCurrent(*m_pHDC, m_Context);
+		// Attributes for the OGL 3.3 context
+		int Attribs[] =
+		{
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+			0
+		};
 
-		m_eRenderType = RENDERERTYPE_OPENGL3;
+		// We need the proc address for the function
+		// we are going to use for OGL 3.3 context creation.
+		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB;
+		if((wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB")) = NULL)
+		{
+			return BD_ERROR;
+		}
+
+		// Create the context
+		if((m_Context = wglCreateContextAttribsARB(*m_pHDC, 0, Attribs)) != NULL)
+		{
+			// Delete the old temporary context
+			wglMakeCurrent(NULL, NULL);
+			wglDeleteContext(TemporaryContext);
+
+			// Make the new ogl 3 context to the current one.
+			wglMakeCurrent(*m_pHDC, m_Context);
+
+			m_eRenderType = RENDERERTYPE_OPENGL3;
+		}
+		else
+		{
+			// The creation of the OGL 3.3 context failed, use the temporary > 3.3 context instead.
+			m_Context = TemporaryContext;
+			m_eRenderType = RENDERERTYPE_OPENGL2;
+		}
+
+		// Load all the opengl extensions
+		if(GlExt::Load() == false)
+		{
+			return BD_ERROR;
+		}
+
+		return BD_OK;
 	}
-	else
+
+	void OpenGLRenderer::StartScene()
 	{
-		// The creation of the OGL 3.3 context failed, use the temporary > 3.3 context instead.
-		m_Context = TemporaryContext;
-		m_eRenderType = RENDERERTYPE_OPENGL2;
+
 	}
 
-	// Load all the opengl extensions
-	GlExt::Load();
-
-	/*/// Initialize GlExt
-	if (GlExt::Init())
+	void OpenGLRenderer::EndScene()
 	{
-		Log::AddNoteMessage("[RendererOpenGL3::Create] Can't initialize GlExt:\n");
-		Log::AddNoteMessage("   " + GlExt::GetError());
-		return RENDERER_ERROR;
+		SwapBuffers(*m_pHDC);
 	}
-*/
-	/// Setup opengl viewport and some other things
-	/*glDisable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
-	EnableAlpha();
 
-	glClearColor(0, 0, 0, 1);
-	glClearDepth(1);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 0);
-	glViewport(0, 0, window->GetSize().x, window->GetSize().y);
+	void OpenGLRenderer::SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a)
+	{
+		glClearColor(r, g, b, a);
+	}
 
-	/// Opengl is fully loaded
-	int OpenGLVersion[2];
-	glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersion[0]);
-	glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersion[1]);
-*/
+	void OpenGLRenderer::SetClearDepth(float depth)
+	{
+		glClearDepth(depth);
+	}
 
+	void OpenGLRenderer::SetViewport(const BD_UINT32 lx, const BD_UINT32 ly, const BD_UINT32 hx, const BD_UINT32 hy)
+	{
+		glViewport(lx, ly, hx, hy);
+	}
 
+	void OpenGLRenderer::SetLineWidth(const BD_FLOAT32 width)
+	{
+		glLineWidth(width);
+	}
 
+	void OpenGLRenderer::ClearColor()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+	void OpenGLRenderer::ClearDepth()
+	{
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
 
+	void OpenGLRenderer::EnableTexture()
+	{
+		glEnable(GL_TEXTURE_2D);
+	}
 
-	// Load the rest of the renderer.
-	
+	void OpenGLRenderer::DisableTexture()
+	{
+		glDisable(GL_TEXTURE_2D);
+	}
 
+	void OpenGLRenderer::EnableAlpha()
+	{
+		/// We have to make this function customizable.
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glAlphaFunc(GL_GREATER, 0);
+		glEnable(GL_ALPHA_TEST);
+	}
 
-	return 0;
-}*/
+	void OpenGLRenderer::DisableAlpha()
+	{
+		glDisable(GL_BLEND);
+		glDisable(GL_ALPHA_TEST);
+	}
 
-void OpenGLRenderer::StartScene()
-{
-}
+	void OpenGLRenderer::EnableDepthTest()
+	{
+		glEnable(GL_DEPTH_TEST);
+	}
 
-void OpenGLRenderer::EndScene()
-{
-	SwapBuffers(*m_pHDC);
-}
+	void OpenGLRenderer::DisableDepthTest()
+	{
+		glDisable(GL_DEPTH_TEST);
+	}
 
-void OpenGLRenderer::SetClearColor(const float r, const float g, const float b, const float a)
-{
-	glClearColor(r, g, b, a);
-}
+	void OpenGLRenderer::EnableSmoothLines()
+	{
+		glEnable(GL_LINE_SMOOTH);
+	}
 
-void OpenGLRenderer::SetClearDepth(float depth)
-{
-	glClearDepth(depth);
-}
+	void OpenGLRenderer::DisableSmoothLines()
+	{
+		glDisable(GL_LINE_SMOOTH);
+	}
 
-void OpenGLRenderer::SetViewport(const int lx, const int ly,const int hx, const int hy)
-{
-	glViewport(lx, ly, hx, hy);
-}
-
-void OpenGLRenderer::SetLineWidth(const float width)
-{
-	glLineWidth(width);
-}
-
-void OpenGLRenderer::ClearColor()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-}
-void OpenGLRenderer::ClearDepth()
-{
-	glClear(GL_DEPTH_BUFFER_BIT);
-}
-
-void OpenGLRenderer::EnableTexture()
-{
-	glEnable(GL_TEXTURE_2D);
-}
-
-void OpenGLRenderer::DisableTexture()
-{
-	glDisable(GL_TEXTURE_2D);
-}
-
-void OpenGLRenderer::EnableAlpha()
-{
-	/// We have to make this function customizable.
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glAlphaFunc(GL_GREATER, 0);
-	glEnable(GL_ALPHA_TEST);
-}
-
-void OpenGLRenderer::DisableAlpha()
-{
-	glDisable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
-}
-
-void OpenGLRenderer::EnableDepthTest()
-{
-	glEnable(GL_DEPTH_TEST);
-}
-
-void OpenGLRenderer::DisableDepthTest()
-{
-	glDisable(GL_DEPTH_TEST);
-}
-
-void OpenGLRenderer::EnableSmoothLines()
-{
-	glEnable(GL_LINE_SMOOTH);
-}
-
-void OpenGLRenderer::DisableSmoothLines()
-{
-	glDisable(GL_LINE_SMOOTH);
 }

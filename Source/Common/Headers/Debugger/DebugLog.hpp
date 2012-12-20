@@ -4,12 +4,12 @@
 #include <DataTypes.hpp>
 
 #if BUILD_DEBUG
-#define bdTrace BrainDead::Trace
+#define bdTrace BD::Trace
 #else
 #define bdTrace sizeof
 #endif
 
-namespace BrainDead
+namespace BD
 {
 	// Trace can go to a file or the standard output (for Windows, this will be
 	// the debug output window)

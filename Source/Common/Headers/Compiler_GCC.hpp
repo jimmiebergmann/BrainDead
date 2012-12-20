@@ -13,9 +13,9 @@
 
 // If GCC is greater than 4.6.0, enable C++11 features
 #if BD_GCCVER >= 40600
-#define D_NULL	nullptr
+#define BD_NULL	nullptr
 #else
-#define D_NULL	NULL
+#define BD_NULL	NULL
 #endif
 
 #endif

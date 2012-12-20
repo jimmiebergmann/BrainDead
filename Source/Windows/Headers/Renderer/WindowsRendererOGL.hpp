@@ -13,7 +13,7 @@ namespace BD
 
 		~WindowsRendererOGL();
 		WindowsRendererOGL();
-		virtual BD_UINT32 Create(Window & p_window);
+		virtual BD_UINT32 Create(Window & p_Window);
 		virtual void StartScene() ;
 		virtual void EndScene();
 		virtual void SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a);
@@ -35,7 +35,7 @@ namespace BD
 
 		BD_BOOL m_Created;
 		HGLRC m_Context;
-		HDC * m_pHDC;
+		HDC m_HDC;
 		eRendererType m_eRenderType;
 
 	};

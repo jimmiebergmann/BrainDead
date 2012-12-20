@@ -15,8 +15,10 @@ namespace BD
 		// Load the game
 		if(Load() != BD_OK)
 		{
-
+			return 0;
 		}
+
+		Sleep(500);
 
 		/*
 		// Main loop
@@ -44,6 +46,17 @@ namespace BD
 
 	BD_UINT32 Game::Load()
 	{
+		// Create the window
+		if(m_Window.Create( 800, 600 ) != BD_OK)
+		{
+			return BD_ERROR;
+		}
+
+		// Create the renderer by using the window we just created
+		if(m_Renderer.Create(m_Window) != BD_OK)
+		{
+			return BD_ERROR;
+		}
 
 		return BD_OK;
 	}

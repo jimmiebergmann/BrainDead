@@ -3,7 +3,7 @@
 namespace BD
 {
 
-	/*Renderer::Renderer() :
+	Renderer::Renderer() :
 		m_Created(BD_FALSE),
 		m_eRenderType(RENDERERTYPE_NONE)
 	{
@@ -12,6 +12,6 @@ namespace BD
 	BD_BOOL Renderer::IsCreated() const
 	{
 		return m_Created;
-	}*/
+	}
 
 }

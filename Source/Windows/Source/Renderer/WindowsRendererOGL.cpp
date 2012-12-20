@@ -7,16 +7,22 @@ namespace BD
 	}
 
 	WindowsRendererOGL::WindowsRendererOGL() :
-		//Renderer(),
+		Renderer(),
 		m_Context(BD_NULL),
-		m_pHDC(BD_NULL)
+		m_HDC(BD_NULL)
 	{
 	}
 
-	BD_UINT32 WindowsRendererOGL::Create(Window & p_window)
+	BD_UINT32 WindowsRendererOGL::Create(Window & p_Window)
 	{
+		// Make sure the window is created.
+		if(p_Window.IsCreated() == false)
+		{
+			return BD_ERROR;
+		}
+
 		// Get the HDC from the window class, also make sure it's not null.
-		if((m_pHDC = p_window.Data().DeviceContext) == BD_NULL)
+		if((m_HDC = p_Window.Data().DeviceContext) == BD_NULL)
 		{
 			return BD_ERROR;
 		}
@@ -46,18 +52,18 @@ namespace BD
 		// Choose and set the pixel format
 		GLuint PixelFormat;
 
-		if((PixelFormat = ChoosePixelFormat(*m_pHDC, &PFD)) == 0)
+		if((PixelFormat = ChoosePixelFormat(m_HDC, &PFD)) == 0)
 		{
 			return BD_ERROR;
 		}
-		if((SetPixelFormat(*m_pHDC, PixelFormat, &PFD)) == BD_FALSE)
+		if((SetPixelFormat(m_HDC, PixelFormat, &PFD)) == BD_FALSE)
 		{
 			return BD_ERROR;
 		}
 
 		// Create a temporary regual context.
 		// We need this context to create the 3.x context.
-		HGLRC TemporaryContext = wglCreateContext(*m_pHDC);
+		HGLRC TemporaryContext = wglCreateContext(m_HDC);
 
 		if(TemporaryContext == BD_NULL)
 		{
@@ -66,7 +72,7 @@ namespace BD
 
 		// Make the temporary context to the current one
 		wglMakeCurrent(BD_NULL, BD_NULL);
-		wglMakeCurrent(*m_pHDC, TemporaryContext);
+		wglMakeCurrent(m_HDC, TemporaryContext);
 
 		// Attributes for the OGL 3.3 context
 		int Attribs[] =
@@ -85,14 +91,14 @@ namespace BD
 		}
 
 		// Create the context
-		if((m_Context = wglCreateContextAttribsARB(*m_pHDC, 0, Attribs)) != BD_NULL)
+		if((m_Context = wglCreateContextAttribsARB(m_HDC, 0, Attribs)) != BD_NULL)
 		{
 			// Delete the old temporary context
 			wglMakeCurrent(BD_NULL, BD_NULL);
 			wglDeleteContext(TemporaryContext);
 
 			// Make the new ogl 3 context to the current one.
-			wglMakeCurrent(*m_pHDC, m_Context);
+			wglMakeCurrent(m_HDC, m_Context);
 
 			m_eRenderType = RENDERERTYPE_OPENGL3;
 		}
@@ -121,7 +127,7 @@ namespace BD
 
 	void WindowsRendererOGL::EndScene()
 	{
-		SwapBuffers(*m_pHDC);
+		SwapBuffers(m_HDC);
 	}
 
 	void WindowsRendererOGL::SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a)

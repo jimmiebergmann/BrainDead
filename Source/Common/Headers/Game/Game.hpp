@@ -23,10 +23,9 @@ namespace BD
 		BD_UINT32 Load();
 		BD_UINT32 Unload();
 
-
 #ifdef PLATFORM_WINDOWS
 		WindowsWindow m_Window;
-		WindowsRendererOGL m_pRenderer;
+		WindowsRendererOGL m_Renderer;
 #endif
 		
 

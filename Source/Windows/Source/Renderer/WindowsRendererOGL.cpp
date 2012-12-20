@@ -4,6 +4,15 @@ namespace BD
 {
 	WindowsRendererOGL::~WindowsRendererOGL()
 	{
+		m_Created = BD_FALSE;
+		wglMakeCurrent(BD_NULL, BD_NULL);
+
+		if(m_Context)
+		{
+			wglDeleteContext(m_Context);
+			m_Context = BD_NULL;
+		}
+
 	}
 
 	WindowsRendererOGL::WindowsRendererOGL() :
@@ -15,6 +24,8 @@ namespace BD
 
 	BD_UINT32 WindowsRendererOGL::Create(Window & p_Window)
 	{
+		m_RendererType = RENDERERTYPE_NONE;
+
 		// Make sure the window is created.
 		if(p_Window.IsCreated() == false)
 		{
@@ -100,13 +111,13 @@ namespace BD
 			// Make the new ogl 3 context to the current one.
 			wglMakeCurrent(m_HDC, m_Context);
 
-			m_eRenderType = RENDERERTYPE_OPENGL3;
+			m_RendererType = RENDERERTYPE_OPENGL3;
 		}
 		else
 		{
 			// The creation of the OGL 3.3 context failed, use the temporary > 3.3 context instead.
 			m_Context = TemporaryContext;
-			m_eRenderType = RENDERERTYPE_OPENGL2;
+			m_RendererType = RENDERERTYPE_OPENGL2;
 		}
 
 		// Load all the opengl extensions

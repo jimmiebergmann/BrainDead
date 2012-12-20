@@ -39,12 +39,13 @@ namespace BD
 		virtual void EnableSmoothLines() = 0;
 		virtual void DisableSmoothLines() = 0;
 		BD_BOOL IsCreated() const;
+		eRendererType GetRendererType() const;
 
 
 	protected:
 
 		BD_BOOL m_Created;
-		eRendererType m_eRenderType;
+		eRendererType m_RendererType;
 
 	};
 }

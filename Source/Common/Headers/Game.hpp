@@ -4,7 +4,14 @@
 #include <DataTypes.hpp>
 #include <Renderer.hpp>
 
+#ifdef PLATFORM_WINDOWS
 #include <WindowsRendererOGL.hpp>
+#elif PLATFORM_LINUX
+#include <LinuxRendererOGL.hpp>
+#else
+#error No platform pre-processor directive specified
+#endif
+
 #include <OGL/ShaderOGL.hpp>
 #include <OGL/ShaderProgramOGL.hpp>
 

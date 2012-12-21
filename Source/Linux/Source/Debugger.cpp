@@ -1,4 +1,4 @@
-#include <Debugger/DebugLog.hpp>
+#include <Debugger.hpp>
 #include <cstdarg>
 #include <cstdio>
 

@@ -1,4 +1,5 @@
 #include <OGL/ShaderOGL.hpp>
+#include <cstring>
 
 namespace BD
 {

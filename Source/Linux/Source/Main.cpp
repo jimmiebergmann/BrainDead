@@ -1,7 +1,7 @@
 #include <iostream>
 #include <DataTypes.hpp>
 #include <LinuxWindow.hpp>
-#include <Debugger/DebugLog.hpp>
+#include <Debugger.hpp>
 
 int main( int p_Argc, char **p_ppArgv )
 {

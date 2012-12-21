@@ -551,11 +551,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Headers\Shader.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\ShaderProgram.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Texture.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Headers\Vector3.hpp"
 					>
 				</File>
 				<File
 					RelativePath="..\Common\Headers\Vector4.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\VertexObject.hpp"
 					>
 				</File>
 				<File
@@ -570,27 +586,11 @@
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Headers\OGL\Shader.hpp"
-						>
-					</File>
-					<File
 						RelativePath="..\Common\Headers\OGL\ShaderOGL.hpp"
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Headers\OGL\ShaderProgram.hpp"
-						>
-					</File>
-					<File
 						RelativePath="..\Common\Headers\OGL\ShaderProgramOGL.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\Common\Headers\OGL\Texture.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\Common\Headers\OGL\VertexObject.hpp"
 						>
 					</File>
 				</Filter>
@@ -623,11 +623,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Source\Shader.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\ShaderProgram.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Texture.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Source\Vector3.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\Common\Source\Vector4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\VertexObject.cpp"
 					>
 				</File>
 				<Filter
@@ -638,27 +654,11 @@
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Source\OGL\Shader.cpp"
-						>
-					</File>
-					<File
 						RelativePath="..\Common\Source\OGL\ShaderOGL.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Source\OGL\ShaderProgram.cpp"
-						>
-					</File>
-					<File
 						RelativePath="..\Common\Source\OGL\ShaderProgramOGL.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\Common\Source\OGL\Texture.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\Common\Source\OGL\VertexObject.cpp"
 						>
 					</File>
 				</Filter>

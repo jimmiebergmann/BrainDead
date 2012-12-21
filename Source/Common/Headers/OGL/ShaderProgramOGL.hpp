@@ -1,7 +1,7 @@
 #ifndef __BRAINDEAD_SHADER_PROGRAM_OGL_HPP__
 #define __BRAINDEAD_SHADER_PROGRAM_OGL_HPP__
 
-#include <OGL/ShaderProgram.hpp>
+#include <ShaderProgram.hpp>
 #include <OGL/OpenGL.hpp>
 
 namespace BD

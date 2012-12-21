@@ -35,6 +35,7 @@ extern PFNGLBUFFERSUBDATAPROC				__bglBufferSubData;
 extern PFNGLCOMPILESHADERPROC				__bglCompileShader;
 extern PFNGLCREATEPROGRAMPROC				__bglCreateProgram;
 extern PFNGLCREATESHADERPROC				__bglCreateShader;
+extern PFNGLDELETEPROGRAMPROC				__bglDeleteProgram;
 extern PFNGLDELETESHADERPROC				__bglDeleteShader;
 extern PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays;
 extern PFNGLENABLEVERTEXATTRIBARRAYPROC		__bglEnableVertexAttribArray;
@@ -55,7 +56,6 @@ extern PFNGLUNIFORM3FPROC					__bglUniform3f;
 extern PFNGLUNIFORM4FPROC					__bglUniform4f;
 extern PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv;
 extern PFNGLUSEPROGRAMPROC					__bglUseProgram;
-extern PFNGLUSEPROGRAMPROC					__bglUseProgram;
 extern PFNGLVALIDATEPROGRAMPROC				__bglValidateProgram;
 extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 
@@ -63,6 +63,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 // GL CORE FUNCTIONS //////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 #define bglClear			glClear
+#define bglClearColor		glClearColor
 
 ///////////////////////////////////////////////////////////////////////////////
 // GL SHADER FUNCTIONS ////////////////////////////////////////////////////////
@@ -75,9 +76,30 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglCompileShader				__bglCompileShader
 #define bglCreateProgram				__bglCreateProgram
 #define bglCreateShader					__bglCreateShader
+#define bglDeleteProgram				__bglDeleteProgram
+#define bglDeleteShader					__bglDeleteShader
+#define bglEnableVertexAttribArray		__bglEnableVertexAttribArray
+#define bglGenBuffers					__bglGenBuffers
 #define bglGetAttribLocation			__bglGetAttribLocation
+#define bglGetProgramInfoLog			__bglGetProgramInfoLog
 #define bglGetProgramiv					__bglGetProgramiv
+#define bglGetShaderInfoLog				__bglGetShaderInfoLog
+#define bglGetShaderiv					__bglGetShaderiv
+#define bglGetUniformLocation			__bglGetUniformLocation
 #define bglLinkProgram					__bglLinkProgram
+#define bglShaderSource					__bglShaderSource
+#define bglUniform1f					__bglUniform1f
+#define bglUniform1i					__bglUniform1i
+#define bglUniform2f					__bglUniform2f
+#define bglUnifrom2i					__bglUniform2i
+#define bglUniform3f					__bglUniform3f
+#define bglUniform3i					__bglUniform3i
+#define bglUniform4f					__bglUniform4f
+#define bglUniform4i					__bglUniform4i
+#define bglUniformMatrix4fv				__bglUniformMatrix4fv
+#define bglUseProgram					__bglUseProgram
+#define bglValidateProgram				__bglValidateProgram
+#define bglVertexAttribPointer			__bglVertexAttribPointer
 
 ///////////////////////////////////////////////////////////////////////////////
 // GL VERTEX ATTRIBUTE OBJECT FUNCTIONS //////////////////////////////////////

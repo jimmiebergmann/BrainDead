@@ -14,15 +14,15 @@ namespace BD
 
 		~ShaderOGL();
 		ShaderOGL(eShaderType p_ShaderType);
-		virtual BD_UINT32 Load();
+		virtual BD_UINT32 Load(std::string & p_Validation);
 		virtual BD_UINT32 Reload(); // Read and Load the last file.
 		virtual void Unload();
 
 	private:
 
-		std::string validateShader(GLuint p_Shader, const char * p_file);
+		std::string validateShader(GLuint p_Shader);
 
-		GLuint m_ShaderId;
+		GLhandleARB m_ShaderObject;
 
 
 	};

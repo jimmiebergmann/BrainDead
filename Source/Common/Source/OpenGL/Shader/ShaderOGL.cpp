@@ -3,15 +3,24 @@
 namespace BD
 {
 
-	ShaderOGL::~ShaderOGL()
-	{
-
-	}
-
 	ShaderOGL::ShaderOGL(eShaderType p_ShaderType) :
-		Shader(p_ShaderType),
 		m_ShaderObject(0)
 	{
+		m_Loaded = BD_FALSE;
+		m_ShaderType = p_ShaderType;
+		m_ShaderSource = "";
+		m_Filename = "";
+	}
+
+	ShaderOGL::~ShaderOGL()
+	{
+		if(m_ShaderObject != 0)
+		{
+			glDeleteObjectARB(m_ShaderObject);
+			m_ShaderObject = 0;
+		}
+
+		m_Loaded = BD_FALSE;
 	}
 
 	BD_UINT32 ShaderOGL::Load(std::string & p_Validation)
@@ -40,10 +49,10 @@ namespace BD
 		glCompileShaderARB(m_ShaderObject);
 		
 		// Validate the vertex shader
-		p_Validation = validateShader(m_ShaderObject); 
+		p_Validation = ValidateShader(m_ShaderObject); 
 
 		m_Loaded = BD_TRUE;
-		return BD_ERROR;
+		return BD_OK;
 	}
 
 	BD_UINT32 ShaderOGL::Reload()
@@ -57,18 +66,12 @@ namespace BD
 		return BD_ERROR;
 	}
 
-	void ShaderOGL::Unload()
+	GLhandleARB ShaderOGL::GetShaderObject() const
 	{
-		m_Loaded = BD_FALSE;
-
-		if(m_ShaderObject != 0)
-		{
-			glDeleteObjectARB(m_ShaderObject);
-			m_ShaderObject = 0;
-		}
+		return m_ShaderObject;
 	}
 
-	std::string ShaderOGL::validateShader(GLuint p_Shader)
+	std::string ShaderOGL::ValidateShader(GLuint p_Shader)
 	{
 		const BD_UINT32 BUFFER_SIZE = 512;
 		GLchar Buffer[BUFFER_SIZE];

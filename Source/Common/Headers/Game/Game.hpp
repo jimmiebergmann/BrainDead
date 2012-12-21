@@ -5,6 +5,8 @@
 #include <windows.h>
 #ifdef PLATFORM_WINDOWS
 #include <Renderer/WindowsRendererOGL.hpp>
+#include <OpenGL/Shader/ShaderOGL.hpp>
+#include <OpenGL/Shader/ShaderProgramOGL.hpp>
 #endif
 
 namespace BD
@@ -29,6 +31,10 @@ namespace BD
 		Window * m_pWindow;
 		Renderer * m_pRenderer;
 
+		// Test shaders
+		Shader * m_pVertexShader;
+		Shader * m_pFragmentShader;
+		ShaderProgram * m_pShaderProgram;
 
 	};
 

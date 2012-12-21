@@ -13,8 +13,8 @@ namespace BD
 
 	public:
 
-		ShaderProgram() : m_Compiled(BD_FALSE) { };
-		virtual BD_UINT32 Compile(Shader * p_VertexShader, Shader * p_FragmentShader) = 0;
+		virtual ~ShaderProgram() { }
+		virtual BD_UINT32 Compile(Shader * p_VertexShader, Shader * p_FragmentShader, std::string & p_Validation) = 0;
 
 	protected:
 

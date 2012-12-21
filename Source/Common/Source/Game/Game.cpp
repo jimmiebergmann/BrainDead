@@ -11,7 +11,11 @@ namespace BD
 		m_Loaded(BD_FALSE),
 		m_Running(BD_FALSE),
 		m_pWindow(BD_NULL),
-		m_pRenderer(BD_NULL)
+		m_pRenderer(BD_NULL),
+
+		m_pVertexShader(BD_NULL),
+		m_pFragmentShader(BD_NULL),
+		m_pShaderProgram(BD_NULL)
 	{
 	}
 
@@ -25,7 +29,6 @@ namespace BD
 			m_Running = true;
 		}
 
-		
 		// Main loop
 		while(m_Running)
 		{
@@ -82,6 +85,43 @@ namespace BD
 		// Output debug information about the renderer
 		// Renderer::eRendererType RendererType = m_Renderer.GetRendererType();
 
+
+
+		// Test shaders
+		std::string VertexValidation = "";
+		std::string FragmentValidation = "";
+		m_pVertexShader = new ShaderOGL(Shader::SHADERTYPE_VERTEX);
+		m_pFragmentShader = new ShaderOGL(Shader::SHADERTYPE_FRAGMENT);
+
+		if(m_pVertexShader->Read("Data/Shader.vert") == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+		if(m_pVertexShader->Load(VertexValidation) == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+
+		if(m_pFragmentShader->Read("Data/Shader.frag") == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+		if(m_pFragmentShader->Load(FragmentValidation) == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+
+		// Load the shader program
+		std::string ShaderProgramValidation = "";
+		m_pShaderProgram = new ShaderProgramOGL();
+		if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+
+
+
+
 		m_Loaded = true;
 		return BD_OK;
 	}
@@ -98,6 +138,19 @@ namespace BD
 		{
 			delete m_pRenderer;
 			m_pRenderer = BD_NULL;
+		}
+
+		// Shader test
+		if(m_pVertexShader)
+		{
+			delete m_pVertexShader;
+			m_pVertexShader = BD_NULL;
+		}
+
+		if(m_pFragmentShader)
+		{
+			delete m_pFragmentShader;
+			m_pFragmentShader = BD_NULL;
 		}
 		
 		

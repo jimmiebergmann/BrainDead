@@ -2,9 +2,9 @@
 #define __BRAINDEAD_GAME_HPP__
 
 #include <DataTypes.hpp>
-#include <windows.h>
+#include <Renderer.hpp>
 #ifdef PLATFORM_WINDOWS
-#include <Renderer/WindowsRendererOGL.hpp>
+#include <Windows.h>
 #endif
 
 namespace BD

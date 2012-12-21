@@ -1,6 +1,7 @@
 #ifndef __BRAINDEAD_DATATYPES_LINUX_X86_32_HPP__
 #define __BRAINDEAD_DATATYPES_LINUX_X86_32_HPP__
 
+#include <cstddef>
 // For [u]int64_t
 #include <stdint.h>
 // For size_t

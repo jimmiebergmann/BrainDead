@@ -82,6 +82,11 @@ namespace BD
 		return BD_OK;
 	}
 
+	BD_UINT32 LinuxWindow::DoEvents( )
+	{
+		return BD_OK;
+	}
+
 	WINDATA LinuxWindow::Data( ) const
 	{
 		WINDATA Data;

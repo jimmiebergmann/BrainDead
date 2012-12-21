@@ -1,8 +1,8 @@
 #ifndef __BRAINDEAD_SHADER_OGL_HPP__
 #define __BRAINDEAD_SHADER_OGL_HPP__
 
-#include <Shader/Shader.hpp>
-#include <OpenGL/OpenGL.hpp>
+#include <OGL/Shader.hpp>
+#include <OGL/OpenGL.hpp>
 
 namespace BD
 {
@@ -22,7 +22,10 @@ namespace BD
 
 	private:
 
+		static GLenum s_ShaderObjectTypes[3];
+
 		GLhandleARB m_ShaderObject;
+
 
 
 	};

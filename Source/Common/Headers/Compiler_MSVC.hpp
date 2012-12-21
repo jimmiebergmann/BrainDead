@@ -6,7 +6,7 @@
 
 #define BD_INLINE		inline
 #define BD_FORCE_INLINE	__forceinline
-#define D_EXPLICIT		explicit
+#define BD_EXPLICIT		explicit
 
 // VS 2010 and greater support C++11
 #if( _MSC_VER >= 1600 )

@@ -1,4 +1,4 @@
-#include <Window/WindowsWindow.hpp>
+#include <WindowsWindow.hpp>
 #include <sstream>
 
 namespace BD

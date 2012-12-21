@@ -1,7 +1,10 @@
-#include <OpenGL/Shader/ShaderOGL.hpp>
+#include <OGL/ShaderOGL.hpp>
 
 namespace BD
 {
+
+	GLenum ShaderOGL::s_ShaderObjectTypes[3] = { 0, GL_VERTEX_SHADER_ARB, GL_FRAGMENT_SHADER_ARB };
+
 
 	ShaderOGL::ShaderOGL(eShaderType p_ShaderType) :
 		m_ShaderObject(0)
@@ -16,7 +19,7 @@ namespace BD
 	{
 		if(m_ShaderObject != 0)
 		{
-			glDeleteObjectARB(m_ShaderObject);
+			bglDeleteShader(m_ShaderObject);
 			m_ShaderObject = 0;
 		}
 
@@ -34,7 +37,9 @@ namespace BD
 		m_Loaded = false;
 
 		// Create the shader object.
-		m_ShaderObject = glCreateShaderObjectARB(m_ShaderType);
+		// ===================================
+		// Need fix, m_ShaderType is of wrong type.
+		m_ShaderObject = bglCreateShader(s_ShaderObjectTypes[m_ShaderType]);
 
 		const GLcharARB * pTextSource = m_ShaderSource.c_str();
 
@@ -45,8 +50,8 @@ namespace BD
 		}
 
 		// Compile the vertex shader using it's source
-		glShaderSourceARB(m_ShaderObject, 1, &pTextSource, 0);
-		glCompileShaderARB(m_ShaderObject);
+		bglShaderSource(m_ShaderObject, 1, &pTextSource, 0);
+		bglCompileShader(m_ShaderObject);
 		
 		// Validate the vertex shader
 		p_Validation = ValidateShader(m_ShaderObject); 
@@ -78,7 +83,7 @@ namespace BD
 		memset(Buffer, 0, BUFFER_SIZE);
 		GLsizei Length = 0;
 
-		glGetShaderInfoLog(p_Shader, BUFFER_SIZE, &Length, Buffer); // Ask OpenGL to give us the log associated with the shader
+		bglGetShaderInfoLog(p_Shader, BUFFER_SIZE, &Length, Buffer); // Ask OpenGL to give us the log associated with the shader
 		
 		std::string StringBuffer = std::string(Buffer);
 		StringBuffer[Length] = '\0';

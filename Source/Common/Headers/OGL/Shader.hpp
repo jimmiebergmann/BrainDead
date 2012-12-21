@@ -7,7 +7,6 @@
 namespace BD
 {
 
-	class ShaderProgram;
 
 	class Shader
 	{

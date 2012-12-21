@@ -1,7 +1,7 @@
 #ifndef __BRAINDEAD_WINDOW_WINDOWSWINDOW_HPP__
 #define __BRAINDEAD_WINDOW_WINDOWSWINDOW_HPP__
 
-#include <Window/Window.hpp>
+#include <Window.hpp>
 
 namespace BD
 {

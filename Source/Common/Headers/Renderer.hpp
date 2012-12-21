@@ -2,8 +2,8 @@
 #define __BRAINDEAD_RENDERER_HPP__
 
 #include <DataTypes.hpp>
-#include <Window/Window.hpp>
-#include <OpenGL/OpenGL.hpp>
+#include <Window.hpp>
+#include <OGL/OpenGL.hpp>
 
 namespace BD
 {

@@ -1,9 +1,48 @@
-#include <OpenGL/OpenGL.hpp>
+#include <OGL/OpenGL.hpp>
 
 #ifdef PLATFORM_WINDOWS
 	#define GETPROCADDRESS(x) (wglGetProcAddress(x))
 #endif
 
+
+PFNGLACTIVETEXTUREPROC				__bglActiveTexture = BD_NULL;
+PFNGLATTACHSHADERPROC				__bglAttachShader = BD_NULL;
+PFNGLBINDATTRIBLOCATIONPROC			__bglBindAttribLocation = BD_NULL;
+PFNGLGETATTRIBLOCATIONPROC			__bglGetAttribLocation = BD_NULL;
+PFNGLBINDBUFFERPROC					__bglBindBuffer = BD_NULL;
+PFNGLBINDVERTEXARRAYPROC			__bglBindVertexArray = BD_NULL;
+PFNGLBUFFERDATAPROC					__bglBufferData = BD_NULL;
+PFNGLBUFFERSUBDATAPROC				__bglBufferSubData = BD_NULL;
+PFNGLCOMPILESHADERPROC				__bglCompileShader = BD_NULL;
+PFNGLCREATEPROGRAMPROC				__bglCreateProgram = BD_NULL;
+PFNGLCREATESHADERPROC				__bglCreateShader = BD_NULL;
+PFNGLDELETEPROGRAMPROC				__bglDeleteProgram = BD_NULL;
+PFNGLDELETESHADERPROC				__bglDeleteShader = BD_NULL;
+PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays = BD_NULL;
+PFNGLENABLEVERTEXATTRIBARRAYPROC	__bglEnableVertexAttribArray = BD_NULL;
+PFNGLGENBUFFERSPROC					__bglGenBuffers = BD_NULL;
+PFNGLGENVERTEXARRAYSPROC			__bglGenVertexArrays = BD_NULL;
+PFNGLGETPROGRAMINFOLOGPROC			__bglGetProgramInfoLog = BD_NULL;
+PFNGLGETPROGRAMIVPROC				__bglGetProgramiv = BD_NULL;
+PFNGLGETSHADERINFOLOGPROC			__bglGetShaderInfoLog = BD_NULL;
+PFNGLGETSHADERIVPROC				__bglGetShaderiv = BD_NULL;
+PFNGLGETUNIFORMLOCATIONPROC			__bglGetUniformLocation = BD_NULL;
+PFNGLLINKPROGRAMPROC				__bglLinkProgram = BD_NULL;
+PFNGLSHADERSOURCEPROC				__bglShaderSource = BD_NULL;
+PFNGLUNIFORM1FPROC					__bglUniform1f = BD_NULL;
+PFNGLUNIFORM1IPROC					__bglUniform1i = BD_NULL;
+PFNGLUNIFORM2FPROC					__bglUniform2f = BD_NULL;
+PFNGLUNIFORM2IPROC					__bglUniform2i = BD_NULL;
+PFNGLUNIFORM3FPROC					__bglUniform3f = BD_NULL;
+PFNGLUNIFORM4FPROC					__bglUniform4f = BD_NULL;
+PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv = BD_NULL;
+PFNGLUSEPROGRAMPROC					__bglUseProgram = BD_NULL;
+PFNGLVALIDATEPROGRAMPROC			__bglValidateProgram = BD_NULL;
+PFNGLVERTEXATTRIBPOINTERPROC		__bglVertexAttribPointer = BD_NULL;
+
+
+
+/*
 PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = BD_NULL;
 PFNGLATTACHOBJECTARBPROC glAttachObjectARB = BD_NULL;
 PFNGLBINDATTRIBLOCATIONARBPROC glBindAttribLocationARB = BD_NULL;
@@ -38,7 +77,7 @@ PFNGLUSEPROGRAMPROC glUseProgram = BD_NULL;
 PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB = BD_NULL;
 PFNGLVALIDATEPROGRAMPROC glValidateProgram = BD_NULL;
 PFNGLVERTEXATTRIBPOINTERARBPROC glVertexAttribPointerARB = BD_NULL;
-
+*/
 namespace BD
 {
 	BD_BOOL GlExt::s_Loaded = BD_FALSE;
@@ -48,7 +87,7 @@ namespace BD
 
 	BD_BOOL GlExt::Load()
 	{
-		// Make sure everything is clear.
+		/*// Make sure everything is clear.
 		s_Loaded = BD_FALSE;
 		s_ExtensionMap.clear();
 		s_ExtensionError = "";
@@ -109,7 +148,9 @@ namespace BD
 
 		// Everything went fine.
 		s_Loaded = BD_TRUE;
-		return BD_OK;
+		return BD_OK;*/
+
+		return BD_ERROR;
 	}
 
 	BD_BOOL GlExt::IsLoaded()

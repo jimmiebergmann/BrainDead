@@ -1,4 +1,4 @@
-#include <OpenGL/VertexObject/VertexObject.hpp>
+#include <OGL/VertexObject.hpp>
 
 namespace BD
 {

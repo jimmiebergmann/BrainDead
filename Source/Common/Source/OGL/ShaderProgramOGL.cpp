@@ -1,5 +1,5 @@
-#include <OpenGL/Shader/ShaderProgramOGL.hpp>
-#include <OpenGL/Shader/ShaderOGL.hpp>
+#include <OGL/ShaderProgramOGL.hpp>
+#include <OGL/ShaderOGL.hpp>
 
 namespace BD
 {
@@ -17,7 +17,7 @@ namespace BD
 	BD_UINT32 ShaderProgramOGL::Compile(Shader * p_VertexShader, Shader * p_FragmentShader, std::string & p_Validation)
 	{
 		// Create the shader program
-		if((m_ProgramId = glCreateProgramObjectARB()) == 0)
+		if((m_ProgramId = bglCreateProgram()) == 0)
 		{
 			return BD_ERROR;
 		}
@@ -26,11 +26,11 @@ namespace BD
 		ShaderOGL * pFragmentShaderOGL = (ShaderOGL *)p_FragmentShader;
 
 		// Attach the shaders
-		glAttachObjectARB(m_ProgramId, pVertexShaderOGL->GetShaderObject()); // Attach a vertex shader to the program
-		glAttachObjectARB(m_ProgramId, pFragmentShaderOGL->GetShaderObject()); // Attach the fragment shader to the program
+		bglAttachShader(m_ProgramId, pVertexShaderOGL->GetShaderObject()); // Attach a vertex shader to the program
+		bglAttachShader(m_ProgramId, pFragmentShaderOGL->GetShaderObject()); // Attach the fragment shader to the program
 
 		// Link the program
-		glLinkProgramARB(m_ProgramId);
+		bglLinkProgram(m_ProgramId);
 
 		p_Validation = ShaderOGL::ValidateShader(m_ProgramId);
 

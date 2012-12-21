@@ -511,6 +511,10 @@
 				Name="Headers"
 				>
 				<File
+					RelativePath="..\Common\Headers\Arithmetic.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Headers\Compiler.hpp"
 					>
 				</File>
@@ -526,95 +530,67 @@
 					RelativePath="..\Common\Headers\DataTypes.hpp"
 					>
 				</File>
+				<File
+					RelativePath="..\Common\Headers\Game.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Matrix3x3.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Matrix4x4.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Quaternion.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Renderer.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Vector3.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Vector4.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Window.hpp"
+					>
+				</File>
 				<Filter
-					Name="OpenGL"
+					Name="OGL"
 					>
 					<File
-						RelativePath="..\Common\Headers\OpenGL\glext.h"
+						RelativePath="..\Common\Headers\OGL\OpenGL.hpp"
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Headers\OpenGL\OpenGL.hpp"
-						>
-					</File>
-					<Filter
-						Name="Shader"
-						>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderOGL.hpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\Shader\ShaderProgramOGL.hpp"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="Texture"
-						>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\Texture\Texture.hpp"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="VertexObject"
-						>
-						<File
-							RelativePath="..\Common\Headers\OpenGL\VertexObject\VertexObject.hpp"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Utility"
-					>
-					<Filter
-						Name="Math"
-						>
-						<File
-							RelativePath="..\Common\Headers\Utility\Math\Matrix.hpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Headers\Utility\Math\Vector.hpp"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Window"
-					>
-					<File
-						RelativePath="..\Common\Headers\Window\Window.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Game"
-					>
-					<File
-						RelativePath="..\Common\Headers\Game\Game.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Renderer"
-					>
-					<File
-						RelativePath="..\Common\Headers\Renderer\Renderer.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Shader"
-					>
-					<File
-						RelativePath="..\Common\Headers\Shader\Shader.hpp"
+						RelativePath="..\Common\Headers\OGL\Shader.hpp"
 						>
 					</File>
 					<File
-						RelativePath="..\Common\Headers\Shader\ShaderProgram.hpp"
+						RelativePath="..\Common\Headers\OGL\ShaderOGL.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\ShaderProgram.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\ShaderProgramOGL.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\Texture.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\VertexObject.hpp"
 						>
 					</File>
 				</Filter>
@@ -622,79 +598,67 @@
 			<Filter
 				Name="Source"
 				>
+				<File
+					RelativePath="..\Common\Source\Arithmetic.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Game.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Matrix3x3.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Matrix4x4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Quaternion.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Renderer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Vector3.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Vector4.cpp"
+					>
+				</File>
 				<Filter
-					Name="OpenGL"
+					Name="OGL"
 					>
 					<File
-						RelativePath="..\Common\Source\OpenGL\OpenGL.cpp"
+						RelativePath="..\Common\Source\OGL\OpenGL.cpp"
 						>
 					</File>
-					<Filter
-						Name="Texture"
-						>
-						<File
-							RelativePath="..\Common\Source\OpenGL\Texture\Texture.cpp"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="VertexObject"
-						>
-						<File
-							RelativePath="..\Common\Source\OpenGL\VertexObject\VertexObject.cpp"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="Shader"
-						>
-						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\ShaderOGL.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Source\OpenGL\Shader\ShaderProgramOGL.cpp"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Utility"
-					>
-					<Filter
-						Name="Math"
-						>
-						<File
-							RelativePath="..\Common\Source\Utility\Math\Matrix.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\Common\Source\Utility\Math\Vector.cpp"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Game"
-					>
 					<File
-						RelativePath="..\Common\Source\Game\Game.cpp"
+						RelativePath="..\Common\Source\OGL\Shader.cpp"
 						>
 					</File>
-				</Filter>
-				<Filter
-					Name="Renderer"
-					>
 					<File
-						RelativePath="..\Common\Source\Renderer\Renderer.cpp"
+						RelativePath="..\Common\Source\OGL\ShaderOGL.cpp"
 						>
 					</File>
-				</Filter>
-				<Filter
-					Name="Shader"
-					>
 					<File
-						RelativePath="..\Common\Source\Shader\Shader.cpp"
+						RelativePath="..\Common\Source\OGL\ShaderProgram.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Source\OGL\ShaderProgramOGL.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Source\OGL\Texture.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Source\OGL\VertexObject.cpp"
 						>
 					</File>
 				</Filter>
@@ -718,30 +682,14 @@
 					RelativePath=".\Headers\Main.hpp"
 					>
 				</File>
-				<Filter
-					Name="Renderer"
+				<File
+					RelativePath=".\Headers\WindowsRendererOGL.hpp"
 					>
-					<File
-						RelativePath=".\Headers\Renderer\WindowsRendererOGL.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="OpenGL"
+				</File>
+				<File
+					RelativePath=".\Headers\WindowsWindow.hpp"
 					>
-					<File
-						RelativePath=".\Headers\OpenGL\wglext.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Window"
-					>
-					<File
-						RelativePath=".\Headers\Window\WindowsWindow.hpp"
-						>
-					</File>
-				</Filter>
+				</File>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -750,22 +698,14 @@
 					RelativePath=".\Source\Main.cpp"
 					>
 				</File>
-				<Filter
-					Name="Renderer"
+				<File
+					RelativePath=".\Source\WindowsRendererOGL.cpp"
 					>
-					<File
-						RelativePath=".\Source\Renderer\WindowsRendererOGL.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Window"
+				</File>
+				<File
+					RelativePath=".\Source\WindowsWindow.cpp"
 					>
-					<File
-						RelativePath=".\Source\Window\WindowsWindow.cpp"
-						>
-					</File>
-				</Filter>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

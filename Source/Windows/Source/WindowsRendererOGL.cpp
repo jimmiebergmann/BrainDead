@@ -1,4 +1,4 @@
-#include <Renderer/WindowsRendererOGL.hpp>
+#include <WindowsRendererOGL.hpp>
 
 namespace BD
 {

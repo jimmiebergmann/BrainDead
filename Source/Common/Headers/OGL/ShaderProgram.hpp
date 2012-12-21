@@ -2,7 +2,7 @@
 #define __BRAINDEAD_SHADER_PROGRAM_HPP__
 
 #include <DataTypes.hpp>
-#include <Shader/Shader.hpp>
+#include <OGL/Shader.hpp>
 #include <string>
 
 namespace BD

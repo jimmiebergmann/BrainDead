@@ -1,5 +1,15 @@
-#include <Game/Game.hpp>
+#include <Game.hpp>
 #include <iostream>
+
+#ifdef PLATFORM_WINDOWS
+#include <WindowsWindow.hpp>
+#include <WindowsRendererOGL.hpp>
+#elif PLATFORM_LINUX
+#include <LinuxWindow.hpp>
+#include <LinuxRendererOGL.hpp>
+#else
+#error No platform pre-processor directive specified
+#endif
 
 namespace BD
 {
@@ -67,9 +77,10 @@ namespace BD
 		m_pWindow = new WindowsWindow();
 		m_pRenderer = new WindowsRendererOGL();
 #elif PLATFORM_LINUX
-#error No Linux Renderer.
 		m_pWindow = new LinuxWindow();
 		m_pRenderer = new LinuxRendererOGL();
+#else
+#error No platform pre-processor directive specified
 #endif
 
 		// Create the window

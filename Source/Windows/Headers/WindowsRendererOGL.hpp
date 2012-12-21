@@ -1,8 +1,8 @@
 #ifndef __BRAINDEAD_WINDOWS_RENDERER_OGL_HPP__
 #define __BRAINDEAD_WINDOWS_RENDERER_OGL_HPP__
 
-#include <Renderer/Renderer.hpp>
-#include <Window/WindowsWindow.hpp>
+#include <Renderer.hpp>
+#include <WindowsWindow.hpp>
 
 namespace BD
 {

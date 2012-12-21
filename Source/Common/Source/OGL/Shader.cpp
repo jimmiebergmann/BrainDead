@@ -1,8 +1,17 @@
-#include <Shader/Shader.hpp>
+#include <OGL/Shader.hpp>
 #include <fstream>
 
 namespace BD
 {
+/*
+	Shader::Shader(eShaderType p_ShaderType) :
+		m_Loaded(BD_FALSE),
+		m_ShaderType(p_ShaderType),
+		m_ShaderSource(""),
+		m_Filename("")
+	{
+	}
+*/
 	BD_UINT32 Shader::Read(const char * p_Filename)
 	{
 		// Use fstream for reading files.
@@ -26,7 +35,7 @@ namespace BD
 
 		// Read all the file's lines
 		std::string Line = "";
-		
+
 		while(!File.eof())
 		{
 			std::getline(File, Line);

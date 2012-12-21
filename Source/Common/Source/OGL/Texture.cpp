@@ -1,4 +1,4 @@
-#include <OpenGL/Texture/Texture.hpp>
+#include <OGL/Texture.hpp>
 
 namespace BD
 {

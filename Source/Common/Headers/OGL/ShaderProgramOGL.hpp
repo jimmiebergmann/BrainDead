@@ -1,8 +1,8 @@
 #ifndef __BRAINDEAD_SHADER_PROGRAM_OGL_HPP__
 #define __BRAINDEAD_SHADER_PROGRAM_OGL_HPP__
 
-#include <Shader/ShaderProgram.hpp>
-#include <OpenGL/OpenGL.hpp>
+#include <OGL/ShaderProgram.hpp>
+#include <OGL/OpenGL.hpp>
 
 namespace BD
 {
@@ -19,8 +19,6 @@ namespace BD
 	private:
 
 		GLhandleARB m_ProgramId;
-
-
 
 	};
 

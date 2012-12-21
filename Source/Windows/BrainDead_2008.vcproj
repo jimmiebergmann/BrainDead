@@ -690,6 +690,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Shader"
+					>
+					<File
+						RelativePath="..\Common\Source\Shader\Shader.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

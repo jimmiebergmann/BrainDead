@@ -1,10 +1,31 @@
-#ifndef __BRAINDEAD_SHADER_HPP__
-#define __BRAINDEAD_SHADER_HPP__
+#ifndef __BRAINDEAD_SHADER_OGL_HPP__
+#define __BRAINDEAD_SHADER_OGL_HPP__
 
-#include <OpenGL/Shader/ShaderOGL.hpp>
+#include <Shader/Shader.hpp>
+#include <OpenGL/OpenGL.hpp>
 
 namespace BD
 {
+
+	class ShaderOGL : public Shader
+	{
+
+	public:
+
+		~ShaderOGL();
+		ShaderOGL(eShaderType p_ShaderType);
+		virtual BD_UINT32 Load();
+		virtual BD_UINT32 Reload(); // Read and Load the last file.
+		virtual void Unload();
+
+	private:
+
+		std::string validateShader(GLuint p_Shader, const char * p_file);
+
+		GLuint m_ShaderId;
+
+
+	};
 
 }
 

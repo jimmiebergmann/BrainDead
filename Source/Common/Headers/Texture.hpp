@@ -2,6 +2,7 @@
 #define __BRAINDEAD_TEXTURE_HPP__
 
 #include <DataTypes.hpp>
+#include <Image.hpp>
 
 namespace BD
 {
@@ -12,7 +13,7 @@ namespace BD
 	public:
 
 		virtual ~Texture( );
-		virtual BD_UINT32 Load( ) = 0;
+		virtual BD_UINT32 Load( const Image & p_Image) = 0;
 		virtual BD_UINT32 Unload( ) = 0;
 		virtual void Bind( );
 		virtual void Unbind( );

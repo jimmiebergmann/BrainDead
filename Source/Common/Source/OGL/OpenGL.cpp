@@ -1,14 +1,14 @@
 #include <OGL/OpenGL.hpp>
-
-#ifdef PLATFORM_WINDOWS
-	#define GETPROCADDRESS(x) (wglGetProcAddress(x))
-#endif
+#include <Debugger.hpp>
+#include <list>
+#include <string>
 
 
 PFNGLACTIVETEXTUREPROC				__bglActiveTexture = BD_NULL;
 PFNGLATTACHSHADERPROC				__bglAttachShader = BD_NULL;
 PFNGLBINDATTRIBLOCATIONPROC			__bglBindAttribLocation = BD_NULL;
 PFNGLGETATTRIBLOCATIONPROC			__bglGetAttribLocation = BD_NULL;
+PFNGLGETSTRINGIPROC					__bglGetStringi = BD_NULL;
 PFNGLBINDBUFFERPROC					__bglBindBuffer = BD_NULL;
 PFNGLBINDVERTEXARRAYPROC			__bglBindVertexArray = BD_NULL;
 PFNGLBUFFERDATAPROC					__bglBufferData = BD_NULL;
@@ -27,6 +27,7 @@ PFNGLGETPROGRAMIVPROC				__bglGetProgramiv = BD_NULL;
 PFNGLGETSHADERINFOLOGPROC			__bglGetShaderInfoLog = BD_NULL;
 PFNGLGETSHADERIVPROC				__bglGetShaderiv = BD_NULL;
 PFNGLGETUNIFORMLOCATIONPROC			__bglGetUniformLocation = BD_NULL;
+PFNGLISVERTEXARRAYPROC				__bglIsVertexArray = BD_NULL;
 PFNGLLINKPROGRAMPROC				__bglLinkProgram = BD_NULL;
 PFNGLSHADERSOURCEPROC				__bglShaderSource = BD_NULL;
 PFNGLUNIFORM1FPROC					__bglUniform1f = BD_NULL;
@@ -41,53 +42,106 @@ PFNGLVALIDATEPROGRAMPROC			__bglValidateProgram = BD_NULL;
 PFNGLVERTEXATTRIBPOINTERPROC		__bglVertexAttribPointer = BD_NULL;
 
 
-
-/*
-PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = BD_NULL;
-PFNGLATTACHOBJECTARBPROC glAttachObjectARB = BD_NULL;
-PFNGLBINDATTRIBLOCATIONARBPROC glBindAttribLocationARB = BD_NULL;
-PFNGLGETATTRIBLOCATIONARBPROC glGetAttribLocationARB = BD_NULL;
-PFNGLBINDBUFFERARBPROC glBindBufferARB = BD_NULL;
-PFNGLBINDVERTEXARRAYPROC glBindVertexArray = BD_NULL;
-PFNGLBUFFERDATAARBPROC glBufferDataARB = BD_NULL;
-PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB = BD_NULL;
-PFNGLCOMPILESHADERARBPROC glCompileShaderARB = BD_NULL;
-PFNGLCREATEPROGRAMOBJECTARBPROC glCreateProgramObjectARB = BD_NULL;
-PFNGLCREATESHADEROBJECTARBPROC glCreateShaderObjectARB = BD_NULL;
-PFNGLDELETEOBJECTARBPROC glDeleteObjectARB = BD_NULL;
-PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = BD_NULL;
-PFNGLENABLEVERTEXATTRIBARRAYARBPROC glEnableVertexAttribArrayARB = BD_NULL;
-PFNGLGENBUFFERSARBPROC glGenBuffersARB = BD_NULL;
-PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = BD_NULL;
-PFNGLGETPROGRAMINFOLOGPROC glGetProgramInfoLog = BD_NULL;
-PFNGLGETPROGRAMIVPROC glGetProgramiv = BD_NULL;
-PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog = BD_NULL;
-PFNGLGETSHADERIVPROC glGetShaderiv = BD_NULL;
-PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB = BD_NULL;
-PFNGLLINKPROGRAMARBPROC glLinkProgramARB = BD_NULL;
-PFNGLSHADERSOURCEARBPROC glShaderSourceARB = BD_NULL;
-PFNGLUNIFORM1FARBPROC glUniform1fARB = BD_NULL;
-PFNGLUNIFORM1IARBPROC glUniform1iARB = BD_NULL;
-PFNGLUNIFORM2FARBPROC glUniform2fARB = BD_NULL;
-PFNGLUNIFORM2IARBPROC glUniform2iARB = BD_NULL;
-PFNGLUNIFORM3FARBPROC glUniform3fARB = BD_NULL;
-PFNGLUNIFORM4FARBPROC glUniform4fARB = BD_NULL;
-PFNGLUNIFORMMATRIX4FVARBPROC glUniformMatrix4fvARB = BD_NULL;
-PFNGLUSEPROGRAMPROC glUseProgram = BD_NULL;
-PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB = BD_NULL;
-PFNGLVALIDATEPROGRAMPROC glValidateProgram = BD_NULL;
-PFNGLVERTEXATTRIBPOINTERARBPROC glVertexAttribPointerARB = BD_NULL;
-*/
 namespace BD
 {
+	static BD_BOOL s_GLExtLoaded = BD_FALSE;
+
 	BD_BOOL GlExt::s_Loaded = BD_FALSE;
 	std::map<std::string, void*> GlExt::s_ExtensionMap;
 	std::string GlExt::s_ExtensionError = "";
 	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
 
-	BD_BOOL GlExt::Load()
+	BD_BOOL GLExtLoad( GLint p_Major, GLint p_Minor )
 	{
-		/*// Make sure everything is clear.
+		// Get the GL extensions list and attempt to load them
+		std::list< std::string > Extensions;
+		GLint NumExtensions = 0;
+		bglGetIntegerv( GL_NUM_EXTENSIONS, &NumExtensions );
+
+		bdTrace( BD_NULL, "[BD::GLExtLoad] <INFO> "
+			"%d OpenGL Extensions supported:\n", NumExtensions );
+
+		if( p_Major >= 3 )
+		{
+			// Bootstrap glGetStringi
+			__bglGetStringi = ( PFNGLGETSTRINGIPROC )bglGetProcAddress(
+				"glGetStringi" );
+			bdAssert( bglGetStringi != BD_NULL );
+
+			for( BD_MEMSIZE i = 0; i < NumExtensions; ++i )
+			{
+				Extensions.push_back(
+					( char * )bglGetStringi( GL_EXTENSIONS, i ) );
+				bdTrace( BD_NULL, "\t%s\n",
+					bglGetStringi( GL_EXTENSIONS, i ) );
+			}
+		}
+		else
+		{
+			char CurExt[ 64 ] = { '\0' };
+
+			BD_MEMSIZE Position = 0, CharCount = 0;
+			BD_BOOL Loop = BD_TRUE;
+
+			const char *pGLExtensions =
+				( const char * )bglGetString( GL_EXTENSIONS );
+
+			do
+			{
+				CurExt[ Position++ ] = pGLExtensions[ CharCount ];
+
+				if( pGLExtensions[ CharCount+1 ] == 0x20 )
+				{
+					std::string CopyString;
+					CopyString.insert( 0, CurExt, Position );
+					Extensions.push_back( CopyString );
+					bdTrace( BD_NULL, "\t%s\n", CopyString.c_str( ) );
+					Position = 0;
+					CharCount++;
+				}
+				CharCount++;
+
+				if( pGLExtensions[ CharCount ] == 0x00 )
+				{
+					Loop = BD_FALSE;
+				}
+
+			} while( Loop );
+		}
+
+
+		BD_BOOL Ret = BD_FALSE;
+
+		std::list< std::string >::const_iterator ExtItr = Extensions.begin( );
+
+		for( ; ExtItr != Extensions.end( ); ++ExtItr )
+		{
+			if( ( *ExtItr ).compare( "GL_ARB_vertex_array_object" ) == 0 )
+			{
+				Ret = ( ( __bglBindVertexArray =
+					( PFNGLBINDVERTEXARRAYPROC )bglGetProcAddress(
+						"glBindVertexArray" ) ) == BD_NULL ) || Ret;
+				Ret = ( ( __bglDeleteVertexArrays =
+					( PFNGLDELETEVERTEXARRAYSPROC )bglGetProcAddress(
+						"glDeleteVertexArrays" ) ) = BD_NULL ) || Ret;
+				Ret = ( ( __bglGenVertexArrays =
+					( PFNGLGENVERTEXARRAYSPROC )bglGetProcAddress(
+						"glGenVertexArrays" ) ) == BD_NULL ) || Ret;
+				Ret = ( ( __bglIsVertexArray =
+					( PFNGLISVERTEXARRAYPROC )bglGetProcAddress(
+						"glIsVertexArray" ) ) == BD_NULL ) || Ret;
+
+				bdAssert( Ret );
+			}
+		}
+
+		
+		return BD_OK;
+	}
+
+	BD_BOOL GlExt::Load()
+	{/*
+		// Make sure everything is clear.
 		s_Loaded = BD_FALSE;
 		s_ExtensionMap.clear();
 		s_ExtensionError = "";
@@ -147,8 +201,8 @@ namespace BD
 		}
 
 		// Everything went fine.
-		s_Loaded = BD_TRUE;
-		return BD_OK;*/
+		s_Loaded = BD_TRUE;*/
+		return BD_OK;
 
 		return BD_ERROR;
 	}

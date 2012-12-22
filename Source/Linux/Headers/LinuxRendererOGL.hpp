@@ -32,8 +32,8 @@ namespace BD
 		virtual void EnableSmoothLines( );
 		virtual void DisableSmoothLines( );
 
-		BD_INLINE BD_BOOL IsCreated( ) const { return m_Created; }
-		eRendererType GetRendererType( ) const { return m_RendererType; }
+		BD_INLINE virtual BD_BOOL IsCreated( ) const { return m_Created; }
+		eRendererType virtual GetRendererType( ) const { return m_RendererType; }
 
 	private:
 		BD_BOOL m_Created;

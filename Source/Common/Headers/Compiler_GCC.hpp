@@ -11,6 +11,8 @@
 #define BD_FORCE_INLINE	__forceinline__
 #define BD_EXPLICIT		explicit
 
+#define BD_ASM			__asm__
+
 // If GCC is greater than 4.6.0, enable C++11 features
 #if BD_GCCVER >= 40600
 #define BD_NULL	nullptr

@@ -308,6 +308,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
+				ShowProgress="1"
 				OutputFile="$(OutDir)\$(ProjectName)D.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="false"
@@ -531,6 +532,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Headers\Debugger.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Headers\Game.hpp"
 					>
 				</File>
@@ -556,6 +561,10 @@
 				</File>
 				<File
 					RelativePath="..\Common\Headers\ShaderProgram.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\System.hpp"
 					>
 				</File>
 				<File
@@ -594,14 +603,6 @@
 						>
 					</File>
 				</Filter>
-				<Filter
-					Name="OAL"
-					>
-					<File
-						RelativePath="..\Common\Headers\OAL\OpenAL.hpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -624,10 +625,6 @@
 				</File>
 				<File
 					RelativePath="..\Common\Source\Quaternion.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\Source\Renderer.cpp"
 					>
 				</File>
 				<File
@@ -670,14 +667,6 @@
 						>
 					</File>
 				</Filter>
-				<Filter
-					Name="OAL"
-					>
-					<File
-						RelativePath="..\Common\Source\OAL\OpenAL.cpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -711,7 +700,53 @@
 				Name="Source"
 				>
 				<File
+					RelativePath=".\Source\Debugger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Debugger_x86_64.asm"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Profile|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="[Windows x86_64] Assembling Debugger"
+							CommandLine="ml64.exe /c /Fo &quot;$(IntDir)\Debugger_x86_64.obj&quot; /Zi $(InputPath)"
+							Outputs="$(IntDir)\Debugger_x86_64.obj"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\Source\Main.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Source\System.cpp"
 					>
 				</File>
 				<File

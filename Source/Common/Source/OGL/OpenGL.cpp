@@ -35,7 +35,9 @@ PFNGLUNIFORM1IPROC					__bglUniform1i = BD_NULL;
 PFNGLUNIFORM2FPROC					__bglUniform2f = BD_NULL;
 PFNGLUNIFORM2IPROC					__bglUniform2i = BD_NULL;
 PFNGLUNIFORM3FPROC					__bglUniform3f = BD_NULL;
+PFNGLUNIFORM3IPROC					__bglUniform3i = BD_NULL;
 PFNGLUNIFORM4FPROC					__bglUniform4f = BD_NULL;
+PFNGLUNIFORM4IPROC					__bglUniform4i = BD_NULL;
 PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv = BD_NULL;
 PFNGLUSEPROGRAMPROC					__bglUseProgram = BD_NULL;
 PFNGLVALIDATEPROGRAMPROC			__bglValidateProgram = BD_NULL;
@@ -51,7 +53,7 @@ namespace BD
 	std::string GlExt::s_ExtensionError = "";
 	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
 
-	BD_BOOL GLExtLoad( GLint p_Major, GLint p_Minor )
+	BD_BOOL GLExtBind( GLint p_Major, GLint p_Minor )
 	{
 		// Get the GL extensions list and attempt to load them
 		std::list< std::string > Extensions;
@@ -109,11 +111,10 @@ namespace BD
 			} while( Loop );
 		}
 
-
 		BD_BOOL Ret = BD_FALSE;
-
 		std::list< std::string >::const_iterator ExtItr = Extensions.begin( );
 
+		// Bind the functions based on the family they happen to reside in
 		for( ; ExtItr != Extensions.end( ); ++ExtItr )
 		{
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_array_object" ) == 0 )
@@ -130,6 +131,51 @@ namespace BD
 				Ret = ( ( __bglIsVertexArray =
 					( PFNGLISVERTEXARRAYPROC )bglGetProcAddress(
 						"glIsVertexArray" ) ) == BD_NULL ) || Ret;
+
+				bdAssert( Ret );
+			}
+
+			if( ( *ExtItr ).compare( "GL_ARB_shader_objects" ) == 0 )
+			{
+				Ret = ( ( __bglUniform1f =
+					( PFNGLUNIFORM1FPROC )bglGetProcAddress(
+						"glUniform1f" ) ) == BD_NULL ) || Ret;
+				Ret = ( ( __bglUniform1i =
+					( PFNGLUNIFORM1IPROC )bglGetProcAddress(
+						"glUniform1i" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform2f =
+					( PFNGLUNIFORM2FPROC )bglGetProcAddress(
+						"glUniform2f" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform2i =
+					( PFNGLUNIFORM2IPROC )bglGetProcAddress(
+						"glUniform2i" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform3f =
+					( PFNGLUNIFORM3FPROC )bglGetProcAddress(
+						"glUniform3f" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform3i =
+					( PFNGLUNIFORM3IPROC )bglGetProcAddress(
+						"glUniform3i" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform4f =
+					( PFNGLUNIFORM4FPROC )bglGetProcAddress(
+						"glUniform4f" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglUniform4i =
+					( PFNGLUNIFORM4IPROC )bglGetProcAddress(
+						"glUniform4i" ) ) == BD_NULL ) || Ret;
+
+				bdAssert( Ret );
+			}
+
+			if( ( *ExtItr ).compare( "GL_ARB_vertex_shader" ) == 0 )
+			{
+				Ret = ( ( __bglEnableVertexAttribArray =
+					( PFNGLENABLEVERTEXATTRIBARRAYPROC )bglGetProcAddress(
+						"glEnableVertexAttribArray" ) ) == BD_NULL ) || Ret;
 
 				bdAssert( Ret );
 			}

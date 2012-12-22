@@ -46,6 +46,7 @@ extern PFNGLGETPROGRAMIVPROC				__bglGetProgramiv;
 extern PFNGLGETSHADERINFOLOGPROC			__bglGetShaderInfoLog;
 extern PFNGLGETSHADERIVPROC					__bglGetShaderiv;
 extern PFNGLGETUNIFORMLOCATIONPROC			__bglGetUniformLocation;
+extern PFNGLISVERTEXARRAYPROC				__bglIsVertexArray;
 extern PFNGLLINKPROGRAMPROC					__bglLinkProgram;
 extern PFNGLSHADERSOURCEPROC				__bglShaderSource;
 extern PFNGLUNIFORM1FPROC					__bglUniform1f;
@@ -53,7 +54,9 @@ extern PFNGLUNIFORM1IPROC					__bglUniform1i;
 extern PFNGLUNIFORM2FPROC					__bglUniform2f;
 extern PFNGLUNIFORM2IPROC					__bglUniform2i;
 extern PFNGLUNIFORM3FPROC					__bglUniform3f;
+extern PFNGLUNIFORM3IPROC					__bglUniform3i;
 extern PFNGLUNIFORM4FPROC					__bglUniform4f;
+extern PFNGLUNIFORM4IPROC					__bglUniform4i;
 extern PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv;
 extern PFNGLUSEPROGRAMPROC					__bglUseProgram;
 extern PFNGLVALIDATEPROGRAMPROC				__bglValidateProgram;
@@ -143,10 +146,10 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 namespace BD
 {
 	// GL Extensions functions
-	BD_UINT32 GLExtLoad( GLint p_Major, GLint p_Minor );
+	BD_UINT32 GLExtBind( GLint p_Major, GLint p_Minor );
 
 	// GL Windowing System Extensions functions
-	BD_UINT32 GLWSExtLoad( );
+	BD_UINT32 GLWSExtBind( );
 
 	class GlExt
 	{

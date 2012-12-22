@@ -5,7 +5,7 @@
 
 namespace BD
 {
-	BD_UINT32 GetExecutablePath( char **p_ppBuffer, size_t p_Size );
+	BD_UINT32 GetExecutablePath( char **p_ppBuffer, BD_MEMSIZE p_Size );
 }
 
 #endif

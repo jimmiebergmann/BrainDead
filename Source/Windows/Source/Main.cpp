@@ -2,7 +2,7 @@
 #include <Main.hpp>
 #include <DataTypes.hpp>
 
-#include <Debugger/DebugLog.hpp>
+#include <Debugger.hpp>
 
 int __stdcall WinMain( HINSTANCE p_ThisInst, HINSTANCE p_PrevInst,
 	LPSTR p_pCmdLine, int p_CmdShow )

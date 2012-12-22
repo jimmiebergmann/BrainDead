@@ -11,9 +11,9 @@ namespace BD
 
 	public:
 
-		~WindowsRendererOGL();
-		WindowsRendererOGL();
-		virtual BD_UINT32 Create(Window & p_Window);
+		virtual ~WindowsRendererOGL( );
+		WindowsRendererOGL( );
+		virtual BD_UINT32 Create( const Window & p_Window);
 		virtual void StartScene() ;
 		virtual void EndScene();
 		virtual void SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a);
@@ -30,13 +30,15 @@ namespace BD
 		virtual void DisableDepthTest();
 		virtual void EnableSmoothLines();
 		virtual void DisableSmoothLines();
+		virtual BD_BOOL IsCreated( ) const { return m_Created; }
+		virtual eRendererType GetRendererType( ) const { return m_eRendererType; }
 		
 	private:
 
 		BD_BOOL m_Created;
 		HGLRC m_Context;
 		HDC m_HDC;
-		eRendererType m_eRenderType;
+		eRendererType m_eRendererType;
 
 	};
 

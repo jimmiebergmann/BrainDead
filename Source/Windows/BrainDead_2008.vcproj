@@ -576,10 +576,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\Common\Headers\TGA.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\Common\Headers\Vector3.hpp"
 					>
 				</File>
@@ -657,10 +653,6 @@
 				</File>
 				<File
 					RelativePath="..\Common\Source\Texture.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\Common\Source\TGA.cpp"
 					>
 				</File>
 				<File

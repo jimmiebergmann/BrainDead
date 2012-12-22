@@ -12,17 +12,17 @@ namespace BD
 	{
 	}
 */
-	BD_UINT32 Shader::Read(const char * p_Filename)
+	BD_UINT32 Shader::Read(const char * p_FileName)
 	{
 		// Use fstream for reading files.
-		std::ifstream File(p_Filename);
+		std::ifstream File(p_FileName);
 		if(File.is_open() == false)
 		{
 			return BD_ERROR;
 		}
 
 		// Set the file name (if we want to reload the shader later)
-		m_Filename = p_Filename;
+		m_FileName = p_FileName;
 
 		// Get the file size
 		File.seekg (0, std::ios::end);

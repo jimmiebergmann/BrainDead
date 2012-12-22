@@ -13,7 +13,7 @@ namespace BD
 		m_Loaded = BD_FALSE;
 		m_ShaderType = p_ShaderType;
 		m_ShaderSource = "";
-		m_Filename = "";
+		m_FileName = "";
 	}
 
 	ShaderOGL::~ShaderOGL()
@@ -64,7 +64,7 @@ namespace BD
 	BD_UINT32 ShaderOGL::Reload()
 	{
 		// Make sure we have a file path to the shader(This is set by reading a file)
-		if(m_Filename == "")
+		if(m_FileName == "")
 		{
 			return BD_ERROR;
 		}

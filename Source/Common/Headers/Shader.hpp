@@ -24,7 +24,7 @@ namespace BD
 
 		virtual ~Shader() { }
 		//Shader(eShaderType p_ShaderType);
-		BD_UINT32 Read(const char * p_Filename);
+		BD_UINT32 Read(const char * p_FileName);
 		virtual BD_UINT32 Load(std::string & p_Validation) = 0;
 		virtual BD_UINT32 Reload() = 0; // Read and Load the last file.
 		std::string GetSource() const;
@@ -34,7 +34,7 @@ namespace BD
 		BD_BOOL m_Loaded;
 		eShaderType m_ShaderType;
 		std::string m_ShaderSource;
-		std::string m_Filename;
+		std::string m_FileName;
 
 	};
 

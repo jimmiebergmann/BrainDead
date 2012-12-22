@@ -20,8 +20,8 @@ namespace BD
 			RENDERERTYPE_OPENGL2 = 2
 		};
 
-		Renderer();
-		virtual BD_UINT32 Create(Window & p_Window) = 0;
+		virtual ~Renderer( ){ }
+		virtual BD_UINT32 Create( const Window & p_Window ) = 0;
 		virtual void StartScene() = 0;
 		virtual void EndScene() = 0;
 		virtual void SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a) = 0;
@@ -38,15 +38,8 @@ namespace BD
 		virtual void DisableDepthTest() = 0;
 		virtual void EnableSmoothLines() = 0;
 		virtual void DisableSmoothLines() = 0;
-		BD_BOOL IsCreated() const;
-		eRendererType GetRendererType() const;
-
-
-	protected:
-
-		BD_BOOL m_Created;
-		eRendererType m_RendererType;
-
+		virtual BD_BOOL IsCreated() const = 0;
+		virtual eRendererType GetRendererType() const = 0;
 	};
 }
 

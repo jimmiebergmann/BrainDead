@@ -63,22 +63,22 @@ OBJSDIR:
 
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 COMFILES	:= $(foreach dir,../Common/Source,$(notdir $(wildcard $(dir)/*.cpp)))
-MATHFILES	:= $(foreach dir,../Common/Source/Utility/Math,$(notdir $(wildcard $(dir)/*.cpp)))
+OGLFILES	:= $(foreach dir,../Common/Source/OGL,$(notdir $(wildcard $(dir)/*.cpp)))
 
 ###############
 OBJS	= $(CPPFILES:.cpp=.o)
 COBJS	= $(COMFILES:.cpp=.o)
-MATHOBJS = $(MATHFILES:.cpp=.o)
+OGLOBJS	= $(OGLFILES:.cpp=.o)
 HEADERS	= $(wildcard *.hpp)
 ###############
 
-$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(MATHOBJS) $(COBJS)
-	cd $(OBJSDIR) && $(CC) -o ../$(TARGETDIR)/$(TARGET) $(OBJS) $(MATHOBJS) $(COBJS) $(SYSLIBS)
+$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OGLOBJS) $(COBJS)
+	cd $(OBJSDIR) && $(CC) -o ../$(TARGETDIR)/$(TARGET) $(OBJS) $(OGLOBJS) $(COBJS) $(SYSLIBS)
 
-%.o: ../Common/Source/%.cpp
-	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_LINUX -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
+%.o: ../Common/Source/OGL/%.cpp
+	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_LINUX -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@	
 
-%.o: ../Common/Source/Utility/Math/%.cpp
+%.o: ../Common/Source/%.cpp 
 	$(CC) $(CFLAGS) -DBUILD_$(BUILD_DEF) -DPLATFORM_LINUX -DPLATFORM_$(BUILD_PLATFORM) -IHeaders -I../Common/Headers $(SYSIPATH) $< -o $(OBJSDIR)/$@
 
 %.o: $(SOURCEDIR)/%.cpp 

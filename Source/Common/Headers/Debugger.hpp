@@ -24,18 +24,20 @@ void bdDebugBreak_x86_64( );
 #error No platform specified as a pre-processor directive
 #endif
 
-#define bdAssert( p_Expr ) \
+#define bdAssertToFile( p_Expr, p_LogFile ) \
 	if( p_Expr ) { } \
 	else \
 	{\
-		bdTrace( BD_NULL, "ASSERTION FAILURE\n%s | FILE: %s | LINE: %d\n\n", \
+		bdTrace( p_LogFile, "ASSERTION FAILURE\n%s | FILE: %s | LINE: %d\n\n", \
 			#p_Expr, __FILE__, __LINE__ );\
 		bdDebugBreak( );\
 	}
+#define bdAssert( p_Expr ) bdAssertToFile( p_Expr, BD_NULL )
 #else
 #define bdTrace sizeof
 #define bdDebugBreak( )
 #define bdAssert( p_Expr )
+#define bdAssertToFile( p_Expr, p_LogFile )
 #endif
 
 namespace BD

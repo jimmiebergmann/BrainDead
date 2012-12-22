@@ -3,8 +3,6 @@
 
 #include <DataTypes.hpp>
 #include <Renderer.hpp>
-
-#include <WindowsRendererOGL.hpp>
 #include <OGL/ShaderOGL.hpp>
 #include <OGL/ShaderProgramOGL.hpp>
 

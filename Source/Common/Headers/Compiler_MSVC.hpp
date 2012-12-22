@@ -8,6 +8,8 @@
 #define BD_FORCE_INLINE	__forceinline
 #define BD_EXPLICIT		explicit
 
+#define BD_ASM			__asm
+
 // VS 2010 and greater support C++11
 #if( _MSC_VER >= 1600 )
 #define BD_NULL nullptr

@@ -5,8 +5,37 @@
 
 #if BUILD_DEBUG
 #define bdTrace BD::Trace
+#ifdef PLATFORM_WINDOWS_X86_64
+// x86_64 cannot have in-lined assembly
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+void bdDebugBreak_x86_64( );
+#define bdDebugBreak bdDebugBreak_x86_64
+#ifdef __cplusplus
+}
+#endif
+#elif PLATFORM_WINDOWS_X86_32
+#define bdDebugBreak( ) { BD_ASM { int 3 } }
+#elif PLATFORM_LINUX
+#define bdDebugBreak( ) { BD_ASM( "INT $3;\n" ); }
+#else
+#error No platform specified as a pre-processor directive
+#endif
+
+#define bdAssert( p_Expr ) \
+	if( p_Expr ) { } \
+	else \
+	{\
+		bdTrace( BD_NULL, "ASSERTION FAILURE\n%s | FILE: %s | LINE: %d\n\n", \
+			#p_Expr, __FILE__, __LINE__ );\
+		bdDebugBreak( );\
+	}
 #else
 #define bdTrace sizeof
+#define bdDebugBreak( )
+#define bdAssert( p_Expr )
 #endif
 
 namespace BD

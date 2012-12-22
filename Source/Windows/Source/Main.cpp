@@ -9,8 +9,5 @@ int __stdcall WinMain( HINSTANCE p_ThisInst, HINSTANCE p_PrevInst,
 {
 	BD::Game game;
 
-	bdTrace( "LogFile.log", "\n------------------TEST: %s-------------------\n",
-		"Windows" );
-
-	return game.Run(0, BD_NULL);
+	return game.Run( 0, BD_NULL );
 }

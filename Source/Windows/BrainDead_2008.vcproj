@@ -594,6 +594,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="OAL"
+					>
+					<File
+						RelativePath="..\Common\Headers\OAL\OpenAL.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -659,6 +667,14 @@
 					</File>
 					<File
 						RelativePath="..\Common\Source\OGL\ShaderProgramOGL.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="OAL"
+					>
+					<File
+						RelativePath="..\Common\Source\OAL\OpenAL.cpp"
 						>
 					</File>
 				</Filter>

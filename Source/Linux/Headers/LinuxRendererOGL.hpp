@@ -8,7 +8,7 @@ namespace BD
 	class LinuxRendererOGL : public Renderer
 	{
 	public:
-		LinuxRendererOGL( );
+		BD_EXPLICIT LinuxRendererOGL( const WINDATA &p_WinData );
 		virtual ~LinuxRendererOGL( );
 
 		virtual BD_UINT32 Create( const Window &p_Window );
@@ -33,12 +33,13 @@ namespace BD
 		virtual void DisableSmoothLines( );
 
 		BD_INLINE virtual BD_BOOL IsCreated( ) const { return m_Created; }
-		eRendererType virtual GetRendererType( ) const { return m_RendererType; }
+		eRendererType virtual GetRendererType( ) const
+			{ return m_RendererType; }
 
 	private:
 		BD_BOOL m_Created;
 		eRendererType m_RendererType;
-
+		WINDATA	m_WinData;
 	};
 }
 

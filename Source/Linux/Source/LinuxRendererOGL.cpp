@@ -2,8 +2,9 @@
 
 namespace BD
 {
-	LinuxRendererOGL::LinuxRendererOGL( )
+	LinuxRendererOGL::LinuxRendererOGL( const WINDATA &p_WinData )
 	{
+		m_WinData = p_WinData;
 	}
 
 	LinuxRendererOGL::~LinuxRendererOGL( )
@@ -17,16 +18,22 @@ namespace BD
 
 	void LinuxRendererOGL::StartScene( )
 	{
+		GLbitfield Flags = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
+			GL_STENCIL_BUFFER_BIT;
+
+		bglClear( Flags );
 	}
 
 	void LinuxRendererOGL::EndScene( )
 	{
+		glXSwapBuffers( m_WinData.pDisplay, m_WinData.Window );
 	}
 
 	void LinuxRendererOGL::SetClearColor( const BD_FLOAT32 p_Red,
 		const BD_FLOAT32 p_Green, const BD_FLOAT32 p_Blue,
 		const BD_FLOAT32 p_Alpha )
 	{
+		bglClearColor( p_Red, p_Green, p_Blue, 1.0f );
 	}
 	
 	void LinuxRendererOGL::SetClearDepth( const BD_FLOAT32 p_Depth )

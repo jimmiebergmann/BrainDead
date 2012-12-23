@@ -1,4 +1,5 @@
 #include <Game.hpp>
+#include <Debugger.hpp>
 #include <iostream>
 
 #ifdef PLATFORM_WINDOWS
@@ -31,20 +32,20 @@ namespace BD
 	{
 	}
 
-	int Game::Run(int argc, char ** argv)
+	int Game::Run( int p_Argc, char **p_ppArgv )
 	{
 		m_Running = false;
 
 		// Load the game
-		if(Load() == BD_OK)
+		if( Load( ) == BD_OK )
 		{
 			m_Running = true;
 		}
 
 		// Main loop
-		while(m_Running)
+		while( m_Running )
 		{
-			if(m_pWindow->DoEvents() != BD_OK)
+			if( m_pWindow->DoEvents() != BD_OK )
 			{
 				break;
 			}
@@ -52,20 +53,16 @@ namespace BD
 			m_pRenderer->StartScene();
 
 			// Draw things here
-
 			m_pRenderer->EndScene();
 
 		}
 		
 
 		// Unload the game
-		if(Unload() != BD_OK)
+		if( Unload( ) != BD_OK )
 		{
-#ifdef PLATFORm_pWindowS
-			::MessageBox(NULL, L"Failed to unload BrainDead", L"BrainDead Erorr.", MB_OK | MB_ICONEXCLAMATION);
-#elif PLATFORM_LINUX
-			std::cout << "Error: Failed to unload BrainDead." << std::endl;
-#endif
+			bdTrace( BD_NULL, "[BD::Game::Run] <ERROR> "
+				"Failed to unload BrainDead\n" );
 		}
 		
 		return 0;
@@ -76,16 +73,25 @@ namespace BD
 		m_Loaded = false;
 
 #ifdef PLATFORM_WINDOWS	
-		m_pWindow = new WindowsWindow();
-		m_pRenderer = new WindowsRendererOGL();
+		m_pWindow = new WindowsWindow( );
+		m_pRenderer = new WindowsRendererOGL( );
 #elif PLATFORM_LINUX
-		m_pWindow = new LinuxWindow();
-		m_pRenderer = new LinuxRendererOGL();
+		m_pWindow = new LinuxWindow( );
+		if(m_pWindow->Create( 800, 600, false ) != BD_OK)
+		{
+			return BD_ERROR;
+		}
+		m_pRenderer = new LinuxRendererOGL( m_pWindow->Data( ) );
+		if(m_pRenderer->Create(*m_pWindow) != BD_OK)
+		{
+			return BD_ERROR;
+		}
 #else
 #error No platform pre-processor directive specified
 #endif
 
-
+		m_pRenderer->SetClearColor( 0.15f, 0.0f, 0.15f, 0.0f );
+/*
 		// Load the test image
 		m_pImage = new Image();
 		if(m_pImage->ReadFile("Data/TGA_Test.tga") != BD_OK)
@@ -139,10 +145,7 @@ namespace BD
 		if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
 		{
 			return BD_ERROR;
-		}
-
-
-
+		}*/
 
 		m_Loaded = true;
 		return BD_OK;
@@ -150,33 +153,33 @@ namespace BD
 
 	BD_UINT32 Game::Unload()
 	{
+		if( m_pRenderer )
+		{
+			delete m_pRenderer;
+			m_pRenderer = BD_NULL;
+		}
+
 		if(m_pWindow)
 		{
 			delete m_pWindow;
 			m_pWindow = BD_NULL;
 		}
 
-		if(m_pRenderer)
-		{
-			delete m_pRenderer;
-			m_pRenderer = BD_NULL;
-		}
-
 		// Shader test
-		if(m_pVertexShader)
+		if( m_pVertexShader )
 		{
 			delete m_pVertexShader;
 			m_pVertexShader = BD_NULL;
 		}
 
-		if(m_pFragmentShader)
+		if( m_pFragmentShader )
 		{
 			delete m_pFragmentShader;
 			m_pFragmentShader = BD_NULL;
 		}
 
 		// Image test
-		if(m_pImage)
+		if( m_pImage )
 		{
 			delete m_pImage;
 			m_pImage = BD_NULL;

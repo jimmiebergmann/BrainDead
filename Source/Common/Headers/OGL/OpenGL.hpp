@@ -80,6 +80,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglClearColor		glClearColor
 #define bglGetIntegerv		glGetIntegerv
 #define bglGetString		glGetString
+#define bglViewport			glViewport
 
 ///////////////////////////////////////////////////////////////////////////////
 // GL CORE FUNCTIONS [ GL 3.0 ] ///////////////////////////////////////////////

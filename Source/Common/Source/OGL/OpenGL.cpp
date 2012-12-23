@@ -123,6 +123,16 @@ namespace BD
 		}
 
 		BD_BOOL Ret = BD_FALSE;
+
+		if( p_Major > 1 || ( p_Major == 1 && p_Minor >= 3 ) )
+		{
+			Ret = ( ( __bglActiveTexture =
+				( PFNGLACTIVETEXTUREPROC )bglGetProcAddress(
+					"glActiveTexture" ) ) == BD_NULL ) || Ret;
+
+			bdAssert( Ret );
+		}
+
 		std::list< std::string >::const_iterator ExtItr = Extensions.begin( );
 
 		// Bind the functions based on the family they happen to reside in
@@ -189,13 +199,29 @@ namespace BD
 					( PFNGLCREATESHADERPROC )bglGetProcAddress(
 						"glCreateShader" ) ) == BD_NULL ) || Ret;
 
+				Ret = ( ( __bglDeleteProgram =
+					( PFNGLDELETEPROGRAMPROC )bglGetProcAddress(
+						"glDeleteProgram" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglDeleteShader =
+					( PFNGLDELETESHADERPROC )bglGetProcAddress(
+						"glDeleteShader" ) ) == BD_NULL ) || Ret;
+
 				Ret = ( ( __bglGetProgramInfoLog =
 					( PFNGLGETPROGRAMINFOLOGPROC )bglGetProcAddress(
 						"glGetProgramInfoLog" ) ) == BD_NULL ) || Ret;
 
+				Ret = ( ( __bglGetProgramiv =
+					( PFNGLGETPROGRAMIVPROC )bglGetProcAddress(
+						"glGetProgramiv" ) ) == BD_NULL ) || Ret;
+
 				Ret = ( ( __bglGetShaderInfoLog =
 					( PFNGLGETSHADERINFOLOGPROC )bglGetProcAddress(
 						"glGetShaderInfoLog" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglGetShaderiv =
+					( PFNGLGETSHADERIVPROC )bglGetProcAddress(
+						"glGetShaderiv" ) ) == BD_NULL ) || Ret;
 				
 				Ret = ( ( __bglGetUniformLocation =
 					( PFNGLGETUNIFORMLOCATIONPROC )bglGetProcAddress(
@@ -302,9 +328,17 @@ namespace BD
 					( PFNGLBINDATTRIBLOCATIONPROC )bglGetProcAddress(
 						"glBindAttribLocation" ) ) == BD_NULL ) || Ret;
 
+				Ret = ( ( __bglGetAttribLocation =
+					( PFNGLGETATTRIBLOCATIONPROC )bglGetProcAddress(
+						"glGetAttribLocation" ) ) == BD_NULL ) || Ret;
+
 				Ret = ( ( __bglEnableVertexAttribArray =
 					( PFNGLENABLEVERTEXATTRIBARRAYPROC )bglGetProcAddress(
 						"glEnableVertexAttribArray" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglVertexAttribPointer =
+					( PFNGLVERTEXATTRIBPOINTERPROC )bglGetProcAddress(
+						"glVertexAttribPointer" ) ) == BD_NULL ) || Ret;
 
 				bdAssert( Ret );
 			}

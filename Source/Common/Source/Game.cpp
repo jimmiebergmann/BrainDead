@@ -25,7 +25,9 @@ namespace BD
 
 		m_pVertexShader(BD_NULL),
 		m_pFragmentShader(BD_NULL),
-		m_pShaderProgram(BD_NULL)
+		m_pShaderProgram(BD_NULL),
+
+		m_pImage(BD_NULL)
 	{
 	}
 
@@ -42,7 +44,7 @@ namespace BD
 		// Main loop
 		while(m_Running)
 		{
-			if(m_pWindow->DoEvents() == BD_ERROR)
+			if(m_pWindow->DoEvents() != BD_OK)
 			{
 				break;
 			}
@@ -83,6 +85,15 @@ namespace BD
 #error No platform pre-processor directive specified
 #endif
 
+
+		// Load the test image
+		m_pImage = new Image();
+		if(m_pImage->ReadFile("Data/TGA_Test.tga") != BD_OK)
+		{
+			return BD_ERROR;
+		}
+
+
 		// Create the window
 		if(m_pWindow->Create( 800, 600, false ) != BD_OK)
 		{
@@ -104,20 +115,20 @@ namespace BD
 		m_pVertexShader = new ShaderOGL(Shader::SHADERTYPE_VERTEX);
 		m_pFragmentShader = new ShaderOGL(Shader::SHADERTYPE_FRAGMENT);
 
-		if(m_pVertexShader->Read("Data/Shader.vert") == BD_ERROR)
+		if(m_pVertexShader->Read("Data/Shader.vert") != BD_OK)
 		{
 			return BD_ERROR;
 		}
-		if(m_pVertexShader->Load(VertexValidation) == BD_ERROR)
+		if(m_pVertexShader->Load(VertexValidation) != BD_OK)
 		{
 			return BD_ERROR;
 		}
 
-		if(m_pFragmentShader->Read("Data/Shader.frag") == BD_ERROR)
+		if(m_pFragmentShader->Read("Data/Shader.frag") != BD_OK)
 		{
 			return BD_ERROR;
 		}
-		if(m_pFragmentShader->Load(FragmentValidation) == BD_ERROR)
+		if(m_pFragmentShader->Load(FragmentValidation) != BD_OK)
 		{
 			return BD_ERROR;
 		}
@@ -162,6 +173,13 @@ namespace BD
 		{
 			delete m_pFragmentShader;
 			m_pFragmentShader = BD_NULL;
+		}
+
+		// Image test
+		if(m_pImage)
+		{
+			delete m_pImage;
+			m_pImage = BD_NULL;
 		}
 		
 		

@@ -5,6 +5,7 @@
 #include <Renderer.hpp>
 #include <OGL/ShaderOGL.hpp>
 #include <OGL/ShaderProgramOGL.hpp>
+#include <Image.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -36,6 +37,9 @@ namespace BD
 		Shader * m_pVertexShader;
 		Shader * m_pFragmentShader;
 		ShaderProgram * m_pShaderProgram;
+
+		// Test image
+		Image * m_pImage;
 
 	};
 

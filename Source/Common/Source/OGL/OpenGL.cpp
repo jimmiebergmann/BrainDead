@@ -16,6 +16,7 @@ PFNGLBUFFERSUBDATAPROC				__bglBufferSubData = BD_NULL;
 PFNGLCOMPILESHADERPROC				__bglCompileShader = BD_NULL;
 PFNGLCREATEPROGRAMPROC				__bglCreateProgram = BD_NULL;
 PFNGLCREATESHADERPROC				__bglCreateShader = BD_NULL;
+PFNGLDELETEBUFFERSPROC				__bglDeleteBuffers = BD_NULL;
 PFNGLDELETEPROGRAMPROC				__bglDeleteProgram = BD_NULL;
 PFNGLDELETESHADERPROC				__bglDeleteShader = BD_NULL;
 PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays = BD_NULL;
@@ -31,11 +32,23 @@ PFNGLISVERTEXARRAYPROC				__bglIsVertexArray = BD_NULL;
 PFNGLLINKPROGRAMPROC				__bglLinkProgram = BD_NULL;
 PFNGLSHADERSOURCEPROC				__bglShaderSource = BD_NULL;
 PFNGLUNIFORM1FPROC					__bglUniform1f = BD_NULL;
+PFNGLUNIFORM1FVPROC					__bglUniform1fv = BD_NULL;
 PFNGLUNIFORM1IPROC					__bglUniform1i = BD_NULL;
+PFNGLUNIFORM1IVPROC					__bglUniform1iv = BD_NULL;
 PFNGLUNIFORM2FPROC					__bglUniform2f = BD_NULL;
+PFNGLUNIFORM2FVPROC					__bglUniform2fv = BD_NULL;
 PFNGLUNIFORM2IPROC					__bglUniform2i = BD_NULL;
+PFNGLUNIFORM2IVPROC					__bglUniform2iv = BD_NULL;
 PFNGLUNIFORM3FPROC					__bglUniform3f = BD_NULL;
+PFNGLUNIFORM3FVPROC					__bglUniform3fv = BD_NULL;
+PFNGLUNIFORM3IPROC					__bglUniform3i = BD_NULL;
+PFNGLUNIFORM3IVPROC					__bglUniform3iv = BD_NULL;
 PFNGLUNIFORM4FPROC					__bglUniform4f = BD_NULL;
+PFNGLUNIFORM4FVPROC					__bglUniform4fv = BD_NULL;
+PFNGLUNIFORM4IPROC					__bglUniform4i = BD_NULL;
+PFNGLUNIFORM4IVPROC					__bglUniform4iv = BD_NULL;
+PFNGLUNIFORMMATRIX2FVPROC			__bglUniformMatrix2fv = BD_NULL;
+PFNGLUNIFORMMATRIX3FVPROC			__bglUniformMatrix3fv = BD_NULL;
 PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv = BD_NULL;
 PFNGLUSEPROGRAMPROC					__bglUseProgram = BD_NULL;
 PFNGLVALIDATEPROGRAMPROC			__bglValidateProgram = BD_NULL;
@@ -51,7 +64,7 @@ namespace BD
 	std::string GlExt::s_ExtensionError = "";
 	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
 
-	BD_BOOL GLExtLoad( GLint p_Major, GLint p_Minor )
+	BD_BOOL GLExtBind( GLint p_Major, GLint p_Minor )
 	{
 		// Get the GL extensions list and attempt to load them
 		std::list< std::string > Extensions;
@@ -109,13 +122,210 @@ namespace BD
 			} while( Loop );
 		}
 
-
 		BD_BOOL Ret = BD_FALSE;
+
+		// Bind functions as core functions based on the GL version
+		if( p_Major > 1 || ( p_Major == 1 && p_Minor >= 3 ) )
+		{
+			Ret = ( ( __bglActiveTexture =
+				( PFNGLACTIVETEXTUREPROC )bglGetProcAddress(
+					"glActiveTexture" ) ) == BD_NULL ) || Ret;
+
+			bdAssert( Ret );
+		}
+
+		if( p_Major > 1 || ( p_Major == 1 && p_Minor >= 5 ) )
+		{
+			Ret = ( ( __bglBindBuffer =
+				( PFNGLBINDBUFFERPROC )bglGetProcAddress(
+					"glBindBuffer" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglBufferData =
+				( PFNGLBUFFERDATAPROC )bglGetProcAddress(
+					"glBufferData" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglBufferSubData =
+				( PFNGLBUFFERSUBDATAPROC )bglGetProcAddress(
+					"glBufferSubData" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglDeleteBuffers =
+				( PFNGLDELETEBUFFERSPROC )bglGetProcAddress(
+					"glDeleteBuffers" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGenBuffers =
+				( PFNGLGENBUFFERSPROC )bglGetProcAddress(
+					"glGenBuffers" ) ) == BD_NULL ) || Ret;
+
+			bdAssert( Ret );
+		}
+
+		if( p_Major > 2 || ( p_Major == 2 && p_Minor >= 0 ) )
+		{
+			Ret = ( ( __bglAttachShader =
+				( PFNGLATTACHSHADERPROC )bglGetProcAddress(
+					"glAttachShader" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglCompileShader =
+				( PFNGLCOMPILESHADERPROC )bglGetProcAddress(
+					"glCompileShader" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglCreateProgram =
+				( PFNGLCREATEPROGRAMPROC )bglGetProcAddress(
+					"glCreateProgram" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglCreateShader =
+				( PFNGLCREATESHADERPROC )bglGetProcAddress(
+					"glCreateShader" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglDeleteProgram =
+				( PFNGLDELETEPROGRAMPROC )bglGetProcAddress(
+					"glDeleteProgram" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglDeleteShader =
+				( PFNGLDELETESHADERPROC )bglGetProcAddress(
+					"glDeleteShader" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGetProgramInfoLog =
+				( PFNGLGETPROGRAMINFOLOGPROC )bglGetProcAddress(
+					"glGetProgramInfoLog" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGetProgramiv =
+				( PFNGLGETPROGRAMIVPROC )bglGetProcAddress(
+					"glGetProgramiv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGetShaderInfoLog =
+				( PFNGLGETSHADERINFOLOGPROC )bglGetProcAddress(
+					"glGetShaderInfoLog" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGetShaderiv =
+				( PFNGLGETSHADERIVPROC )bglGetProcAddress(
+					"glGetShaderiv" ) ) == BD_NULL ) || Ret;
+				
+			Ret = ( ( __bglGetUniformLocation =
+				( PFNGLGETUNIFORMLOCATIONPROC )bglGetProcAddress(
+					"glGetUniformLocation" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglLinkProgram =
+				( PFNGLLINKPROGRAMPROC )bglGetProcAddress(
+					"glLinkProgram" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglShaderSource =
+				( PFNGLSHADERSOURCEPROC )bglGetProcAddress(
+					"glShaderSource" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform1f =
+				( PFNGLUNIFORM1FPROC )bglGetProcAddress(
+					"glUniform1f" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform1fv =
+				( PFNGLUNIFORM1FVPROC )bglGetProcAddress(
+					"glUniform1fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform1i =
+				( PFNGLUNIFORM1IPROC )bglGetProcAddress(
+					"glUniform1i" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform1iv =
+				( PFNGLUNIFORM1IVPROC )bglGetProcAddress(
+					"glUniform1iv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform2f =
+				( PFNGLUNIFORM2FPROC )bglGetProcAddress(
+					"glUniform2f" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform2fv =
+				( PFNGLUNIFORM2FVPROC )bglGetProcAddress(
+					"glUniform2fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform2i =
+				( PFNGLUNIFORM2IPROC )bglGetProcAddress(
+					"glUniform2i" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform2iv =
+				( PFNGLUNIFORM2IVPROC )bglGetProcAddress(
+					"glUniform2iv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform3f =
+				( PFNGLUNIFORM3FPROC )bglGetProcAddress(
+					"glUniform3f" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform3fv =
+				( PFNGLUNIFORM3FVPROC )bglGetProcAddress(
+					"glUniform3fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform3i =
+				( PFNGLUNIFORM3IPROC )bglGetProcAddress(
+					"glUniform3i" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform3iv =
+				( PFNGLUNIFORM3IVPROC )bglGetProcAddress(
+					"glUniform3iv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform4f =
+				( PFNGLUNIFORM4FPROC )bglGetProcAddress(
+					"glUniform4f" ) ) == BD_NULL ) || Ret;
+			
+			Ret = ( ( __bglUniform4fv =
+				( PFNGLUNIFORM4FVPROC )bglGetProcAddress(
+					"glUniform4fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform4i =
+				( PFNGLUNIFORM4IPROC )bglGetProcAddress(
+					"glUniform4i" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniform4iv =
+				( PFNGLUNIFORM4IVPROC )bglGetProcAddress(
+					"glUniform4iv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniformMatrix2fv =
+				( PFNGLUNIFORMMATRIX2FVPROC )bglGetProcAddress(
+					"glUniformMatrix2fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniformMatrix3fv =
+				( PFNGLUNIFORMMATRIX3FVPROC )bglGetProcAddress(
+					"glUniformMatrix3fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUniformMatrix4fv =
+				( PFNGLUNIFORMMATRIX4FVPROC )bglGetProcAddress(
+					"glUniformMatrix4fv" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglUseProgram =
+				( PFNGLUSEPROGRAMPROC )bglGetProcAddress(
+					"glUseProgram" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglValidateProgram =
+				( PFNGLVALIDATEPROGRAMPROC )bglGetProcAddress(
+					"glValidateProgram" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglBindAttribLocation =
+				( PFNGLBINDATTRIBLOCATIONPROC )bglGetProcAddress(
+					"glBindAttribLocation" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglGetAttribLocation =
+				( PFNGLGETATTRIBLOCATIONPROC )bglGetProcAddress(
+					"glGetAttribLocation" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglEnableVertexAttribArray =
+				( PFNGLENABLEVERTEXATTRIBARRAYPROC )bglGetProcAddress(
+					"glEnableVertexAttribArray" ) ) == BD_NULL ) || Ret;
+
+			Ret = ( ( __bglVertexAttribPointer =
+				( PFNGLVERTEXATTRIBPOINTERPROC )bglGetProcAddress(
+					"glVertexAttribPointer" ) ) == BD_NULL ) || Ret;
+
+			bdAssert( Ret );
+		}
 
 		std::list< std::string >::const_iterator ExtItr = Extensions.begin( );
 
+		// Bind the functions based on the family they happen to reside in
 		for( ; ExtItr != Extensions.end( ); ++ExtItr )
 		{
+			if( ( *ExtItr ).compare( "GL_ARB_vertex_buffer_object" ) == 0 )
+			{
+				bdAssert( Ret );
+			}
+
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_array_object" ) == 0 )
 			{
 				Ret = ( ( __bglBindVertexArray =
@@ -133,6 +343,17 @@ namespace BD
 
 				bdAssert( Ret );
 			}
+
+			if( ( *ExtItr ).compare( "GL_ARB_shader_objects" ) == 0 )
+			{
+
+				bdAssert( Ret );
+			}
+
+			if( ( *ExtItr ).compare( "GL_ARB_vertex_shader" ) == 0 )
+			{
+				bdAssert( Ret );
+			}
 		}
 
 		
@@ -140,71 +361,8 @@ namespace BD
 	}
 
 	BD_BOOL GlExt::Load()
-	{/*
-		// Make sure everything is clear.
-		s_Loaded = BD_FALSE;
-		s_ExtensionMap.clear();
-		s_ExtensionError = "";
-		s_ExtensionErrorCount = 0;
-
-		// Store the extension pointers in a std::map as well.
-		// Then, we can easily check which extension failed.
-		s_ExtensionMap["glActiveTextureARB"] = (void*)( glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC) GETPROCADDRESS("glActiveTextureARB"));
-		s_ExtensionMap["glAttachObjectARB"] = (void*)( glAttachObjectARB = (PFNGLATTACHOBJECTARBPROC) GETPROCADDRESS("glAttachObjectARB"));
-		s_ExtensionMap["glBindAttribLocationARB"] = (void*)( glBindAttribLocationARB = (PFNGLBINDATTRIBLOCATIONARBPROC) GETPROCADDRESS("glBindAttribLocationARB"));
-		s_ExtensionMap["glGetAttribLocationARB"] = (void*)( glGetAttribLocationARB = (PFNGLGETATTRIBLOCATIONARBPROC) GETPROCADDRESS("glGetAttribLocationARB"));
-		s_ExtensionMap["glBindBufferARB"] = (void*)( glBindBufferARB = (PFNGLBINDBUFFERARBPROC) GETPROCADDRESS("glBindBufferARB"));
-		s_ExtensionMap["glBindVertexArray"] = (void*)( glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC) GETPROCADDRESS("glBindVertexArray"));
-		s_ExtensionMap["glBufferDataARB"] = (void*)( glBufferDataARB = (PFNGLBUFFERDATAARBPROC) GETPROCADDRESS("glBufferDataARB"));
-		s_ExtensionMap["glBufferSubDataARB"] = (void*)( glBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC) GETPROCADDRESS("glBufferSubDataARB"));
-		s_ExtensionMap["glCompileShaderARB"] = (void*)( glCompileShaderARB = (PFNGLCOMPILESHADERARBPROC) GETPROCADDRESS("glCompileShaderARB"));
-		s_ExtensionMap["glCreateProgramObjectARB"] = (void*)( glCreateProgramObjectARB = (PFNGLCREATEPROGRAMOBJECTARBPROC) GETPROCADDRESS("glCreateProgramObjectARB"));
-		s_ExtensionMap["glCreateShaderObjectARB"] = (void*)( glCreateShaderObjectARB = (PFNGLCREATESHADEROBJECTARBPROC) GETPROCADDRESS("glCreateShaderObjectARB"));
-		s_ExtensionMap["glDeleteObjectARB"] = (void*)( glDeleteObjectARB = (PFNGLDELETEOBJECTARBPROC) GETPROCADDRESS("glDeleteObjectARB"));
-		s_ExtensionMap["glDeleteVertexArrays"] = (void*)( glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC) GETPROCADDRESS("glDeleteVertexArrays"));
-		s_ExtensionMap["glEnableVertexAttribArrayARB"] = (void*)( glEnableVertexAttribArrayARB = (PFNGLENABLEVERTEXATTRIBARRAYARBPROC) GETPROCADDRESS("glEnableVertexAttribArrayARB"));
-		s_ExtensionMap["glGenBuffersARB"] = (void*)( glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) GETPROCADDRESS("glGenBuffersARB"));
-		s_ExtensionMap["glGenVertexArrays"] = (void*)( glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC) GETPROCADDRESS("glGenVertexArrays"));
-		s_ExtensionMap["glGetProgramInfoLog"] = (void*)( glGetProgramInfoLog = (PFNGLGETPROGRAMINFOLOGPROC) GETPROCADDRESS("glGetProgramInfoLog"));
-		s_ExtensionMap["glGetProgramiv"] = (void*)( glGetProgramiv = (PFNGLGETPROGRAMIVPROC) GETPROCADDRESS("glGetProgramiv"));
-		s_ExtensionMap["glGetShaderInfoLog"] = (void*)( glGetShaderInfoLog = (PFNGLGETSHADERINFOLOGPROC) GETPROCADDRESS("glGetShaderInfoLog"));
-		s_ExtensionMap["glGetShaderiv"] = (void*)( glGetShaderiv = (PFNGLGETSHADERIVPROC) GETPROCADDRESS("glGetShaderiv"));
-		s_ExtensionMap["glGetUniformLocationARB"] = (void*)( glGetUniformLocationARB = (PFNGLGETUNIFORMLOCATIONARBPROC) GETPROCADDRESS("glGetUniformLocationARB"));
-		s_ExtensionMap["glLinkProgramARB"] = (void*)( glLinkProgramARB = (PFNGLLINKPROGRAMARBPROC) GETPROCADDRESS("glLinkProgramARB"));
-		s_ExtensionMap["glShaderSourceARB"] = (void*)( glShaderSourceARB = (PFNGLSHADERSOURCEARBPROC) GETPROCADDRESS("glShaderSourceARB"));
-		s_ExtensionMap["glUniform1fARB"] = (void*)( glUniform1fARB = (PFNGLUNIFORM1FARBPROC) GETPROCADDRESS("glUniform1fARB"));
-		s_ExtensionMap["glUniform1iARB"] = (void*)( glUniform1iARB = (PFNGLUNIFORM1IARBPROC) GETPROCADDRESS("glUniform1iARB"));
-		s_ExtensionMap["glUniform2fARB"] = (void*)( glUniform2fARB = (PFNGLUNIFORM2FARBPROC) GETPROCADDRESS("glUniform2fARB"));
-		s_ExtensionMap["glUniform2iARB"] = (void*)( glUniform2iARB = (PFNGLUNIFORM2IARBPROC) GETPROCADDRESS("glUniform2iARB"));
-		s_ExtensionMap["glUniform3fARB"] = (void*)( glUniform3fARB = (PFNGLUNIFORM3FARBPROC) GETPROCADDRESS("glUniform3fARB"));
-		s_ExtensionMap["glUniform4fARB"] = (void*)( glUniform4fARB = (PFNGLUNIFORM4FARBPROC) GETPROCADDRESS("glUniform4fARB"));
-		s_ExtensionMap["glUniformMatrix4fvARB"] = (void*)( glUniformMatrix4fvARB = (PFNGLUNIFORMMATRIX4FVARBPROC) GETPROCADDRESS("glUniformMatrix4fvARB"));
-		s_ExtensionMap["glUseProgram"] = (void*)( glUseProgram = (PFNGLUSEPROGRAMPROC)GETPROCADDRESS("glUseProgram"));
-		s_ExtensionMap["glUseProgramObjectARB"] = (void*)( glUseProgramObjectARB = (PFNGLUSEPROGRAMOBJECTARBPROC)GETPROCADDRESS("glUseProgramObjectARB"));
-		s_ExtensionMap["glValidateProgram"] = (void*)( glValidateProgram = (PFNGLVALIDATEPROGRAMPROC)GETPROCADDRESS("glValidateProgram"));
-		s_ExtensionMap["glVertexAttribPointerARB"] = (void*)( glVertexAttribPointerARB = (PFNGLVERTEXATTRIBPOINTERARBPROC)GETPROCADDRESS("glVertexAttribPointerARB"));
-
-		// Make sure all the extensions are ok by checking if any function is BD_NULL.
-		for(std::map<std::string, void*>::iterator it = s_ExtensionMap.begin(); it != s_ExtensionMap.end(); it++)
-		{
-			if(it->second == BD_NULL)
-			{
-				s_ExtensionErrorCount ++;
-				s_ExtensionError += it->first + "\n";
-			}
-		}
-
-		// Return false if any of the extensions failed.
-		if(s_ExtensionErrorCount > 0)
-		{
-			return BD_ERROR;
-		}
-
-		// Everything went fine.
-		s_Loaded = BD_TRUE;*/
+	{
 		return BD_OK;
-
-		return BD_ERROR;
 	}
 
 	BD_BOOL GlExt::IsLoaded()

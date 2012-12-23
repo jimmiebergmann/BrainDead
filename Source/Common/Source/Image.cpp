@@ -1,5 +1,6 @@
 #include <Image.hpp>
 #include <fstream>
+#include <System.hpp>
 #include <Debugger.hpp>
 
 
@@ -19,10 +20,16 @@ namespace BD
 		DeallocateData( );
 	}
 
-	BD_UINT32 Image::ReadFile( const char *p_pFileName )
+	BD_UINT32 Image::ReadFile( char *p_pFileName )
 	{
-		// Temporary, we have to check the extension first...
-		return ReadTGA(p_pFileName);;
+		std::string FileExtension = GetFileExtension(p_pFileName);
+
+		if(FileExtension == "TGA")
+		{
+			return ReadTGA(p_pFileName);
+		}
+
+		return BD_ERROR;
 	}
 
 	BD_UINT32 Image::AddData( BD_BYTE * p_pData, BD_UINT32 p_Width,

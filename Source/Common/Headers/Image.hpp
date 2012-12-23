@@ -13,7 +13,7 @@ namespace BD
 
 		Image( );
 		~Image( );
-		BD_UINT32 ReadFile( const char *p_pFileName ); // Read data from a file.
+		BD_UINT32 ReadFile( char *p_pFileName ); // Read data from a file.
 		BD_UINT32 AddData( BD_BYTE * p_pData, const BD_UINT32 p_Width,
 			const BD_UINT32 p_Height, const BD_UINT32 p_Depth ); // Add raw data by hand (Not from a file)
 		void DeallocateData( );

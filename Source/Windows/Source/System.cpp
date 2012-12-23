@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include <cstring>
+#include <Debugger.hpp>
 
 namespace BD
 {
@@ -23,5 +24,34 @@ namespace BD
 		strncpy( *p_ppBuffer, ExePath.c_str( ), ExePath.size( ) );
 
 		return BD_OK;
+	}
+
+	std::string GetFileExtension( char *p_pBuffer )
+	{
+		// Hacky way of doing it?
+
+		BD_MEMSIZE BufferSize = strlen(p_pBuffer);
+		std::string Extension = "";
+
+		for(BD_MEMSIZE i = BufferSize - 1; i >= 0; i--)
+		{
+			if(p_pBuffer[i] == '.')
+			{
+				// We found a file extension, now let's add every character in the extension
+				// to the Extension string, (as large characters)
+				BD_UINT32 ExtensionPosition = i + 1;
+				
+				// Let's loop through the extension's characters.
+				for(BD_MEMSIZE j = ExtensionPosition; j < BufferSize; j++)
+				{
+					Extension += toupper(p_pBuffer[j]);
+				}
+
+				break;
+
+			}
+		}
+
+		return Extension;
 	}
 }

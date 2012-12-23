@@ -6,6 +6,7 @@ namespace BD
 	TextureOGL::TextureOGL( ) :
 		m_Id(0)
 	{
+		m_Id = 0;
 		m_Loaded = BD_FALSE;
 	}
 

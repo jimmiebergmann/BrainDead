@@ -610,6 +610,10 @@
 						RelativePath="..\Common\Headers\OGL\TextureOGL.hpp"
 						>
 					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\VertexObjectOGL.hpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="OAL"
@@ -688,6 +692,10 @@
 					</File>
 					<File
 						RelativePath="..\Common\Source\OGL\TextureOGL.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Source\OGL\VertexObjectOGL.cpp"
 						>
 					</File>
 				</Filter>

@@ -35,6 +35,7 @@ extern PFNGLBUFFERSUBDATAPROC				__bglBufferSubData;
 extern PFNGLCOMPILESHADERPROC				__bglCompileShader;
 extern PFNGLCREATEPROGRAMPROC				__bglCreateProgram;
 extern PFNGLCREATESHADERPROC				__bglCreateShader;
+extern PFNGLDELETEBUFFERSPROC				__bglDeleteBuffers;
 extern PFNGLDELETEPROGRAMPROC				__bglDeleteProgram;
 extern PFNGLDELETESHADERPROC				__bglDeleteShader;
 extern PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays;
@@ -86,20 +87,26 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglGetStringi		__bglGetStringi
 
 ///////////////////////////////////////////////////////////////////////////////
+// GL VERTEX BUFFER OBJECT FUNCTIONS///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#define bglBindBuffer					__bglBindBuffer
+#define bglBufferData					__bglBufferData
+#define bglBufferSubData				__bglBufferSubData
+#define bglDeleteBuffers				__bglDeleteBuffers
+#define bglGenBuffers					__bglGenBuffers
+
+///////////////////////////////////////////////////////////////////////////////
 // GL SHADER FUNCTIONS ////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 #define bglAttachShader					__bglAttachShader
 #define bglBindAttribLocation			__bglBindAttribLocation
-#define bglBindBuffer					__bglBindBuffer
-#define bglBufferData					__bglBufferData
-#define bglBufferSubData				__bglBufferSubData
 #define bglCompileShader				__bglCompileShader
 #define bglCreateProgram				__bglCreateProgram
 #define bglCreateShader					__bglCreateShader
 #define bglDeleteProgram				__bglDeleteProgram
 #define bglDeleteShader					__bglDeleteShader
 #define bglEnableVertexAttribArray		__bglEnableVertexAttribArray
-#define bglGenBuffers					__bglGenBuffers
 #define bglGetAttribLocation			__bglGetAttribLocation
 #define bglGetProgramInfoLog			__bglGetProgramInfoLog
 #define bglGetProgramiv					__bglGetProgramiv
@@ -109,13 +116,23 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglLinkProgram					__bglLinkProgram
 #define bglShaderSource					__bglShaderSource
 #define bglUniform1f					__bglUniform1f
+#define bglUniform1fv					__bglUniform1fv
 #define bglUniform1i					__bglUniform1i
+#define bglUniform1iv					__bglUniform1iv
 #define bglUniform2f					__bglUniform2f
-#define bglUnifrom2i					__bglUniform2i
+#define bglUniform2fv					__bglUniform2fv
+#define bglUniform2i					__bglUniform2i
+#define bglUniform2iv					__bglUniform2iv
 #define bglUniform3f					__bglUniform3f
+#define bglUniform3fv					__bglUniform3fv
 #define bglUniform3i					__bglUniform3i
+#define bglUniform3iv					__bglUniform3iv
 #define bglUniform4f					__bglUniform4f
+#define bglUniform4fv					__bglUniform4fv
 #define bglUniform4i					__bglUniform4i
+#define bglUniform4iv					__bglUniform4iv
+#define bglUniformMatrix2fv				__bglUniformMatrix2fv
+#define bglUniformMatrix3fv				__bglUniformMatrix3fv
 #define bglUniformMatrix4fv				__bglUniformMatrix4fv
 #define bglUseProgram					__bglUseProgram
 #define bglValidateProgram				__bglValidateProgram

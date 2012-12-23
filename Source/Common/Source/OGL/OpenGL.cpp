@@ -16,6 +16,7 @@ PFNGLBUFFERSUBDATAPROC				__bglBufferSubData = BD_NULL;
 PFNGLCOMPILESHADERPROC				__bglCompileShader = BD_NULL;
 PFNGLCREATEPROGRAMPROC				__bglCreateProgram = BD_NULL;
 PFNGLCREATESHADERPROC				__bglCreateShader = BD_NULL;
+PFNGLDELETEBUFFERSPROC				__bglDeleteBuffers = BD_NULL;
 PFNGLDELETEPROGRAMPROC				__bglDeleteProgram = BD_NULL;
 PFNGLDELETESHADERPROC				__bglDeleteShader = BD_NULL;
 PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays = BD_NULL;
@@ -127,6 +128,31 @@ namespace BD
 		// Bind the functions based on the family they happen to reside in
 		for( ; ExtItr != Extensions.end( ); ++ExtItr )
 		{
+			if( ( *ExtItr ).compare( "GL_ARB_vertex_buffer_object" ) == 0 )
+			{
+				Ret = ( ( __bglBindBuffer =
+					( PFNGLBINDBUFFERPROC )bglGetProcAddress(
+						"glBindBuffer" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglBufferData =
+					( PFNGLBUFFERDATAPROC )bglGetProcAddress(
+						"glBufferData" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglBufferSubData =
+					( PFNGLBUFFERSUBDATAPROC )bglGetProcAddress(
+						"glBufferSubData" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglDeleteBuffers =
+					( PFNGLDELETEBUFFERSPROC )bglGetProcAddress(
+						"glDeleteBuffers" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglGenBuffers =
+					( PFNGLGENBUFFERSPROC )bglGetProcAddress(
+						"glGenBuffers" ) ) == BD_NULL ) || Ret;
+
+				bdAssert( Ret );
+			}
+
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_array_object" ) == 0 )
 			{
 				Ret = ( ( __bglBindVertexArray =
@@ -147,6 +173,42 @@ namespace BD
 
 			if( ( *ExtItr ).compare( "GL_ARB_shader_objects" ) == 0 )
 			{
+				Ret = ( ( __bglAttachShader =
+					( PFNGLATTACHSHADERPROC )bglGetProcAddress(
+						"glAttachShader" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglCompileShader =
+					( PFNGLCOMPILESHADERPROC )bglGetProcAddress(
+						"glCompileShader" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglCreateProgram =
+					( PFNGLCREATEPROGRAMPROC )bglGetProcAddress(
+						"glCreateProgram" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglCreateShader =
+					( PFNGLCREATESHADERPROC )bglGetProcAddress(
+						"glCreateShader" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglGetProgramInfoLog =
+					( PFNGLGETPROGRAMINFOLOGPROC )bglGetProcAddress(
+						"glGetProgramInfoLog" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglGetShaderInfoLog =
+					( PFNGLGETSHADERINFOLOGPROC )bglGetProcAddress(
+						"glGetShaderInfoLog" ) ) == BD_NULL ) || Ret;
+				
+				Ret = ( ( __bglGetUniformLocation =
+					( PFNGLGETUNIFORMLOCATIONPROC )bglGetProcAddress(
+						"glGetUniformLocation" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglLinkProgram =
+					( PFNGLLINKPROGRAMPROC )bglGetProcAddress(
+						"glLinkProgram" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglShaderSource =
+					( PFNGLSHADERSOURCEPROC )bglGetProcAddress(
+						"glShaderSource" ) ) == BD_NULL ) || Ret;
+
 				Ret = ( ( __bglUniform1f =
 					( PFNGLUNIFORM1FPROC )bglGetProcAddress(
 						"glUniform1f" ) ) == BD_NULL ) || Ret;
@@ -223,11 +285,23 @@ namespace BD
 					( PFNGLUNIFORMMATRIX4FVPROC )bglGetProcAddress(
 						"glUniformMatrix4fv" ) ) == BD_NULL ) || Ret;
 
+				Ret = ( ( __bglUseProgram =
+					( PFNGLUSEPROGRAMPROC )bglGetProcAddress(
+						"glUseProgram" ) ) == BD_NULL ) || Ret;
+
+				Ret = ( ( __bglValidateProgram =
+					( PFNGLVALIDATEPROGRAMPROC )bglGetProcAddress(
+						"glValidateProgram" ) ) == BD_NULL ) || Ret;
+
 				bdAssert( Ret );
 			}
 
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_shader" ) == 0 )
 			{
+				Ret = ( ( __bglBindAttribLocation =
+					( PFNGLBINDATTRIBLOCATIONPROC )bglGetProcAddress(
+						"glBindAttribLocation" ) ) == BD_NULL ) || Ret;
+
 				Ret = ( ( __bglEnableVertexAttribArray =
 					( PFNGLENABLEVERTEXATTRIBARRAYPROC )bglGetProcAddress(
 						"glEnableVertexAttribArray" ) ) == BD_NULL ) || Ret;

@@ -7,7 +7,8 @@
 namespace BD
 {
 	BD_UINT32 GetExecutablePath( char **p_ppBuffer, BD_MEMSIZE p_Size );
-	std::string GetFileExtension( char *p_pBuffer );
+	BD_UINT32 GetFileExtension( const char *p_pFilePath, char **p_ppExt,
+		const BD_MEMSIZE p_Size );
 }
 
 #endif

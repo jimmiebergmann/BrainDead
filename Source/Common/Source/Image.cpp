@@ -2,6 +2,7 @@
 #include <fstream>
 #include <System.hpp>
 #include <Debugger.hpp>
+#include <cstring>
 
 
 namespace BD
@@ -22,12 +23,19 @@ namespace BD
 
 	BD_UINT32 Image::ReadFile( char *p_pFileName )
 	{
-		std::string FileExtension = GetFileExtension(p_pFileName);
+		char *pFileExtension = new char[ 3 ];
+		GetFileExtension( p_pFileName, &pFileExtension, 3 );
 
-		if(FileExtension == "TGA")
+		if( strcmp( pFileExtension, "TGA" ) == 0 )
 		{
+			delete [ ] pFileExtension;
+			pFileExtension = BD_NULL;
+
 			return ReadTGA(p_pFileName);
 		}
+
+		delete [ ] pFileExtension;
+		pFileExtension = BD_NULL;
 
 		return BD_ERROR;
 	}

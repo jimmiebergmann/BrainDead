@@ -2,6 +2,7 @@
 #include <DataTypes.hpp>
 #include <LinuxWindow.hpp>
 #include <Debugger.hpp>
+#include <System.hpp>
 
 int main( int p_Argc, char **p_ppArgv )
 {

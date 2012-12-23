@@ -35,6 +35,7 @@ extern PFNGLBUFFERSUBDATAPROC				__bglBufferSubData;
 extern PFNGLCOMPILESHADERPROC				__bglCompileShader;
 extern PFNGLCREATEPROGRAMPROC				__bglCreateProgram;
 extern PFNGLCREATESHADERPROC				__bglCreateShader;
+extern PFNGLDELETEBUFFERSPROC				__bglDeleteBuffers;
 extern PFNGLDELETEPROGRAMPROC				__bglDeleteProgram;
 extern PFNGLDELETESHADERPROC				__bglDeleteShader;
 extern PFNGLDELETEVERTEXARRAYSPROC			__bglDeleteVertexArrays;
@@ -46,21 +47,34 @@ extern PFNGLGETPROGRAMIVPROC				__bglGetProgramiv;
 extern PFNGLGETSHADERINFOLOGPROC			__bglGetShaderInfoLog;
 extern PFNGLGETSHADERIVPROC					__bglGetShaderiv;
 extern PFNGLGETUNIFORMLOCATIONPROC			__bglGetUniformLocation;
+extern PFNGLISVERTEXARRAYPROC				__bglIsVertexArray;
 extern PFNGLLINKPROGRAMPROC					__bglLinkProgram;
 extern PFNGLSHADERSOURCEPROC				__bglShaderSource;
 extern PFNGLUNIFORM1FPROC					__bglUniform1f;
+extern PFNGLUNIFORM1FVPROC					__bglUniform1fv;
 extern PFNGLUNIFORM1IPROC					__bglUniform1i;
+extern PFNGLUNIFORM1IVPROC					__bglUniform1iv;
 extern PFNGLUNIFORM2FPROC					__bglUniform2f;
+extern PFNGLUNIFORM2FVPROC					__bglUniform2fv;
 extern PFNGLUNIFORM2IPROC					__bglUniform2i;
+extern PFNGLUNIFORM2IVPROC					__bglUniform2iv;
 extern PFNGLUNIFORM3FPROC					__bglUniform3f;
+extern PFNGLUNIFORM3FVPROC					__bglUniform3fv;
+extern PFNGLUNIFORM3IPROC					__bglUniform3i;
+extern PFNGLUNIFORM3IVPROC					__bglUniform3iv;
 extern PFNGLUNIFORM4FPROC					__bglUniform4f;
+extern PFNGLUNIFORM4FVPROC					__bglUniform4fv;
+extern PFNGLUNIFORM4IPROC					__bglUniform4i;
+extern PFNGLUNIFORM4IVPROC					__bglUniform4iv;
+extern PFNGLUNIFORMMATRIX2FVPROC			__bglUniformMatrix2fv;
+extern PFNGLUNIFORMMATRIX3FVPROC			__bglUniformMatrix3fv;
 extern PFNGLUNIFORMMATRIX4FVPROC			__bglUniformMatrix4fv;
 extern PFNGLUSEPROGRAMPROC					__bglUseProgram;
 extern PFNGLVALIDATEPROGRAMPROC				__bglValidateProgram;
 extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 
 ///////////////////////////////////////////////////////////////////////////////
-// GL CORE FUNCTIONS //////////////////////////////////////////////////////////
+// GL CORE FUNCTIONS [ GL 1.0 ] ///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 #define bglClear			glClear
 #define bglClearColor		glClearColor
@@ -68,25 +82,39 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglGetString		glGetString
 
 ///////////////////////////////////////////////////////////////////////////////
-// GL ANCILARY FUNCTIONS //////////////////////////////////////////////////////
+// GL CORE FUNCTIONS [ GL 3.0 ] ///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
 #define bglGetStringi		__bglGetStringi
 
 ///////////////////////////////////////////////////////////////////////////////
-// GL SHADER FUNCTIONS ////////////////////////////////////////////////////////
+// GL TEXTURE FUNCTIONS [ GL 1.3 ] ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-#define bglAttachShader					__bglAttachShader
-#define bglBindAttribLocation			__bglBindAttribLocation
+
+#define bglActiveTexture	__bglActiveTexture
+
+///////////////////////////////////////////////////////////////////////////////
+// GL VERTEX BUFFER OBJECT FUNCTIONS [ GL 1.5 ] ///////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 #define bglBindBuffer					__bglBindBuffer
 #define bglBufferData					__bglBufferData
 #define bglBufferSubData				__bglBufferSubData
+#define bglDeleteBuffers				__bglDeleteBuffers
+#define bglGenBuffers					__bglGenBuffers
+
+///////////////////////////////////////////////////////////////////////////////
+// GL SHADER FUNCTIONS [ GL 2.0 ] /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#define bglAttachShader					__bglAttachShader
+#define bglBindAttribLocation			__bglBindAttribLocation
 #define bglCompileShader				__bglCompileShader
 #define bglCreateProgram				__bglCreateProgram
 #define bglCreateShader					__bglCreateShader
 #define bglDeleteProgram				__bglDeleteProgram
 #define bglDeleteShader					__bglDeleteShader
 #define bglEnableVertexAttribArray		__bglEnableVertexAttribArray
-#define bglGenBuffers					__bglGenBuffers
 #define bglGetAttribLocation			__bglGetAttribLocation
 #define bglGetProgramInfoLog			__bglGetProgramInfoLog
 #define bglGetProgramiv					__bglGetProgramiv
@@ -96,42 +124,52 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 #define bglLinkProgram					__bglLinkProgram
 #define bglShaderSource					__bglShaderSource
 #define bglUniform1f					__bglUniform1f
+#define bglUniform1fv					__bglUniform1fv
 #define bglUniform1i					__bglUniform1i
+#define bglUniform1iv					__bglUniform1iv
 #define bglUniform2f					__bglUniform2f
-#define bglUnifrom2i					__bglUniform2i
+#define bglUniform2fv					__bglUniform2fv
+#define bglUniform2i					__bglUniform2i
+#define bglUniform2iv					__bglUniform2iv
 #define bglUniform3f					__bglUniform3f
+#define bglUniform3fv					__bglUniform3fv
 #define bglUniform3i					__bglUniform3i
+#define bglUniform3iv					__bglUniform3iv
 #define bglUniform4f					__bglUniform4f
+#define bglUniform4fv					__bglUniform4fv
 #define bglUniform4i					__bglUniform4i
+#define bglUniform4iv					__bglUniform4iv
+#define bglUniformMatrix2fv				__bglUniformMatrix2fv
+#define bglUniformMatrix3fv				__bglUniformMatrix3fv
 #define bglUniformMatrix4fv				__bglUniformMatrix4fv
 #define bglUseProgram					__bglUseProgram
 #define bglValidateProgram				__bglValidateProgram
 #define bglVertexAttribPointer			__bglVertexAttribPointer
 
 ///////////////////////////////////////////////////////////////////////////////
-// GL VERTEX ATTRIBUTE OBJECT FUNCTIONS //////////////////////////////////////
+// GL VERTEX ATTRIBUTE OBJECT FUNCTIONS [ GL_ARB_vertex_array_object ] ////////
 ///////////////////////////////////////////////////////////////////////////////
+
 #define bglBindVertexArray		__bglBindVertexArray
 #define bglDeleteVertexArrays	__bglDeleteVertexArrays
 #define bglGetVertexArrays		__bglGetVertexArrays
 #define bglIsVertexArray		__bglIsVertexArray
 
 ///////////////////////////////////////////////////////////////////////////////
-// GL TEXTURE FUNCTIONS ///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-#define bglActiveTexture	__bglActiveTexture
-
-///////////////////////////////////////////////////////////////////////////////
 // WINDOWING SYSTEM EXTENSIONS ////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
 #ifdef PLATFORM_WINDOWS
 	#define bglGetProcAddress( p_GLExt ) wglGetProcAddress( p_GLExt )
 	#define PFNWGLGETEXTENSIONSSTRINGPROC	__bglwsGetExtensionsString
 	#define PFNWGLCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribs
 #elif PLATFORM_LINUX
+	extern PFNGLXCREATECONTEXTATTRIBSARBPROC	__bglwsCreateContextAttribsARB;
+
 	#define bglGetProcAddress( p_GLExt ) glXGetProcAddress(\
 		( const GLubyte * )p_GLExt )
-	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribs
+	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribsARB
+
 #else
 	#error No platform specified as a pre-processor directive
 #endif
@@ -143,10 +181,16 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 namespace BD
 {
 	// GL Extensions functions
-	BD_UINT32 GLExtLoad( GLint p_Major, GLint p_Minor );
+	BD_UINT32 GLExtBind( GLint p_Major, GLint p_Minor );
 
 	// GL Windowing System Extensions functions
-	BD_UINT32 GLWSExtLoad( );
+#ifdef PLATFORM_WINDOWS
+	BD_UINT32 GLWSExtBind( );
+#elif PLATFORM_LINUX
+	BD_UINT32 GLWSExtBind( Display *p_pDisplay, int p_Screen );
+#else
+	#error No platform specified as a pre-processor directive
+#endif
 
 	class GlExt
 	{

@@ -22,7 +22,7 @@ namespace BD
 		BD_UINT32 GetHeight( ) const;
 		BD_UINT32 GetDepth( ) const;
 		BD_UINT32 GetSize( ) const; // (Width * Height * Depth)
-		BD_BOOL HaveData( ) const; // Does the Image class have any data?
+		BD_BOOL ContainsData( ) const; // Does the Image class have any data?
 
 	private:
 

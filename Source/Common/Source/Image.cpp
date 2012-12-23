@@ -90,7 +90,7 @@ namespace BD
 		return (m_Width * m_Height * m_Depth);
 	}
 
-	BD_BOOL Image::HaveData( ) const
+	BD_BOOL Image::ContainsData( ) const
 	{
 		return (m_pData != BD_NULL);
 	}
@@ -163,7 +163,7 @@ namespace BD
 	void Image::BGR_To_RGB( )
 	{
 		// Make sure we have any data to swap
-		if(HaveData() == BD_FALSE)
+		if(ContainsData() == BD_FALSE)
 		{
 			return;
 		}
@@ -184,7 +184,7 @@ namespace BD
 	void Image::BGRA_To_RGBA( )
 	{
 		// Make sure we have any data to swap
-		if(HaveData() == BD_FALSE)
+		if(ContainsData() == BD_FALSE)
 		{
 			return;
 		}

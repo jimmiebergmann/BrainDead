@@ -12,17 +12,16 @@ namespace BD
 
 	public:
 
-		virtual ~Texture( );
+		virtual ~Texture( ) { }
 		virtual BD_UINT32 Load( const Image & p_Image) = 0;
-		virtual BD_UINT32 Unload( ) = 0;
-		virtual void Bind( );
-		virtual void Unbind( );
+		virtual void Bind( BD_UINT32 p_Index ) = 0;
+		virtual void Unbind( ) = 0;
 		// Filter functions
 		// ...
 
 		BD_INLINE BD_BOOL IsLoaded( ) { return m_Loaded; };
 
-	private:
+	protected:
 
 		BD_BOOL m_Loaded;
 

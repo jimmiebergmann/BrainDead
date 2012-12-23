@@ -606,6 +606,10 @@
 						RelativePath="..\Common\Headers\OGL\ShaderProgramOGL.hpp"
 						>
 					</File>
+					<File
+						RelativePath="..\Common\Headers\OGL\TextureOGL.hpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="OAL"
@@ -680,6 +684,10 @@
 					</File>
 					<File
 						RelativePath="..\Common\Source\OGL\ShaderProgramOGL.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\Common\Source\OGL\TextureOGL.cpp"
 						>
 					</File>
 				</Filter>

@@ -164,9 +164,12 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 	#define PFNWGLGETEXTENSIONSSTRINGPROC	__bglwsGetExtensionsString
 	#define PFNWGLCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribs
 #elif PLATFORM_LINUX
+	extern PFNGLXCREATECONTEXTATTRIBSARBPROC	__bglwsCreateContextAttribsARB;
+
 	#define bglGetProcAddress( p_GLExt ) glXGetProcAddress(\
 		( const GLubyte * )p_GLExt )
-	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribs
+	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribsARB
+
 #else
 	#error No platform specified as a pre-processor directive
 #endif
@@ -181,7 +184,13 @@ namespace BD
 	BD_UINT32 GLExtBind( GLint p_Major, GLint p_Minor );
 
 	// GL Windowing System Extensions functions
+#ifdef PLATFORM_WINDOWS
 	BD_UINT32 GLWSExtBind( );
+#elif PLATFORM_LINUX
+	BD_UINT32 GLWSExtBind( Display *p_pDisplay, int p_Screen );
+#else
+	#error No platform specified as a pre-processor directive
+#endif
 
 	class GlExt
 	{

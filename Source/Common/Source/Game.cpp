@@ -44,17 +44,16 @@ namespace BD
 
 		// Main loop
 		while( m_Running )
-		{/*
+		{
 			if( m_pWindow->DoEvents() != BD_OK )
 			{
 				break;
-			}*/
+			}
 
 			m_pRenderer->StartScene();
 
 			// Draw things here
 			m_pRenderer->EndScene();
-break;
 		}
 		
 

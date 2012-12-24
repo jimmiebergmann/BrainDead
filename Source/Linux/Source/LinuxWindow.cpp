@@ -59,6 +59,7 @@ namespace BD
 
 		m_Fullscreen = p_Fullscreen;
 
+		// HARDCODED!
 		BD_SINT32 GLXAttribs[ ] =
 		{
 			GLX_X_RENDERABLE,	True,
@@ -74,6 +75,7 @@ namespace BD
 			GLX_DOUBLEBUFFER,	True,
 			None
 		};
+		// !HARDCODED
 
 		// For now, we will only care about GLX 1.3
 		BD_SINT32 Major = 0, Minor = 0;
@@ -309,8 +311,6 @@ namespace BD
 
 		bglViewport( 0, 0, m_Width, m_Height );
 
-		m_Created = BD_TRUE;
-
 		return BD_OK;
 	}
 
@@ -318,7 +318,7 @@ namespace BD
 	{
 		XEvent Event;
 		KeySym Key;
-/*
+
 		while( XPending( m_pDisplay ) > 0 )
 		{
 			XNextEvent( m_pDisplay, &Event );
@@ -340,7 +340,7 @@ namespace BD
 					break;
 				}
 			}
-		}*/
+		}
 
 		
 		return BD_OK;
@@ -350,6 +350,9 @@ namespace BD
 	{
 		WINDATA Data;
 		memset( &Data, 0, sizeof( WINDATA ) );
+
+		Data.Window = m_Window;
+		Data.pDisplay = m_pDisplay;
 
 		return Data;
 	}

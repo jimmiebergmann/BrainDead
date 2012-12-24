@@ -66,6 +66,13 @@ namespace BD
 		m_BufferVector.clear();
 
 		// Load the vertex buffer object
+		//dglGenVertexArrays(1, &m_VertexArrayObject);
+		//dglBindVertexArray(m_VertexArrayObject);
+ 
+
+		// Allocate memory for the VBOs
+
+		
 
 		// Load every single vertex array object.
 

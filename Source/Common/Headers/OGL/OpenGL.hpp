@@ -191,7 +191,7 @@ namespace BD
 #else
 	#error No platform specified as a pre-processor directive
 #endif
-
+/*
 	class GlExt
 	{
 
@@ -210,7 +210,7 @@ namespace BD
 		static BD_UINT32 s_ExtensionErrorCount;
 
 	};
-
+*/
 }
 
 #endif

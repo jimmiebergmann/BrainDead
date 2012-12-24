@@ -121,7 +121,7 @@ namespace BD
 		}
 
 		// Load all the opengl extensions
-		if(GlExt::Load() == BD_ERROR)
+		if(GLExtBind(3,3) == BD_ERROR)
 		{
 			return BD_ERROR;
 		}

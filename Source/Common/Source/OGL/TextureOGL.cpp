@@ -2,6 +2,9 @@
 
 namespace BD
 {
+	// Set the static m_PixelFormats values
+	GLint TextureOGL::m_PixelFormats[4] = { 0, 0, GL_RGB, GL_RGBA };
+
 
 	TextureOGL::TextureOGL( ) :
 		m_Id(0)
@@ -41,9 +44,8 @@ namespace BD
 		GLint OpenGLTextureFormats[2] = { GL_RGB, GL_RGBA };
 		GLint Format = OpenGLTextureFormats[Depth - 3];
 
-		// Generate a OGL texture id.
+		// Generate an OGL texture id.
 		glGenTextures(1, &m_Id);
-
 		glBindTexture (GL_TEXTURE_2D, m_Id);
 /*
 		// Filters
@@ -55,6 +57,32 @@ namespace BD
 
 		glTexImage2D ( GL_TEXTURE_2D, 0, Format, p_Image.GetWidth(), p_Image.GetHeight(), 0,
 			(GLenum)Format, GL_UNSIGNED_BYTE, (GLvoid *)p_Image.GetData() );
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		m_Loaded = BD_TRUE;
+		return BD_OK;
+	}
+
+	BD_UINT32 TextureOGL::Load( BD_UINT32 p_Width, BD_UINT32 p_Height,
+			const ePixelFormat p_PixelFormat, BD_BYTE * p_Data )
+	{
+		if( p_Data == BD_NULL )
+		{
+			return BD_ERROR;
+		}
+
+
+		GLint Format = m_PixelFormats[(int)p_PixelFormat];
+
+		// Generate an OGL texture id.
+		glGenTextures(1, &m_Id);
+		glBindTexture (GL_TEXTURE_2D, m_Id);
+
+		glTexImage2D ( GL_TEXTURE_2D, 0, Format, p_Width, p_Height, 0,
+			(GLenum)Format, GL_UNSIGNED_BYTE, (GLvoid *)p_Data );
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 		
 		m_Loaded = BD_TRUE;
 		return BD_OK;

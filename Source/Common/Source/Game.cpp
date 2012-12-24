@@ -22,12 +22,13 @@ namespace BD
 		m_Running(BD_FALSE),
 		m_pWindow(BD_NULL),
 		m_pRenderer(BD_NULL),
-
+/*
 		m_pVertexShader(BD_NULL),
 		m_pFragmentShader(BD_NULL),
 		m_pShaderProgram(BD_NULL),
-
-		m_pImage(BD_NULL)
+*/
+		m_pImage(BD_NULL),
+		m_pTexture(BD_NULL)
 	{
 	}
 
@@ -44,6 +45,8 @@ namespace BD
 		// Main loop
 		while(m_Running)
 		{
+			bdSleep(0);
+
 			if(m_pWindow->DoEvents() != BD_OK)
 			{
 				break;
@@ -61,7 +64,7 @@ namespace BD
 		// Unload the game
 		if(Unload() != BD_OK)
 		{
-#ifdef PLATFORm_pWindowS
+#ifdef PLATFORM_WINDOWS
 			::MessageBox(NULL, L"Failed to unload BrainDead", L"BrainDead Erorr.", MB_OK | MB_ICONEXCLAMATION);
 #elif PLATFORM_LINUX
 			std::cout << "Error: Failed to unload BrainDead." << std::endl;
@@ -86,29 +89,35 @@ namespace BD
 #endif
 
 
-		// Load the test image
-		m_pImage = new Image();
-		if(m_pImage->ReadFile("Data/TGA_Test.tga") != BD_OK)
-		{
-			return BD_ERROR;
-		}
-
+		
 
 		// Create the window
-		if(m_pWindow->Create( 800, 600, false ) != BD_OK)
+		if( m_pWindow->Create( 800, 600, false ) != BD_OK )
 		{
 			return BD_ERROR;
 		}
-		if(m_pRenderer->Create(*m_pWindow) != BD_OK)
+		if( m_pRenderer->Create( *m_pWindow ) != BD_OK )
 		{
 			return BD_ERROR;
 		}
 
-		// Output debug information about the renderer
-		// Renderer::eRendererType RendererType = m_Renderer.GetRendererType();
+		// Load the test image
+		m_pImage = new Image( );
+		if( m_pImage->ReadFile( "Data/TGA_Test.tga" ) != BD_OK )
+		{
+			return BD_ERROR;
+		}
+
+		m_pTexture = new TextureOGL();
+		if( m_pTexture->Load( *m_pImage ) )
+		{
+			return BD_ERROR;
+		}
 
 
 
+
+		/*
 		// Test shaders
 		std::string VertexValidation = "";
 		std::string FragmentValidation = "";
@@ -142,7 +151,7 @@ namespace BD
 		}
 
 
-
+*/
 
 		m_Loaded = true;
 		return BD_OK;
@@ -162,7 +171,7 @@ namespace BD
 			m_pRenderer = BD_NULL;
 		}
 
-		// Shader test
+		/*// Shader test
 		if(m_pVertexShader)
 		{
 			delete m_pVertexShader;
@@ -174,12 +183,18 @@ namespace BD
 			delete m_pFragmentShader;
 			m_pFragmentShader = BD_NULL;
 		}
-
+*/
 		// Image test
 		if(m_pImage)
 		{
 			delete m_pImage;
 			m_pImage = BD_NULL;
+		}
+
+		if(m_pTexture)
+		{
+			delete m_pTexture;
+			m_pTexture = BD_NULL;
 		}
 		
 		

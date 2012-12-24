@@ -57,15 +57,20 @@ PFNGLVERTEXATTRIBPOINTERPROC		__bglVertexAttribPointer = BD_NULL;
 
 namespace BD
 {
-	static BD_BOOL s_GLExtLoaded = BD_FALSE;
+	static BD_BOOL s_GLExtIsBound = BD_FALSE;
 
+	/*
 	BD_BOOL GlExt::s_Loaded = BD_FALSE;
 	std::map<std::string, void*> GlExt::s_ExtensionMap;
 	std::string GlExt::s_ExtensionError = "";
 	BD_UINT32 GlExt::s_ExtensionErrorCount = 0;
+*/
+
 
 	BD_BOOL GLExtBind( GLint p_Major, GLint p_Minor )
 	{
+		s_GLExtIsBound = BD_FALSE;
+
 		// Get the GL extensions list and attempt to load them
 		std::list< std::string > Extensions;
 		GLint NumExtensions = 0;
@@ -131,7 +136,7 @@ namespace BD
 				( PFNGLACTIVETEXTUREPROC )bglGetProcAddress(
 					"glActiveTexture" ) ) == BD_NULL ) || Ret;
 
-			bdAssert( Ret );
+			//bdAssert( Ret );
 		}
 
 		if( p_Major > 1 || ( p_Major == 1 && p_Minor >= 5 ) )
@@ -156,7 +161,7 @@ namespace BD
 				( PFNGLGENBUFFERSPROC )bglGetProcAddress(
 					"glGenBuffers" ) ) == BD_NULL ) || Ret;
 
-			bdAssert( Ret );
+			//bdAssert( Ret );
 		}
 
 		if( p_Major > 2 || ( p_Major == 2 && p_Minor >= 0 ) )
@@ -313,7 +318,7 @@ namespace BD
 				( PFNGLVERTEXATTRIBPOINTERPROC )bglGetProcAddress(
 					"glVertexAttribPointer" ) ) == BD_NULL ) || Ret;
 
-			bdAssert( Ret );
+			//bdAssert( Ret );
 		}
 
 		std::list< std::string >::const_iterator ExtItr = Extensions.begin( );
@@ -323,7 +328,7 @@ namespace BD
 		{
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_buffer_object" ) == 0 )
 			{
-				bdAssert( Ret );
+				//bdAssert( Ret );
 			}
 
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_array_object" ) == 0 )
@@ -341,25 +346,30 @@ namespace BD
 					( PFNGLISVERTEXARRAYPROC )bglGetProcAddress(
 						"glIsVertexArray" ) ) == BD_NULL ) || Ret;
 
-				bdAssert( Ret );
+				//bdAssert( Ret );
 			}
 
 			if( ( *ExtItr ).compare( "GL_ARB_shader_objects" ) == 0 )
 			{
 
-				bdAssert( Ret );
+				//bdAssert( Ret );
 			}
 
 			if( ( *ExtItr ).compare( "GL_ARB_vertex_shader" ) == 0 )
 			{
-				bdAssert( Ret );
+				//bdAssert( Ret );
 			}
 		}
 
 		
+		s_GLExtIsBound = BD_TRUE;
 		return BD_OK;
 	}
 
+
+
+
+/*
 	BD_BOOL GlExt::Load()
 	{
 		return BD_OK;
@@ -380,5 +390,5 @@ namespace BD
 
 		return s_ExtensionErrorCount;
 	}
-
+*/
 }

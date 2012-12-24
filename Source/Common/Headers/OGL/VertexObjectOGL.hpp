@@ -13,13 +13,17 @@ namespace BD
 
 		VertexObjectOGL();
 		virtual ~VertexObjectOGL();
-		virtual BD_UINT32 AddVertexBuffer( BD_FLOAT32 * p_Buffer, BD_UINT32 p_VertexSize,
+		virtual BD_UINT32 AddVertexBuffer( BD_FLOAT32 * p_pBuffer, BD_UINT32 p_VertexSize,
 			BD_UINT32 & p_VertexIndex );
 		virtual BD_UINT32 Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize );
+		virtual void Render(eRenderMode p_Mode);
 
 	private:
 
-		
+		GLuint m_VertexArrayObject;
+		GLuint * m_pVertexBufferObject;
+		BD_UINT32 m_VertexBufferObjectCount;
+		static GLenum s_RenderModes[3];
 
 	};
 

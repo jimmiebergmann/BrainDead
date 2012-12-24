@@ -14,16 +14,17 @@ namespace BD
 
 		enum eRenderMode
 		{
-			RENDERMODE_NONE = 0,
-			RENDERMODE_TRIANGLES = 1,
-			RENDERMODE_LINES = 2,
-			RENDERMODE_LINE_STRIP = 3
+			RENDERMODE_TRIANGLES = 0,
+			RENDERMODE_LINES = 1,
+			RENDERMODE_LINE_STRIP = 2
 		};
 
 		virtual ~VertexObject( ) { }
-		virtual BD_UINT32 AddVertexBuffer( BD_FLOAT32 * p_Buffer, BD_UINT32 p_VertexSize,
+		virtual BD_UINT32 AddVertexBuffer( BD_FLOAT32 * p_pBuffer, BD_UINT32 p_VertexSize,
 			BD_UINT32 & p_VertexIndex ) = 0;
 		virtual BD_UINT32 Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize ) = 0;
+		virtual void Render(eRenderMode p_Mode) = 0;
+
 		BD_INLINE BD_BOOL IsLoaded( ) const { return m_Loaded; }
 
 	protected:
@@ -35,6 +36,7 @@ namespace BD
 		};
 
 		BD_BOOL m_Loaded;
+		BD_UINT32 m_TotalPieceSize;	// PieceCount + PieceSize
 		std::vector<BufferStruct> m_BufferVector;
 
 	};

@@ -183,38 +183,59 @@ namespace BD
 		}
 		else
 		{
-			// HARDCODED!
+			BD_SINT32 GLVersions [ ] =
+			{
+				4, 3,
+				4, 2,
+				4, 1,
+				4, 0,
+				3, 3,
+				3, 2,
+				3, 1,
+				3, 0,
+				2, 1,
+				2, 0,
+				1, 5,
+				1, 4,
+				1, 3, 
+				1, 2,
+				1, 1,
+				1, 0
+			};
+
 			int ContextAttribs [ ] =
 			{
-				GLX_CONTEXT_MAJOR_VERSION_ARB,	3,
-				GLX_CONTEXT_MINOR_VERSION_ARB,	3,
+				GLX_CONTEXT_MAJOR_VERSION_ARB,	0,
+				GLX_CONTEXT_MINOR_VERSION_ARB,	0,
+#ifdef BUILD_DEBUG
+				GLX_CONTEXT_FLAGS_ARB,	GLX_CONTEXT_DEBUG_BIT_ARB,
+#endif
 				// Add forward-compatible and debug if debug
 				None
 			};
-			// !HARDCODED
 
-			bdTrace( BD_NULL, "[BD::LinuxWindow::Create] <INFO> "
-				"Attempting to create a GLX context for OpenGL 3.3... " );
-
-			m_GLXContext = bglwsCreateContextAttribsARB( m_pDisplay, FBC,
-				0, True, ContextAttribs );
-
-			XSync( m_pDisplay, False );
-
-			if( !g_sContextError && m_GLXContext )
+			for( BD_MEMSIZE i = 0;
+				i < ( sizeof( GLVersions ) / sizeof( BD_SINT32 ) / 2 ); ++i )
 			{
-				bdTrace( BD_NULL, "[ OK ]\n" );
-			}
-			else
-			{
-				bdTrace( BD_NULL, "[ FAIL ]\n"
-					"\t Falling back to a GLX context for OpenGL 1.0\n" );
-				ContextAttribs[ 1 ] = 1;
-				ContextAttribs[ 3 ] = 0;
+				bdTrace( BD_NULL, "[BD::LinuxWindow::Create] <INFO> "
+					"Attempting to create a GLX context for OpenGL "
+					"%ld.%ld... ",
+					GLVersions[ i*2 ], GLVersions[ i*2+1 ] );	
+				ContextAttribs[ 1 ] = GLVersions[ i*2 ];
+				ContextAttribs[ 3 ] = GLVersions[ i*2+1 ];
 
-				g_sContextError = BD_FALSE;
 				m_GLXContext = bglwsCreateContextAttribsARB( m_pDisplay, FBC,
 					0, True, ContextAttribs );
+
+				XSync( m_pDisplay, False );
+
+				if( !g_sContextError && m_GLXContext )
+				{
+					bdTrace( BD_NULL, "[ OK ]\n" );
+					break;
+				}
+				g_sContextError = BD_FALSE;
+				bdTrace( BD_NULL, "\n" );
 			}
 		}
 

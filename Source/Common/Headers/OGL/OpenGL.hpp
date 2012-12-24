@@ -78,6 +78,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 ///////////////////////////////////////////////////////////////////////////////
 #define bglClear			glClear
 #define bglClearColor		glClearColor
+#define bglGetError			glGetError
 #define bglGetIntegerv		glGetIntegerv
 #define bglGetString		glGetString
 #define bglViewport			glViewport
@@ -169,7 +170,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 
 	#define bglGetProcAddress( p_GLExt ) glXGetProcAddress(\
 		( const GLubyte * )p_GLExt )
-	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribsARB
+	#define bglwsCreateContextAttribsARB	__bglwsCreateContextAttribsARB
 
 #else
 	#error No platform specified as a pre-processor directive

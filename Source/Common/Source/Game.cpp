@@ -44,17 +44,17 @@ namespace BD
 
 		// Main loop
 		while( m_Running )
-		{
+		{/*
 			if( m_pWindow->DoEvents() != BD_OK )
 			{
 				break;
-			}
+			}*/
 
 			m_pRenderer->StartScene();
 
 			// Draw things here
 			m_pRenderer->EndScene();
-
+break;
 		}
 		
 
@@ -77,7 +77,7 @@ namespace BD
 		m_pRenderer = new WindowsRendererOGL( );
 #elif PLATFORM_LINUX
 		m_pWindow = new LinuxWindow( );
-		if(m_pWindow->Create( 800, 600, false ) != BD_OK)
+		if( m_pWindow->Create( 800, 600, BD_FALSE ) != BD_OK)
 		{
 			return BD_ERROR;
 		}

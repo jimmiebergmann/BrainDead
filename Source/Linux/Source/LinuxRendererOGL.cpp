@@ -4,7 +4,7 @@ namespace BD
 {
 	LinuxRendererOGL::LinuxRendererOGL( const WINDATA &p_WinData )
 	{
-		m_WinData = p_WinData;
+//		m_WinData = p_WinData;
 	}
 
 	LinuxRendererOGL::~LinuxRendererOGL( )
@@ -13,6 +13,7 @@ namespace BD
 
 	BD_UINT32 LinuxRendererOGL::Create( const Window &p_Window )
 	{
+		m_WinData = p_Window.Data( );
 		return BD_OK;
 	}
 
@@ -22,6 +23,21 @@ namespace BD
 			GL_STENCIL_BUFFER_BIT;
 
 		bglClear( Flags );
+
+		glXSwapBuffers( m_WinData.pDisplay, m_WinData.Window );
+		sleep( 1 );
+
+		bglClearColor( 0.0f, 1.0f, 0.0f, 1.0f );
+		bglClear( Flags );
+
+		glXSwapBuffers( m_WinData.pDisplay, m_WinData.Window );
+		sleep( 1 );
+		bglClearColor( 1.0f, 0.0f, 0.0f, 1.0f );
+		bglClear( Flags );
+
+		glXSwapBuffers( m_WinData.pDisplay, m_WinData.Window );
+
+		sleep( 1 );
 	}
 
 	void LinuxRendererOGL::EndScene( )

@@ -11,6 +11,8 @@
 #error No platform pre-processor directive specified
 #endif
 
+#include <Debugger.hpp>
+
 namespace BD
 {
 	Game::~Game()
@@ -22,15 +24,13 @@ namespace BD
 		m_Running(BD_FALSE),
 		m_pWindow(BD_NULL),
 		m_pRenderer(BD_NULL),
-/*
+
 		m_pVertexShader(BD_NULL),
 		m_pFragmentShader(BD_NULL),
 		m_pShaderProgram(BD_NULL),
-*/
-		/*m_pImage(BD_NULL),
-		m_pTexture(BD_NULL)*/
-
-		m_pVertexObject(BD_NULL)
+		m_pVertexObject(BD_NULL),
+		m_pImage(BD_NULL),
+		m_pTexture(BD_NULL)
 	{
 	}
 
@@ -102,30 +102,89 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
+		
+		// Loading the test rendering data.
+
+
+		// Load the shaders
+		std::string VertexValidation = "";
+		std::string FragmentValidation = "";
+		m_pVertexShader = new ShaderOGL(Shader::SHADERTYPE_VERTEX);
+		m_pFragmentShader = new ShaderOGL(Shader::SHADERTYPE_FRAGMENT);
+
+		if( m_pVertexShader->Read("Data/Shader.vert") != BD_OK )
+		{
+			return BD_ERROR;
+		}
+		if( m_pVertexShader->Load(VertexValidation) != BD_OK )
+		{
+			return BD_ERROR;
+		}
+		if( VertexValidation.length() > 0)
+		{
+			bdTrace( NULL, "Vertex shader validation:\n" );
+			bdTrace( NULL, "%s", VertexValidation.c_str() );
+		}
+
+		if( m_pFragmentShader->Read("Data/Shader.frag") != BD_OK )
+		{
+			return BD_ERROR;
+		}
+		if( m_pFragmentShader->Load(FragmentValidation) != BD_OK )
+		{
+			return BD_ERROR;
+		}
+		if( FragmentValidation.length() > 0)
+		{
+			bdTrace( NULL, "Fragment shader validation:\n" );
+			bdTrace( NULL, "%s", FragmentValidation.c_str() );
+		}
+
+		// Load the shader program
+		std::string ShaderProgramValidation = "";
+		m_pShaderProgram = new ShaderProgramOGL();
+		if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
+		{
+			return BD_ERROR;
+		}
+		if( ShaderProgramValidation.length() > 0)
+		{
+			bdTrace( NULL, "Shader program shader validation:\n" );
+			bdTrace( NULL, "%s", ShaderProgramValidation.data() );
+		}
 
 
 		// Load the vertex object
 		m_pVertexObject = new VertexObjectOGL( );
-
-		BD_FLOAT32 VertexBuffer[3*3] = 
+		BD_FLOAT32 VertexBuffer[18] = 
 		{
-			1, 2, 3,
-			4, 5, 6
+			0, 0, 0,   0, 0, 0,    0, 0, 0,
+			0, 0, 0,   0, 0, 0,    0, 0, 0,
 		};
-		BD_UINT32 VertexIndex = 0;
+		BD_FLOAT32 TextureBuffer[12] = 
+		{
+			0, 0,   0, 0,   0, 0,
+			0, 0,   0, 0,   0, 0,
+		};
+		BD_UINT32 VertexAttributeLocation = 0;
+		BD_UINT32 TextureAttributeLocation = 0;
 		
-		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexIndex )  == BD_ERROR )
+		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexAttributeLocation )  == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
+		if( m_pVertexObject->AddVertexBuffer( TextureBuffer, 2, TextureAttributeLocation )  == BD_ERROR )
 		{
 			return BD_ERROR;
 		}
 
-		if( m_pVertexObject->Load( 1, 3 ) == BD_ERROR )
+		if( m_pVertexObject->Load( 2, 3 ) == BD_ERROR )
 		{
 			return BD_ERROR;
 		}
 
-/*
-		// Load the test image
+
+		// Load the image and texture
 		m_pImage = new Image( );
 		if( m_pImage->ReadFile( "Data/TGA_Test.tga" ) != BD_OK )
 		{
@@ -137,45 +196,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-*/
 
-
-
-		/*
-		// Test shaders
-		std::string VertexValidation = "";
-		std::string FragmentValidation = "";
-		m_pVertexShader = new ShaderOGL(Shader::SHADERTYPE_VERTEX);
-		m_pFragmentShader = new ShaderOGL(Shader::SHADERTYPE_FRAGMENT);
-
-		if(m_pVertexShader->Read("Data/Shader.vert") != BD_OK)
-		{
-			return BD_ERROR;
-		}
-		if(m_pVertexShader->Load(VertexValidation) != BD_OK)
-		{
-			return BD_ERROR;
-		}
-
-		if(m_pFragmentShader->Read("Data/Shader.frag") != BD_OK)
-		{
-			return BD_ERROR;
-		}
-		if(m_pFragmentShader->Load(FragmentValidation) != BD_OK)
-		{
-			return BD_ERROR;
-		}
-
-		// Load the shader program
-		std::string ShaderProgramValidation = "";
-		m_pShaderProgram = new ShaderProgramOGL();
-		if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
-		{
-			return BD_ERROR;
-		}
-
-
-*/
 
 		m_Loaded = true;
 		return BD_OK;
@@ -183,6 +204,40 @@ namespace BD
 
 	BD_UINT32 Game::Unload()
 	{
+		if( m_pVertexShader )
+		{
+			delete m_pVertexShader;
+			m_pVertexShader = BD_NULL;
+		}
+		if( m_pFragmentShader )
+		{
+			delete m_pFragmentShader;
+			m_pFragmentShader = BD_NULL;
+		}
+		if( m_pShaderProgram )
+		{
+			delete m_pShaderProgram;
+			m_pShaderProgram = BD_NULL;
+		}
+
+		if( m_pVertexObject )
+		{
+			delete m_pVertexObject;
+			m_pVertexObject = BD_NULL;
+		}
+
+		if( m_pImage )
+		{
+			delete m_pImage;
+			m_pImage = BD_NULL;
+		}
+		if ( m_pTexture )
+		{
+			delete m_pTexture;
+			m_pTexture = BD_NULL;
+		}
+
+
 		if(m_pWindow)
 		{
 			delete m_pWindow;
@@ -195,38 +250,8 @@ namespace BD
 			m_pRenderer = BD_NULL;
 		}
 
-		/*// Shader test
-		if(m_pVertexShader)
-		{
-			delete m_pVertexShader;
-			m_pVertexShader = BD_NULL;
-		}
 
-		if(m_pFragmentShader)
-		{
-			delete m_pFragmentShader;
-			m_pFragmentShader = BD_NULL;
-		}
-*/
-		/*// Image test
-		if(m_pImage)
-		{
-			delete m_pImage;
-			m_pImage = BD_NULL;
-		}
-
-		if(m_pTexture)
-		{
-			delete m_pTexture;
-			m_pTexture = BD_NULL;
-		}
-		*/
-
-		if(m_pVertexObject)
-		{
-			delete m_pVertexObject;
-			m_pVertexObject = BD_NULL;
-		}
+	
 
 
 		

@@ -182,6 +182,25 @@ namespace BD
 						m_M[ p_Index+3 ] );
 	}
 
+	Matrix4x4 &Matrix4x4::Orthographic( const BD_FLOAT32 p_Left, const BD_FLOAT32 p_Right,
+			const BD_FLOAT32 p_Bottom, const BD_FLOAT32 p_Top,
+			const BD_FLOAT32 p_ZNear, const BD_FLOAT32 p_ZFar )
+	{
+		const BD_FLOAT32 TX =- ( p_Right + p_Left )	/ ( p_Right - p_Left );
+		const BD_FLOAT32 TY =- ( p_Top + p_Bottom ) / ( p_Top -	p_Bottom );
+		const BD_FLOAT32 TZ =- ( p_ZFar + p_ZNear )	/ ( p_ZFar - p_ZNear );
+
+		Identity();
+		m_M[0] = 2.0f	/ ( p_Right - p_Left );
+		m_M[5] = 2.0f	/ ( p_Top - p_Bottom );
+		m_M[10] =- 2.0f / ( p_ZFar - p_ZNear );
+		m_M[12] = TX;
+		m_M[13] = TY;
+		m_M[14] = TZ;
+		
+		return *this;
+	}
+
 	Matrix4x4 &Matrix4x4::Translate( const Vector3 &p_Translation )
 	{
 		m_M[ 0 ] = 1.0f;

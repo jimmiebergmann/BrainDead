@@ -44,6 +44,10 @@ namespace BD
 			}
 		}
 
+		Matrix4x4 &Orthographic( const BD_FLOAT32 p_Left, const BD_FLOAT32 p_Right,
+			const BD_FLOAT32 p_Bottom, const BD_FLOAT32 p_Top,
+			const BD_FLOAT32 p_ZNear, const BD_FLOAT32 p_ZFar );
+
 		Matrix4x4 &Translate( const Vector3 &p_Translation );
 		Vector3 Transform( const Vector3 &p_Point ) const;
 

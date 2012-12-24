@@ -338,7 +338,7 @@ namespace BD
 						"glBindVertexArray" ) ) == BD_NULL ) || Ret;
 				Ret = ( ( __bglDeleteVertexArrays =
 					( PFNGLDELETEVERTEXARRAYSPROC )bglGetProcAddress(
-						"glDeleteVertexArrays" ) ) = BD_NULL ) || Ret;
+						"glDeleteVertexArrays" ) ) == BD_NULL ) || Ret;
 				Ret = ( ( __bglGenVertexArrays =
 					( PFNGLGENVERTEXARRAYSPROC )bglGetProcAddress(
 						"glGenVertexArrays" ) ) == BD_NULL ) || Ret;

@@ -32,22 +32,16 @@ namespace BD
 
 		BD_BOOL m_Loaded;
 		BD_BOOL m_Running;
-
 		Window * m_pWindow;
 		Renderer * m_pRenderer;
 
-		// Test shaders
-		/*Shader * m_pVertexShader;
+		// Test rendering.
+		Shader * m_pVertexShader;
 		Shader * m_pFragmentShader;
 		ShaderProgram * m_pShaderProgram;
-*/
-		// Test image
-		/*Image * m_pImage;
-		Texture * m_pTexture;
-*/
-
-		// Test Vertex Object
 		VertexObject * m_pVertexObject;
+		Image * m_pImage;
+		Texture * m_pTexture;
 
 	};
 

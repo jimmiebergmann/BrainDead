@@ -20,22 +20,17 @@ namespace BD
 		// Unload all the VBOs
 		if(m_pVertexBufferObject != BD_NULL)
 		{
-
-			/*for(BD_MEMSIZE i = 0; i < m_VertexBufferObjectCount; i++)
-			{
-
-			}*/
-
-			// Delete the VAOs
+			// Delete the VBOs
 			bglBindBuffer(GL_ARRAY_BUFFER, 0);
 			bglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			bglDeleteBuffers(3, m_pVertexBufferObject);
-
-			// Delete the VBO
-			bglBindVertexArray(0);
-			bglDeleteVertexArrays(1, m_pVertexBufferObject);
 			delete [ ] m_pVertexBufferObject;
 			m_pVertexBufferObject = BD_NULL;
+
+			// Delete the VAO
+			bglBindVertexArray(0);
+			bglDeleteVertexArrays(1, &m_VertexArrayObject);
+			m_VertexArrayObject = 0;
 		}
 
 		m_BufferVector.clear();

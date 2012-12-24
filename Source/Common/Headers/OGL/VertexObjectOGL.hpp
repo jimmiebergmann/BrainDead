@@ -13,6 +13,9 @@ namespace BD
 
 		VertexObjectOGL();
 		virtual ~VertexObjectOGL();
+		virtual BD_UINT32 AddVertexBuffer( BD_FLOAT32 * p_Buffer, BD_UINT32 p_VertexSize,
+			BD_UINT32 & p_VertexIndex );
+		virtual BD_UINT32 Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize );
 
 	private:
 

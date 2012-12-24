@@ -2,8 +2,8 @@
 
 namespace BD
 {
-	// Set the static m_PixelFormats values
-	GLint TextureOGL::m_PixelFormats[4] = { 0, 0, GL_RGB, GL_RGBA };
+	// Set the static s_PixelFormats values
+	GLint TextureOGL::s_PixelFormats[4] = { 0, 0, GL_RGB, GL_RGBA };
 
 
 	TextureOGL::TextureOGL( ) :
@@ -73,7 +73,7 @@ namespace BD
 		}
 
 
-		GLint Format = m_PixelFormats[(int)p_PixelFormat];
+		GLint Format = s_PixelFormats[(int)p_PixelFormat];
 
 		// Generate an OGL texture id.
 		glGenTextures(1, &m_Id);

@@ -23,7 +23,7 @@ namespace BD
 	private:
 
 		GLuint m_Id;
-		static GLint m_PixelFormats[4];
+		static GLint s_PixelFormats[4];
 
 	};
 

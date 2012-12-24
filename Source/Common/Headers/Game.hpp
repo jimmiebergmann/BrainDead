@@ -8,6 +8,7 @@
 #include <OGL/ShaderProgramOGL.hpp>
 #include <Image.hpp>
 #include <OGL/TextureOGL.hpp>
+#include <OGL/VertexObjectOGL.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -41,8 +42,12 @@ namespace BD
 		ShaderProgram * m_pShaderProgram;
 */
 		// Test image
-		Image * m_pImage;
+		/*Image * m_pImage;
 		Texture * m_pTexture;
+*/
+
+		// Test Vertex Object
+		VertexObject * m_pVertexObject;
 
 	};
 

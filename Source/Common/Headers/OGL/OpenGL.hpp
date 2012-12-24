@@ -150,8 +150,10 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 // GL VERTEX ATTRIBUTE OBJECT FUNCTIONS [ GL_ARB_vertex_array_object ] ////////
 ///////////////////////////////////////////////////////////////////////////////
 
+
 #define bglBindVertexArray		__bglBindVertexArray
 #define bglDeleteVertexArrays	__bglDeleteVertexArrays
+#define bglGenVertexArrays		__bglGenVertexArrays
 #define bglGetVertexArrays		__bglGetVertexArrays
 #define bglIsVertexArray		__bglIsVertexArray
 

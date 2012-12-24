@@ -27,8 +27,10 @@ namespace BD
 		m_pFragmentShader(BD_NULL),
 		m_pShaderProgram(BD_NULL),
 */
-		m_pImage(BD_NULL),
-		m_pTexture(BD_NULL)
+		/*m_pImage(BD_NULL),
+		m_pTexture(BD_NULL)*/
+
+		m_pVertexObject(BD_NULL)
 	{
 	}
 
@@ -101,6 +103,28 @@ namespace BD
 			return BD_ERROR;
 		}
 
+
+		// Load the vertex object
+		m_pVertexObject = new VertexObjectOGL( );
+
+		BD_FLOAT32 VertexBuffer[3*3] = 
+		{
+			1, 2, 3,
+			4, 5, 6
+		};
+		BD_UINT32 VertexIndex = 0;
+		
+		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexIndex )  == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
+
+		if( m_pVertexObject->Load( 1, 3 ) == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
+
+/*
 		// Load the test image
 		m_pImage = new Image( );
 		if( m_pImage->ReadFile( "Data/TGA_Test.tga" ) != BD_OK )
@@ -113,7 +137,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-
+*/
 
 
 
@@ -184,7 +208,7 @@ namespace BD
 			m_pFragmentShader = BD_NULL;
 		}
 */
-		// Image test
+		/*// Image test
 		if(m_pImage)
 		{
 			delete m_pImage;
@@ -196,7 +220,15 @@ namespace BD
 			delete m_pTexture;
 			m_pTexture = BD_NULL;
 		}
-		
+		*/
+
+		if(m_pVertexObject)
+		{
+			delete m_pVertexObject;
+			m_pVertexObject = BD_NULL;
+		}
+
+
 		
 		return BD_OK;
 	}

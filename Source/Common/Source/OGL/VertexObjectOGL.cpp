@@ -20,16 +20,23 @@ namespace BD
 		// Unload all the VBOs
 		if(m_pVertexBufferObject != BD_NULL)
 		{
-			for(BD_MEMSIZE i = 0; i < m_VertexBufferObjectCount; i++)
+
+			/*for(BD_MEMSIZE i = 0; i < m_VertexBufferObjectCount; i++)
 			{
 
-			}
+			}*/
 
+			// Delete the VAOs
+			bglBindBuffer(GL_ARRAY_BUFFER, 0);
+			bglBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			bglDeleteBuffers(3, m_pVertexBufferObject);
+
+			// Delete the VBO
+			bglBindVertexArray(0);
+			bglDeleteVertexArrays(1, m_pVertexBufferObject);
 			delete [ ] m_pVertexBufferObject;
 			m_pVertexBufferObject = BD_NULL;
 		}
-
-
 
 		m_BufferVector.clear();
 		m_Loaded = BD_FALSE;
@@ -57,28 +64,38 @@ namespace BD
 
 	BD_UINT32 VertexObjectOGL::Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize )
 	{
-		if( m_Loaded = BD_TRUE || p_PieceCount == 0 || p_PieceSize == 0 )
+		if( m_Loaded == BD_TRUE || p_PieceCount == 0 || p_PieceSize == 0 )
 		{
 			return BD_ERROR;
 		}
 
 		m_Loaded = BD_FALSE;
-		m_BufferVector.clear();
 
 		// Load the vertex buffer object
-		//dglGenVertexArrays(1, &m_VertexArrayObject);
-		//dglBindVertexArray(m_VertexArrayObject);
+		bglGenVertexArrays(1, &m_VertexArrayObject);
+		bglBindVertexArray(m_VertexArrayObject);
  
-
 		// Allocate memory for the VBOs
-
+		BD_UINT32 BufferCount = m_BufferVector.size();
+		m_pVertexBufferObject = new GLuint [ BufferCount ];
 		
-
 		// Load every single vertex array object.
+		for(BD_MEMSIZE i = 0; i < BufferCount; i++)
+		{
+			// Generate the VBO
+			bglGenBuffers(1, &m_pVertexBufferObject[i]);
 
+			// Let's load it
+			BD_UINT32 VertexSize = m_BufferVector[i].VertexSize;
+			bglBindBuffer(GL_ARRAY_BUFFER, m_pVertexBufferObject[i]);
+			bglBufferData(GL_ARRAY_BUFFER, ( VertexSize *  p_PieceSize ) * sizeof(BD_FLOAT32), m_BufferVector[i].pBuffer, GL_STATIC_DRAW);
+			bglVertexAttribPointer((GLuint)0, VertexSize, GL_FLOAT, GL_FALSE, 0, 0); 
+			bglEnableVertexAttribArray(i);
+		}
 
 		m_TotalPieceSize = p_PieceCount * p_PieceSize;
 
+		m_BufferVector.clear();
 		m_Loaded = BD_TRUE;
 		return BD_OK;
 	}

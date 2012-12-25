@@ -10,6 +10,7 @@
 #include <OGL/TextureOGL.hpp>
 #include <OGL/VertexObjectOGL.hpp>
 #include <Matrix4x4.hpp>
+#include <Vector3.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -30,6 +31,7 @@ namespace BD
 
 		BD_UINT32 Load( );
 		BD_UINT32 Unload( );
+		BD_UINT32 Update( BD_FLOAT64 p_DeltaTime );
 		void Render( );
 
 		BD_BOOL m_Loaded;
@@ -45,6 +47,7 @@ namespace BD
 		VertexObject * m_pVertexObject;
 		Image * m_pImage;
 		Texture * m_pTexture;
+		std::vector<Vector3> m_ObjectPositions; // Vector2 clas here instead, yes please
 
 	};
 

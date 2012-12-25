@@ -13,23 +13,23 @@ namespace BD
 
 		virtual ~WindowsRendererOGL( );
 		WindowsRendererOGL( );
-		virtual BD_UINT32 Create( const Window & p_Window);
-		virtual void StartScene() ;
-		virtual void EndScene();
-		virtual void SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a);
-		virtual void SetClearDepth(BD_FLOAT32 depth);
-		virtual void SetViewport(const BD_UINT32 lx, const BD_UINT32 ly,const BD_UINT32 hx, const BD_UINT32 hy); // Lower and higher coordinates
-		virtual void SetLineWidth(const BD_FLOAT32 width);
-		virtual void ClearColor();
-		virtual void ClearDepth();
-		virtual void EnableTexture();
-		virtual void DisableTexture();
-		virtual void EnableAlpha();
-		virtual void DisableAlpha();
-		virtual void EnableDepthTest();
-		virtual void DisableDepthTest();
-		virtual void EnableSmoothLines();
-		virtual void DisableSmoothLines();
+		virtual BD_UINT32 Create( const Window & p_Window );
+		virtual void StartScene( ) ;
+		virtual void EndScene( );
+		virtual void SetClearColor( const BD_FLOAT32 p_R, const BD_FLOAT32 p_G, const BD_FLOAT32 p_B, const BD_FLOAT32 p_A );
+		virtual void SetClearDepth( BD_FLOAT32 p_Depth );
+		virtual void SetViewport( const BD_UINT32 p_LX, const BD_UINT32 p_LY, const BD_UINT32 p_HX, const BD_UINT32 p_HY ); // Lower and higher coordinates
+		virtual void SetLineWidth( const BD_FLOAT32 p_Width );
+		virtual void ClearColor( );
+		virtual void ClearDepth( );
+		virtual void EnableTexture( );
+		virtual void DisableTexture( );
+		virtual void EnableAlpha( );
+		virtual void DisableAlpha( );
+		virtual void EnableDepthTest( );
+		virtual void DisableDepthTest( );
+		virtual void EnableSmoothLines( );
+		virtual void DisableSmoothLines( );
 		virtual BD_BOOL IsCreated( ) const { return m_Created; }
 		virtual eRendererType GetRendererType( ) const { return m_eRendererType; }
 		

@@ -2,27 +2,27 @@
 
 namespace BD
 {
-	WindowsRendererOGL::~WindowsRendererOGL()
+	WindowsRendererOGL::~WindowsRendererOGL( )
 	{
 		m_Created = BD_FALSE;
-		wglMakeCurrent(BD_NULL, BD_NULL);
+		wglMakeCurrent( BD_NULL, BD_NULL );
 
-		if(m_Context)
+		if( m_Context )
 		{
-			wglDeleteContext(m_Context);
+			wglDeleteContext( m_Context );
 			m_Context = BD_NULL;
 		}
 
 	}
 
-	WindowsRendererOGL::WindowsRendererOGL() :
-		Renderer(),
-		m_Context(BD_NULL),
-		m_HDC(BD_NULL)
+	WindowsRendererOGL::WindowsRendererOGL( ) :
+		Renderer( ),
+		m_Context( BD_NULL ),
+		m_HDC( BD_NULL )
 	{
 	}
 
-	BD_UINT32 WindowsRendererOGL::Create( const Window & p_Window)
+	BD_UINT32 WindowsRendererOGL::Create( const Window & p_Window )
 	{
 		m_eRendererType = RENDERERTYPE_NONE;
 
@@ -131,56 +131,56 @@ namespace BD
 	}
 
 
-	void WindowsRendererOGL::StartScene()
+	void WindowsRendererOGL::StartScene( )
 	{
-
+		glClear( GL_COLOR_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
 	}
 
-	void WindowsRendererOGL::EndScene()
+	void WindowsRendererOGL::EndScene( )
 	{
 		SwapBuffers(m_HDC);
 	}
 
-	void WindowsRendererOGL::SetClearColor(const BD_FLOAT32 r, const BD_FLOAT32 g, const BD_FLOAT32 b, const BD_FLOAT32 a)
+	void WindowsRendererOGL::SetClearColor( const BD_FLOAT32 p_R, const BD_FLOAT32 p_G, const BD_FLOAT32 p_B, const BD_FLOAT32 p_A )
 	{
-		glClearColor(r, g, b, a);
+		glClearColor( p_R, p_G, p_B, p_A );
 	}
 
-	void WindowsRendererOGL::SetClearDepth(float depth)
+	void WindowsRendererOGL::SetClearDepth( float p_Depth )
 	{
-		glClearDepth(depth);
+		glClearDepth( p_Depth );
 	}
 
-	void WindowsRendererOGL::SetViewport(const BD_UINT32 lx, const BD_UINT32 ly, const BD_UINT32 hx, const BD_UINT32 hy)
+	void WindowsRendererOGL::SetViewport( const BD_UINT32 p_LX, const BD_UINT32 p_LY, const BD_UINT32 p_HX, const BD_UINT32 p_HY )
 	{
-		glViewport(lx, ly, hx, hy);
+		glViewport( p_LX, p_LY, p_HX, p_HY );
 	}
 
-	void WindowsRendererOGL::SetLineWidth(const BD_FLOAT32 width)
+	void WindowsRendererOGL::SetLineWidth( const BD_FLOAT32 p_Width )
 	{
-		glLineWidth(width);
+		glLineWidth( p_Width );
 	}
 
-	void WindowsRendererOGL::ClearColor()
+	void WindowsRendererOGL::ClearColor( )
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear( GL_COLOR_BUFFER_BIT );
 	}
 	void WindowsRendererOGL::ClearDepth()
 	{
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glClear( GL_DEPTH_BUFFER_BIT );
 	}
 
-	void WindowsRendererOGL::EnableTexture()
+	void WindowsRendererOGL::EnableTexture( )
 	{
-		glEnable(GL_TEXTURE_2D);
+		glEnable( GL_TEXTURE_2D );
 	}
 
-	void WindowsRendererOGL::DisableTexture()
+	void WindowsRendererOGL::DisableTexture( )
 	{
-		glDisable(GL_TEXTURE_2D);
+		glDisable( GL_TEXTURE_2D );
 	}
 
-	void WindowsRendererOGL::EnableAlpha()
+	void WindowsRendererOGL::EnableAlpha( )
 	{
 		/// We have to make this function customizable.
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

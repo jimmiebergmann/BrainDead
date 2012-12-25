@@ -84,10 +84,34 @@ namespace BD
 	}
 
 
-	void ShaderProgramOGL::SetUniform1i( const char * p_Location, int p_A )
+	void ShaderProgramOGL::SetUniform1i( const char * p_Location,  const BD_SINT32 p_A )
 	{
 		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
 		bglUniform1i( UniformLocation, (GLint)p_A );
+	}
+
+	void  ShaderProgramOGL::SetUniform1f( const char * p_Location, const BD_FLOAT32 p_A )
+	{
+		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
+		bglUniform1f( UniformLocation, (GLfloat)p_A );
+	}
+
+	void  ShaderProgramOGL::SetUniform2f( const char * p_Location, const BD_FLOAT32 p_A, const BD_FLOAT32 p_B )
+	{
+		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
+		bglUniform2f( UniformLocation, (GLfloat)p_A, (GLfloat)p_B );
+	}
+
+	void  ShaderProgramOGL::SetUniform3f( const char * p_Location, const BD_FLOAT32 p_A, const BD_FLOAT32 p_B, const BD_FLOAT32 p_C )
+	{
+		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
+		bglUniform3f( UniformLocation, (GLfloat)p_A, (GLfloat)p_B, (GLfloat)p_C );
+	}
+
+	void  ShaderProgramOGL::SetUniform4f( const char * p_Location, const BD_FLOAT32 p_A, const BD_FLOAT32 p_B, const BD_FLOAT32 p_C, const BD_FLOAT32 p_D )
+	{
+		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
+		bglUniform4f( UniformLocation, (GLfloat)p_A, (GLfloat)p_B, (GLfloat)p_C, (GLfloat)p_D );
 	}
 
 	void ShaderProgramOGL::SetUniformMatrix4x4f( const char * p_Location, Matrix4x4 & p_Matrix )

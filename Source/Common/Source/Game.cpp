@@ -49,10 +49,14 @@ namespace BD
 		{
 			bdSleep(0);
 
+			// Do events
 			if(m_pWindow->DoEvents() != BD_OK)
 			{
 				break;
 			}
+
+			// Update
+			Update(0.0f);
 
 			// Render
 			m_pRenderer->StartScene();
@@ -103,13 +107,15 @@ namespace BD
 		}
 		
 		m_pRenderer->SetViewport( 0, 0, WindowWidth, WindowHeight );
+		m_pRenderer->SetClearColor( 135 / 255.0f, 182 / 255.0f, 225 / 255.0f, 1.0f );
 		m_pRenderer->EnableTexture( );
+		m_pRenderer->EnableAlpha( );
 		m_pRenderer->DisableDepthTest( );
 		
 		// Loading the test rendering data.
 
 		// Load the vertex object
-		BD_FLOAT32 ObjectSize = 100;
+		BD_FLOAT32 ObjectSize = 20;
 
 		m_pVertexObject = new VertexObjectOGL( );
 		BD_FLOAT32 VertexBuffer[18] = 
@@ -219,6 +225,14 @@ namespace BD
 		}
 
 
+		// Add some temporary object positions
+		m_ObjectPositions.push_back( Vector3( 11, 200, 0 ) );
+		m_ObjectPositions.push_back( Vector3( 30, 500, 0 ) );
+		m_ObjectPositions.push_back( Vector3( 300, 390, 0 ) );
+		m_ObjectPositions.push_back( Vector3( 111, 523, 0 ) );
+		m_ObjectPositions.push_back( Vector3( 700, 400, 0 ) );
+
+
 		m_Loaded = true;
 		return BD_OK;
 	}
@@ -275,12 +289,29 @@ namespace BD
 		return BD_OK;
 	}
 
+	BD_UINT32 Game::Update( BD_FLOAT64 p_DeltaTime )
+	{
+		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
+		{
+			m_ObjectPositions[i][1] -= 50.0f * p_DeltaTime;
+		}
+
+
+		return BD_OK;
+	}
 
 	void Game::Render()
 	{
 		m_pShaderProgram->Bind();
 		m_pTexture->Bind(0);
-		m_pVertexObject->Render(VertexObject::RENDERMODE_TRIANGLES);
+
+		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
+		{
+			m_pShaderProgram->SetUniform3f( "VertexPosition", 
+				m_ObjectPositions[i][0], m_ObjectPositions[i][1], m_ObjectPositions[i][2] );
+			m_pVertexObject->Render(VertexObject::RENDERMODE_TRIANGLES);
+		}
+
 		m_pTexture->Unbind();
 		m_pShaderProgram->Unbind();
 

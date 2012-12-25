@@ -20,7 +20,8 @@ namespace BD
 		virtual void Bind( );
 		virtual void Unbind( );
 
-		virtual void SetUniformMatrix4x4( const char * p_Location, Matrix4x4 & p_Matrix );
+		virtual void SetUniform1i( const char * p_Location, int p_A );
+		virtual void SetUniformMatrix4x4f( const char * p_Location, Matrix4x4 & p_Matrix );
 		virtual void SetAttributeLocation( const char * p_Location, BD_UINT32 p_Index );
 
 	private:

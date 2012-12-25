@@ -84,8 +84,13 @@ namespace BD
 	}
 
 
+	void ShaderProgramOGL::SetUniform1i( const char * p_Location, int p_A )
+	{
+		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );
+		bglUniform1i( UniformLocation, (GLint)p_A );
+	}
 
-	void ShaderProgramOGL::SetUniformMatrix4x4( const char * p_Location, Matrix4x4 & p_Matrix )
+	void ShaderProgramOGL::SetUniformMatrix4x4f( const char * p_Location, Matrix4x4 & p_Matrix )
 	{
 
 		int UniformLocation = bglGetUniformLocation( m_ProgramId, p_Location );

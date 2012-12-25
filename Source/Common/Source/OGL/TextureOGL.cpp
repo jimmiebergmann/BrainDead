@@ -45,20 +45,21 @@ namespace BD
 		GLint Format = OpenGLTextureFormats[Depth - 3];
 
 		// Generate an OGL texture id.
-		glGenTextures(1, &m_Id);
-		glBindTexture (GL_TEXTURE_2D, m_Id);
-/*
+		glGenTextures( 1, &m_Id );
+		glBindTexture( GL_TEXTURE_2D, m_Id );
+
+		// !!! TEMPORARY!
 		// Filters
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_FilerModesMag[m_filterMode]);
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_FilerModesMin[m_filterMode]);
-*/
+		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST/*GL_FilerModesMag[m_filterMode]*/ );
+		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST/*GL_FilerModesMin[m_filterMode]*/ );
+
 
 		glTexImage2D ( GL_TEXTURE_2D, 0, Format, p_Image.GetWidth(), p_Image.GetHeight(), 0,
 			(GLenum)Format, GL_UNSIGNED_BYTE, (GLvoid *)p_Image.GetData() );
 
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture( GL_TEXTURE_2D, 0 );
 		
 		m_Loaded = BD_TRUE;
 		return BD_OK;

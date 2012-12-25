@@ -102,6 +102,10 @@ namespace BD
 			return BD_ERROR;
 		}
 		
+		m_pRenderer->SetViewport( 0, 0, WindowWidth, WindowHeight );
+		m_pRenderer->EnableTexture( );
+		m_pRenderer->DisableDepthTest( );
+		
 		// Loading the test rendering data.
 
 		// Load the vertex object
@@ -113,23 +117,23 @@ namespace BD
 			0, 0, 0,   ObjectSize, 0,		   0,		ObjectSize, ObjectSize, 0,
 			0, 0, 0,   ObjectSize, ObjectSize, 0,		0,			ObjectSize, 0
 		};
-		/*BD_FLOAT32 TextureBuffer[12] = 
+		BD_FLOAT32 TextureBuffer[12] = 
 		{
 			0, 0,   1, 0,   1, 1,
 			0, 0,   1, 1,   0, 1
-		};*/
+		};
 
 		BD_UINT32 VertexAttributeLocation = 0;
-		//BD_UINT32 TextureAttributeLocation = 0;
+		BD_UINT32 TextureAttributeLocation = 0;
 		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexAttributeLocation )  == BD_ERROR )
 		{
 			return BD_ERROR;
 		}
-		/*if( m_pVertexObject->AddVertexBuffer( TextureBuffer, 2, TextureAttributeLocation )  == BD_ERROR )
+		if( m_pVertexObject->AddVertexBuffer( TextureBuffer, 2, TextureAttributeLocation )  == BD_ERROR )
 		{
 			return BD_ERROR;
 		}
-*/
+
 		if( m_pVertexObject->Load( 2, 3 ) == BD_ERROR )
 		{
 			return BD_ERROR;
@@ -182,6 +186,8 @@ namespace BD
 
 		// Let's set the attribute values before we continue the shader program linking
 		m_pShaderProgram->SetAttributeLocation( "Position", VertexAttributeLocation );
+		m_pShaderProgram->SetAttributeLocation( "Texture", TextureAttributeLocation );
+
 
 		if( m_pShaderProgram->Link( ShaderProgramValidation ) != BD_OK )
 		{
@@ -194,19 +200,9 @@ namespace BD
 		m_Matrix.Orthographic( 0, WindowWidth, 0, WindowHeight, -1.0f, 1.0f );
 
 		m_pShaderProgram->Bind( );
-		m_pShaderProgram->SetUniformMatrix4x4( "Matrix", m_Matrix );
+		m_pShaderProgram->SetUniform1i( "ColorTexture", 0 );
+		m_pShaderProgram->SetUniformMatrix4x4f( "Matrix", m_Matrix );
 		m_pShaderProgram->Unbind( );
-
-		/*if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
-		{
-			return BD_ERROR;
-		}
-		if( ShaderProgramValidation.length() > 0)
-		{
-			bdTrace( NULL, "Shader program shader validation:\n" );
-			bdTrace( NULL, "%s", ShaderProgramValidation.data() );
-		}
-*/
 
 
 		// Load the image and texture
@@ -285,8 +281,8 @@ namespace BD
 		m_pShaderProgram->Bind();
 		m_pTexture->Bind(0);
 		m_pVertexObject->Render(VertexObject::RENDERMODE_TRIANGLES);
-		/*m_pTexture->Unbind();
-		m_pShaderProgram->Unbind();*/
+		m_pTexture->Unbind();
+		m_pShaderProgram->Unbind();
 
 	}
 

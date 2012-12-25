@@ -3,6 +3,7 @@
 
 #include <DataTypes.hpp>
 #include <Shader.hpp>
+#include <Matrix4x4.hpp>
 #include <string>
 
 namespace BD
@@ -14,11 +15,18 @@ namespace BD
 	public:
 
 		virtual ~ShaderProgram() { }
-		virtual BD_UINT32 Compile(Shader * p_VertexShader, Shader * p_FragmentShader, std::string & p_Validation) = 0;
+		virtual BD_UINT32 Load( ) = 0;
+		virtual BD_UINT32 AttachShaders( Shader * p_Shader ) = 0;
+		virtual BD_UINT32 Link( std::string & p_Validation ) = 0;
+		virtual void Bind( ) = 0;
+		virtual void Unbind( ) = 0;
+
+		virtual void SetUniformMatrix4x4( const char * p_Location, Matrix4x4 & p_Matrix ) = 0;
+		virtual void SetAttributeLocation( const char * p_Location, BD_UINT32 p_Index ) = 0;
 
 	protected:
 
-		BD_BOOL m_Compiled;
+		BD_BOOL m_Linked;
 
 	};
 

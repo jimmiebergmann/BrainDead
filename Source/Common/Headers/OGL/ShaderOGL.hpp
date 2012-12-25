@@ -15,8 +15,7 @@ namespace BD
 		ShaderOGL(eShaderType p_ShaderType);
 		virtual ~ShaderOGL();
 		
-		virtual BD_UINT32 Load(std::string & p_Validation);
-		virtual BD_UINT32 Reload(); // Read and Load the last file.
+		virtual BD_UINT32 Compile(std::string & p_Validation);
 		GLhandleARB GetShaderObject() const;
 		static std::string ValidateShader(GLuint p_Shader);
 

@@ -90,7 +90,7 @@ namespace BD
 			Height = GetDeviceCaps( DesktopContext, VERTRES );
 
 			m_WindowRect.left = 0L;
-			m_WindowRect.bottom = Height;
+			m_WindowRect.bottom = p_Width;
 			m_WindowRect.top = 0L;
 			m_WindowRect.right = Width;
 
@@ -117,7 +117,9 @@ namespace BD
 		}
 		else
 		{
-			BD_FLOAT32 WidthF = 0.0f, HeightF = 0.0f;
+			// Is this really useful here?
+
+			/*BD_FLOAT32 WidthF = 0.0f, HeightF = 0.0f;
 			BD_FLOAT32 XF = 0.0f, YF = 0.0f;
 
 			WidthF = static_cast< BD_FLOAT32 >(
@@ -130,22 +132,47 @@ namespace BD
 			WidthF = ( WidthF / 100.0f )*90.0f;
 			HeightF = ( HeightF / 100.0f )*90.0f;
 
-			m_WindowRect.left = static_cast< long >( XF );
+			/*m_WindowRect.left = static_cast< long >( XF );
 			m_WindowRect.right = static_cast< long >( WidthF );
 			m_WindowRect.top = static_cast< long >( YF );
 			m_WindowRect.bottom = static_cast< long >( HeightF );
+*/
+			// A new way of calculating the the window size.
+			m_WindowRect.left = 0;
+			m_WindowRect.right = static_cast< long >( p_Width );
+			m_WindowRect.top = 0;
+			m_WindowRect.bottom = static_cast< long >( p_Height );
 
 			ExStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
-			Style = WS_OVERLAPPEDWINDOW;
+			//Style = WS_OVERLAPPEDWINDOW;
+			Style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX; // Disabling resizing of the window
 		}
 
 		ReleaseDC( DesktopWindow, DesktopContext );
  		AdjustWindowRectEx( &m_WindowRect, Style, FALSE, ExStyle );
 
-		m_Window = CreateWindowEx( ExStyle, m_pWindowTitle, m_pWindowTitle,
+		/*
+		m_Window = CreateWindowEx(ExStyle
+			m_pWindowTitle, m_pWindowTitle,
 			Style, m_WindowRect.left, m_WindowRect.top, m_WindowRect.right,
 			m_WindowRect.bottom, BD_NULL, BD_NULL, GetModuleHandle( BD_NULL ),
 			BD_NULL );
+		*/
+
+		// Another way of creating a window with random position:
+		m_Window = CreateWindowEx(
+		ExStyle,
+		m_pWindowTitle,
+		m_pWindowTitle,
+		Style, 
+		CW_USEDEFAULT,
+		CW_USEDEFAULT,
+		m_WindowRect.right,
+		m_WindowRect.bottom,
+		BD_NULL, BD_NULL,
+		GetModuleHandle( BD_NULL ),
+		BD_NULL );
+
 
 		DWORD Err = GetLastError( );
 

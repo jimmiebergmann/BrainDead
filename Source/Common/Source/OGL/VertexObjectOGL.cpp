@@ -82,9 +82,11 @@ namespace BD
 
 			// Let's load it
 			BD_UINT32 VertexSize = m_BufferVector[i].VertexSize;
+			BD_UINT32 TotalBufferSize = p_PieceCount * p_PieceSize * VertexSize * sizeof(BD_FLOAT32);
+			
 			bglBindBuffer(GL_ARRAY_BUFFER, m_pVertexBufferObject[i]);
-			bglBufferData(GL_ARRAY_BUFFER, ( VertexSize *  p_PieceSize ) * sizeof(BD_FLOAT32), m_BufferVector[i].pBuffer, GL_STATIC_DRAW);
-			bglVertexAttribPointer((GLuint)0, VertexSize, GL_FLOAT, GL_FALSE, 0, 0); 
+			bglBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)TotalBufferSize, m_BufferVector[i].pBuffer, GL_STATIC_DRAW);
+			bglVertexAttribPointer((GLuint)i, VertexSize, GL_FLOAT, GL_FALSE, 0, 0); 
 			bglEnableVertexAttribArray(i);
 		}
 
@@ -104,9 +106,8 @@ namespace BD
 		}
 
 		bglBindVertexArray(m_VertexArrayObject);
-		glDrawArrays(s_RenderModes[ (int)( p_Mode ) ], 0, m_TotalPieceSize);
+		glDrawArrays(GL_TRIANGLES /*s_RenderModes[ (int)( p_Mode ) ]*/, 0, m_TotalPieceSize);
 		bglBindVertexArray(0);
-
 	}
 
 }

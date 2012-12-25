@@ -12,13 +12,21 @@ namespace BD
 
 	public:
 
-		ShaderProgramOGL();
-		virtual ~ShaderProgramOGL();
-		virtual BD_UINT32 Compile(Shader * p_VertexShader, Shader * p_FragmentShader, std::string & p_Validation);
+		ShaderProgramOGL( );
+		virtual ~ShaderProgramOGL( );
+		virtual BD_UINT32 Load( );
+		virtual BD_UINT32 AttachShaders( Shader * p_Shader );
+		virtual BD_UINT32 Link( std::string & p_Validation );
+		virtual void Bind( );
+		virtual void Unbind( );
+
+		virtual void SetUniformMatrix4x4( const char * p_Location, Matrix4x4 & p_Matrix );
+		virtual void SetAttributeLocation( const char * p_Location, BD_UINT32 p_Index );
 
 	private:
 
 		GLhandleARB m_ProgramId;
+		BD_UINT32 m_AttachedShaderCount;
 
 	};
 

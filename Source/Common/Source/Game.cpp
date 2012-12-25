@@ -54,10 +54,9 @@ namespace BD
 				break;
 			}
 
+			// Render
 			m_pRenderer->StartScene();
-
-			// Draw things here
-
+			Render();
 			m_pRenderer->EndScene();
 
 		}
@@ -90,11 +89,11 @@ namespace BD
 #error No platform pre-processor directive specified
 #endif
 
-
-		
-
 		// Create the window
-		if( m_pWindow->Create( 800, 600, false ) != BD_OK )
+		BD_UINT32 WindowWidth = 800;
+		BD_UINT32 WindowHeight = 600;
+		
+		if( m_pWindow->Create( WindowWidth, WindowHeight, false ) != BD_OK )
 		{
 			return BD_ERROR;
 		}
@@ -104,6 +103,37 @@ namespace BD
 		}
 		
 		// Loading the test rendering data.
+
+		// Load the vertex object
+		BD_FLOAT32 ObjectSize = 100;
+
+		m_pVertexObject = new VertexObjectOGL( );
+		BD_FLOAT32 VertexBuffer[18] = 
+		{
+			0, 0, 0,   ObjectSize, 0,		   0,		ObjectSize, ObjectSize, 0,
+			0, 0, 0,   ObjectSize, ObjectSize, 0,		0,			ObjectSize, 0
+		};
+		/*BD_FLOAT32 TextureBuffer[12] = 
+		{
+			0, 0,   1, 0,   1, 1,
+			0, 0,   1, 1,   0, 1
+		};*/
+
+		BD_UINT32 VertexAttributeLocation = 0;
+		//BD_UINT32 TextureAttributeLocation = 0;
+		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexAttributeLocation )  == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
+		/*if( m_pVertexObject->AddVertexBuffer( TextureBuffer, 2, TextureAttributeLocation )  == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
+*/
+		if( m_pVertexObject->Load( 2, 3 ) == BD_ERROR )
+		{
+			return BD_ERROR;
+		}
 
 
 		// Load the shaders
@@ -116,7 +146,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-		if( m_pVertexShader->Load(VertexValidation) != BD_OK )
+		if( m_pVertexShader->Compile(VertexValidation) != BD_OK )
 		{
 			return BD_ERROR;
 		}
@@ -130,7 +160,7 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
-		if( m_pFragmentShader->Load(FragmentValidation) != BD_OK )
+		if( m_pFragmentShader->Compile(FragmentValidation) != BD_OK )
 		{
 			return BD_ERROR;
 		}
@@ -142,8 +172,32 @@ namespace BD
 
 		// Load the shader program
 		std::string ShaderProgramValidation = "";
-		m_pShaderProgram = new ShaderProgramOGL();
-		if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
+		m_pShaderProgram = new ShaderProgramOGL( );
+		if( m_pShaderProgram->Load( ) != BD_OK )
+		{
+			return BD_ERROR;
+		}
+		m_pShaderProgram->AttachShaders( m_pVertexShader );
+		m_pShaderProgram->AttachShaders( m_pFragmentShader );
+
+		// Let's set the attribute values before we continue the shader program linking
+		m_pShaderProgram->SetAttributeLocation( "Position", VertexAttributeLocation );
+
+		if( m_pShaderProgram->Link( ShaderProgramValidation ) != BD_OK )
+		{
+			bdTrace( NULL, "Shader program shader validation:\n" );
+			bdTrace( NULL, "%s", ShaderProgramValidation.data() );
+			return BD_ERROR;
+		}
+
+		// Set uniforms
+		m_Matrix.Orthographic( 0, WindowWidth, 0, WindowHeight, -1.0f, 1.0f );
+
+		m_pShaderProgram->Bind( );
+		m_pShaderProgram->SetUniformMatrix4x4( "Matrix", m_Matrix );
+		m_pShaderProgram->Unbind( );
+
+		/*if(m_pShaderProgram->Compile(m_pVertexShader, m_pFragmentShader, ShaderProgramValidation) == BD_ERROR)
 		{
 			return BD_ERROR;
 		}
@@ -152,41 +206,12 @@ namespace BD
 			bdTrace( NULL, "Shader program shader validation:\n" );
 			bdTrace( NULL, "%s", ShaderProgramValidation.data() );
 		}
-
-
-		// Load the vertex object
-		m_pVertexObject = new VertexObjectOGL( );
-		BD_FLOAT32 VertexBuffer[18] = 
-		{
-			0, 0, 0,   0, 0, 0,    0, 0, 0,
-			0, 0, 0,   0, 0, 0,    0, 0, 0,
-		};
-		BD_FLOAT32 TextureBuffer[12] = 
-		{
-			0, 0,   0, 0,   0, 0,
-			0, 0,   0, 0,   0, 0,
-		};
-		BD_UINT32 VertexAttributeLocation = 0;
-		BD_UINT32 TextureAttributeLocation = 0;
-		
-		if( m_pVertexObject->AddVertexBuffer( VertexBuffer, 3, VertexAttributeLocation )  == BD_ERROR )
-		{
-			return BD_ERROR;
-		}
-		if( m_pVertexObject->AddVertexBuffer( TextureBuffer, 2, TextureAttributeLocation )  == BD_ERROR )
-		{
-			return BD_ERROR;
-		}
-
-		if( m_pVertexObject->Load( 2, 3 ) == BD_ERROR )
-		{
-			return BD_ERROR;
-		}
+*/
 
 
 		// Load the image and texture
 		m_pImage = new Image( );
-		if( m_pImage->ReadFile( "Data/TGA_Test.tga" ) != BD_OK )
+		if( m_pImage->ReadFile( "Data/Snowflake.tga" ) != BD_OK )
 		{
 			return BD_ERROR;
 		}
@@ -250,12 +275,19 @@ namespace BD
 			m_pRenderer = BD_NULL;
 		}
 
-
-	
-
-
 		
 		return BD_OK;
+	}
+
+
+	void Game::Render()
+	{
+		m_pShaderProgram->Bind();
+		m_pTexture->Bind(0);
+		m_pVertexObject->Render(VertexObject::RENDERMODE_TRIANGLES);
+		/*m_pTexture->Unbind();
+		m_pShaderProgram->Unbind();*/
+
 	}
 
 

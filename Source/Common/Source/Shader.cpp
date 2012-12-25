@@ -3,15 +3,6 @@
 
 namespace BD
 {
-/*
-	Shader::Shader(eShaderType p_ShaderType) :
-		m_Loaded(BD_FALSE),
-		m_ShaderType(p_ShaderType),
-		m_ShaderSource(""),
-		m_Filename("")
-	{
-	}
-*/
 	BD_UINT32 Shader::Read(const char * p_FileName)
 	{
 		// Use fstream for reading files.
@@ -46,6 +37,11 @@ namespace BD
 		File.close();
 
 		return BD_OK;
+	}
+
+	BD_BOOL Shader::IsCompiled( ) const
+	{
+		return m_Compiled;
 	}
 
 	std::string Shader::GetSource() const

@@ -9,6 +9,7 @@
 #include <Image.hpp>
 #include <OGL/TextureOGL.hpp>
 #include <OGL/VertexObjectOGL.hpp>
+#include <Matrix4x4.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -23,12 +24,13 @@ namespace BD
 		
 		~Game();
 		Game();
-		int Run(int argc, char ** argv);
+		int Run( int argc, char ** argv );
 		
 	private:
 
-		BD_UINT32 Load();
-		BD_UINT32 Unload();
+		BD_UINT32 Load( );
+		BD_UINT32 Unload( );
+		void Render( );
 
 		BD_BOOL m_Loaded;
 		BD_BOOL m_Running;
@@ -39,6 +41,7 @@ namespace BD
 		Shader * m_pVertexShader;
 		Shader * m_pFragmentShader;
 		ShaderProgram * m_pShaderProgram;
+		Matrix4x4 m_Matrix;
 		VertexObject * m_pVertexObject;
 		Image * m_pImage;
 		Texture * m_pTexture;

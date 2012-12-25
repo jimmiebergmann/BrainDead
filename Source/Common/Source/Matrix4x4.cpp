@@ -190,13 +190,23 @@ namespace BD
 		const BD_FLOAT32 TY =- ( p_Top + p_Bottom ) / ( p_Top -	p_Bottom );
 		const BD_FLOAT32 TZ =- ( p_ZFar + p_ZNear )	/ ( p_ZFar - p_ZNear );
 
-		Identity();
+		//Identity();
 		m_M[0] = 2.0f	/ ( p_Right - p_Left );
+		m_M[1] = 0;
+		m_M[2] = 0;
+		m_M[3] = 0;
+		m_M[4] = 0;
 		m_M[5] = 2.0f	/ ( p_Top - p_Bottom );
+		m_M[6] = 0;
+		m_M[7] = 0;
+		m_M[8] = 0;
+		m_M[9] = 0;
 		m_M[10] =- 2.0f / ( p_ZFar - p_ZNear );
+		m_M[11] = 0;
 		m_M[12] = TX;
 		m_M[13] = TY;
 		m_M[14] = TZ;
+		m_M[15] = 1.0f;
 		
 		return *this;
 	}

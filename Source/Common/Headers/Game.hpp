@@ -24,8 +24,8 @@ namespace BD
 
 	public:
 		
-		~Game();
-		Game();
+		~Game( );
+		Game( );
 		int Run( int argc, char ** argv );
 		
 	private:
@@ -50,7 +50,10 @@ namespace BD
 		Image * m_pImage;
 		Texture * m_pTexture;
 		BD_UINT32 m_ObjectSize;
-		std::vector<Vector3> m_ObjectPositions; // Vector2 clas here instead, yes please
+		// TODO!
+		// Vector2 class here instead, yes please
+		std::vector<Vector3> m_ObjectPositions;
+		// !TODO
 
 	};
 

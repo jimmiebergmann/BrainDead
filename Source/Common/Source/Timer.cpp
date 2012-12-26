@@ -59,9 +59,5 @@ namespace BD
 
 #endif
 	}
-
-
-
-
-
 }
+

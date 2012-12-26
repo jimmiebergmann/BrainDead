@@ -1,4 +1,5 @@
 #include <OGL/ShaderOGL.hpp>
+#include <Debugger.hpp>
 #include <cstring>
 
 namespace BD
@@ -82,3 +83,4 @@ namespace BD
 	}
 
 }
+

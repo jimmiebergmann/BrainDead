@@ -8,7 +8,7 @@ namespace BD
 	class LinuxRendererOGL : public Renderer
 	{
 	public:
-		BD_EXPLICIT LinuxRendererOGL( const WINDATA &p_WinData );
+		LinuxRendererOGL( );
 		virtual ~LinuxRendererOGL( );
 
 		virtual BD_UINT32 Create( const Window &p_Window );

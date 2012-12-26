@@ -3,12 +3,8 @@
 
 namespace BD
 {
-	LinuxRendererOGL::LinuxRendererOGL( const WINDATA &p_WinData )
+	LinuxRendererOGL::LinuxRendererOGL( )
 	{
-		m_WinData = p_WinData;
-		bdTrace( BD_NULL, "BD::LinuxRendererOGL::LinuxRendererOGL] <INFO> "
-			"Window: 0x%08X | Display: 0x%08X\n",
-			m_WinData.Window, m_WinData.pDisplay );
 	}
 
 	LinuxRendererOGL::~LinuxRendererOGL( )

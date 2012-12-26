@@ -311,7 +311,7 @@ namespace BD
 			{
 				BD_FLOAT32 HeightPositionOffset = (m_ObjectPositions[i][1] + m_ObjectSize );
 				m_ObjectPositions[i][0] = bdRandom( 0, 800 );
-				m_ObjectPositions[i][1] = 600 + HeightPositionOffset +  bdRandom( 0, 30 );yy
+				m_ObjectPositions[i][1] = 600 + HeightPositionOffset +  bdRandom( 0, 30 );
 			}
 		}
 

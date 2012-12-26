@@ -11,6 +11,7 @@
 #include <OGL/VertexObjectOGL.hpp>
 #include <Matrix4x4.hpp>
 #include <Vector3.hpp>
+#include <Timer.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -40,6 +41,7 @@ namespace BD
 		Renderer * m_pRenderer;
 
 		// Test rendering.
+		Timer m_DeltaTimer;
 		Shader * m_pVertexShader;
 		Shader * m_pFragmentShader;
 		ShaderProgram * m_pShaderProgram;
@@ -47,6 +49,7 @@ namespace BD
 		VertexObject * m_pVertexObject;
 		Image * m_pImage;
 		Texture * m_pTexture;
+		BD_UINT32 m_ObjectSize;
 		std::vector<Vector3> m_ObjectPositions; // Vector2 clas here instead, yes please
 
 	};

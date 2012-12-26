@@ -555,6 +555,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Headers\Random.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Headers\Renderer.hpp"
 					>
 				</File>
@@ -572,6 +576,10 @@
 				</File>
 				<File
 					RelativePath="..\Common\Headers\Texture.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Headers\Timer.hpp"
 					>
 				</File>
 				<File
@@ -651,6 +659,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Source\Random.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Source\Shader.cpp"
 					>
 				</File>
@@ -660,6 +672,10 @@
 				</File>
 				<File
 					RelativePath="..\Common\Source\Texture.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Timer.cpp"
 					>
 				</File>
 				<File

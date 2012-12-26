@@ -11,7 +11,9 @@
 #error No platform pre-processor directive specified
 #endif
 
+#include <Random.hpp>
 #include <Debugger.hpp>
+
 
 namespace BD
 {
@@ -45,23 +47,27 @@ namespace BD
 		}
 
 		// Main loop
+		m_DeltaTimer.Start( );
+
 		while(m_Running)
 		{
 			bdSleep(0);
 
 			// Do events
-			if(m_pWindow->DoEvents() != BD_OK)
+			if( m_pWindow->DoEvents() != BD_OK )
 			{
 				break;
 			}
 
 			// Update
-			Update(0.0f);
+			m_DeltaTimer.Stop( );
+			Update( m_DeltaTimer.GetTime() );
+			m_DeltaTimer.Start( );
 
 			// Render
-			m_pRenderer->StartScene();
-			Render();
-			m_pRenderer->EndScene();
+			m_pRenderer->StartScene( );
+			Render( );
+			m_pRenderer->EndScene( );
 
 		}
 		
@@ -83,6 +89,10 @@ namespace BD
 	{
 		m_Loaded = false;
 
+		// Seed the random function
+		bdSeedRandom( "Jimmie Bergmann" );
+
+		// Allocate the window and the renderer
 #ifdef PLATFORM_WINDOWS	
 		m_pWindow = new WindowsWindow();
 		m_pRenderer = new WindowsRendererOGL();
@@ -101,6 +111,8 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
+
+		// Create the renderer and set some initial values.
 		if( m_pRenderer->Create( *m_pWindow ) != BD_OK )
 		{
 			return BD_ERROR;
@@ -113,15 +125,13 @@ namespace BD
 		m_pRenderer->DisableDepthTest( );
 		
 		// Loading the test rendering data.
-
 		// Load the vertex object
-		BD_FLOAT32 ObjectSize = 20;
-
+		m_ObjectSize = 20;
 		m_pVertexObject = new VertexObjectOGL( );
 		BD_FLOAT32 VertexBuffer[18] = 
 		{
-			0, 0, 0,   ObjectSize, 0,		   0,		ObjectSize, ObjectSize, 0,
-			0, 0, 0,   ObjectSize, ObjectSize, 0,		0,			ObjectSize, 0
+			0, 0, 0,   m_ObjectSize, 0,		   0,			m_ObjectSize, m_ObjectSize, 0,
+			0, 0, 0,   m_ObjectSize, m_ObjectSize, 0,		0,			m_ObjectSize, 0
 		};
 		BD_FLOAT32 TextureBuffer[12] = 
 		{
@@ -226,11 +236,11 @@ namespace BD
 
 
 		// Add some temporary object positions
-		m_ObjectPositions.push_back( Vector3( 11, 200, 0 ) );
-		m_ObjectPositions.push_back( Vector3( 30, 500, 0 ) );
-		m_ObjectPositions.push_back( Vector3( 300, 390, 0 ) );
-		m_ObjectPositions.push_back( Vector3( 111, 523, 0 ) );
-		m_ObjectPositions.push_back( Vector3( 700, 400, 0 ) );
+		for( BD_MEMSIZE i = 0; i < 200; i++ )
+		{
+			Vector3 ObjectPosition( bdRandom( 0, WindowWidth ), bdRandom( 0, WindowHeight ), 0 );
+			m_ObjectPositions.push_back( ObjectPosition );
+		}
 
 
 		m_Loaded = true;
@@ -291,9 +301,18 @@ namespace BD
 
 	BD_UINT32 Game::Update( BD_FLOAT64 p_DeltaTime )
 	{
+		// Sink the object on the screen
 		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
 		{
-			m_ObjectPositions[i][1] -= 50.0f * p_DeltaTime;
+			m_ObjectPositions[i][1] -= 100.0f * p_DeltaTime;
+
+			// Is the object outside the screen? Let's put it back up again8
+			if( (m_ObjectPositions[i][1] + m_ObjectSize ) <= 0 )
+			{
+				BD_FLOAT32 HeightPositionOffset = (m_ObjectPositions[i][1] + m_ObjectSize );
+				m_ObjectPositions[i][0] = bdRandom( 0, 800 );
+				m_ObjectPositions[i][1] = 600 + HeightPositionOffset +  bdRandom( 0, 30 );yy
+			}
 		}
 
 
@@ -308,7 +327,7 @@ namespace BD
 		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
 		{
 			m_pShaderProgram->SetUniform3f( "VertexPosition", 
-				m_ObjectPositions[i][0], m_ObjectPositions[i][1], m_ObjectPositions[i][2] );
+				(int)m_ObjectPositions[i][0], (int)m_ObjectPositions[i][1], m_ObjectPositions[i][2] );
 			m_pVertexObject->Render(VertexObject::RENDERMODE_TRIANGLES);
 		}
 

@@ -78,8 +78,10 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 ///////////////////////////////////////////////////////////////////////////////
 #define bglClear			glClear
 #define bglClearColor		glClearColor
+#define bglGetError			glGetError
 #define bglGetIntegerv		glGetIntegerv
 #define bglGetString		glGetString
+#define bglViewport			glViewport
 
 ///////////////////////////////////////////////////////////////////////////////
 // GL CORE FUNCTIONS [ GL 3.0 ] ///////////////////////////////////////////////
@@ -170,7 +172,7 @@ extern PFNGLVERTEXATTRIBPOINTERPROC			__bglVertexAttribPointer;
 
 	#define bglGetProcAddress( p_GLExt ) glXGetProcAddress(\
 		( const GLubyte * )p_GLExt )
-	#define PFNGLXCREATECONTEXTATTRIBSPROC	__bglwsCreateContextAttribsARB
+	#define bglwsCreateContextAttribsARB	__bglwsCreateContextAttribsARB
 
 #else
 	#error No platform specified as a pre-processor directive
@@ -193,26 +195,7 @@ namespace BD
 #else
 	#error No platform specified as a pre-processor directive
 #endif
-/*
-	class GlExt
-	{
 
-	public:
-
-		static BD_UINT32 Load( );
-		static BD_BOOL IsLoaded( );
-		static std::string GetError( );
-		static BD_UINT32 GetErrorCount( );
-
-	private:
-
-		static BD_BOOL s_Loaded;
-		static std::map< std::string, void* > s_ExtensionMap;
-		static std::string s_ExtensionError;
-		static BD_UINT32 s_ExtensionErrorCount;
-
-	};
-*/
 }
 
 #endif

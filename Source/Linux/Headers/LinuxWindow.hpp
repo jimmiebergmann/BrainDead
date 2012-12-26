@@ -1,6 +1,9 @@
 #ifndef __BRAINDEAD_WINDOW_LINUXWINDOW_HPP__
 #define __BRAINDEAD_WINDOW_LINUXWINDOW_HPP__
 
+#include <X11/Xlib.h>
+#include <GL/gl.h>
+#include <GL/glx.h>
 #include <Window.hpp>
 
 namespace BD
@@ -23,6 +26,8 @@ namespace BD
 	private:
 		::Window	m_Window;
 		Display		*m_pDisplay;
+		XVisualInfo	*m_pXVI;
+		GLXContext m_GLXContext;
 
 		BD_BOOL m_Created;
 		BD_BOOL m_Fullscreen;

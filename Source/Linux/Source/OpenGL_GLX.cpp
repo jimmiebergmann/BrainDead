@@ -56,11 +56,30 @@ namespace BD
 		{
 			if( ( *GLXItr ).compare( "GLX_ARB_create_context" ) == 0 )
 			{
+				bdTrace( BD_NULL, "[BD::GLWSExtBind] <INFO> "
+						"Binding glXCreateContextAttribsARB... " );
 				Ret = ( ( __bglwsCreateContextAttribsARB =
 					( PFNGLXCREATECONTEXTATTRIBSARBPROC )bglGetProcAddress(
 						"glXCreateContextAttribsARB" ) ) == BD_NULL ) || Ret;
 
-				bdAssert( Ret );
+				if( __bglwsCreateContextAttribsARB )
+				{
+					bdTrace( BD_NULL, " [ OK ]\n" );
+				}
+				else
+				{
+					bdTrace( BD_NULL, " [ FAIL ]\n" );
+				}
+
+				if( Ret )
+				{
+
+					bdTrace( BD_NULL, "[BD::GLWSExtBind] <ERROR> "
+						"Failed to bind GLX_ARB_create_context family of "
+						"GLX extensions" );
+					bdAssert( ( Ret == BD_FALSE ) );
+					return BD_ERROR;
+				}
 			}
 		}
 		return BD_OK;

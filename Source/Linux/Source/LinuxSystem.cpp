@@ -1,4 +1,5 @@
 #include <System.hpp>
+#include <Debugger.hpp>
 #include <unistd.h>
 #include <errno.h>
 #include <cstring>

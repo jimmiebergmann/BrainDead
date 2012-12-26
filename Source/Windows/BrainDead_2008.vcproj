@@ -671,6 +671,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Source\System.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Source\Texture.cpp"
 					>
 				</File>
@@ -760,10 +764,6 @@
 				</File>
 				<File
 					RelativePath=".\Source\Main.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Source\System.cpp"
 					>
 				</File>
 				<File

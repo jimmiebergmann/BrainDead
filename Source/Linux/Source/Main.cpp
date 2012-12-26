@@ -1,15 +1,10 @@
 #include <iostream>
-#include <DataTypes.hpp>
-#include <LinuxWindow.hpp>
 #include <Debugger.hpp>
+#include <Game.hpp>
 
 int main( int p_Argc, char **p_ppArgv )
 {
-	BD::LinuxWindow Test;
-	Test.Create( 800, 600 );
+	BD::Game Game;
 
-	sleep( 1 );
-	bdTrace( "Test.log", "------------ TEST: %s -------------\n", "Linux" );
-	std::cout << "BrainDead" << std::endl;
-	return 0;
+	return Game.Run( 0, BD_NULL );
 }

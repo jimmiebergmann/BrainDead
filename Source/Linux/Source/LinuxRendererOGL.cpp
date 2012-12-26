@@ -1,9 +1,14 @@
 #include <LinuxRendererOGL.hpp>
+#include <Debugger.hpp>
 
 namespace BD
 {
-	LinuxRendererOGL::LinuxRendererOGL( )
+	LinuxRendererOGL::LinuxRendererOGL( const WINDATA &p_WinData )
 	{
+		m_WinData = p_WinData;
+		bdTrace( BD_NULL, "BD::LinuxRendererOGL::LinuxRendererOGL] <INFO> "
+			"Window: 0x%08X | Display: 0x%08X\n",
+			m_WinData.Window, m_WinData.pDisplay );
 	}
 
 	LinuxRendererOGL::~LinuxRendererOGL( )
@@ -12,21 +17,29 @@ namespace BD
 
 	BD_UINT32 LinuxRendererOGL::Create( const Window &p_Window )
 	{
+		m_WinData = p_Window.Data( );
+
 		return BD_OK;
 	}
 
 	void LinuxRendererOGL::StartScene( )
 	{
+		GLbitfield Flags = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
+			GL_STENCIL_BUFFER_BIT;
+
+		bglClear( Flags );
 	}
 
 	void LinuxRendererOGL::EndScene( )
 	{
+		glXSwapBuffers( m_WinData.pDisplay, m_WinData.Window );
 	}
 
 	void LinuxRendererOGL::SetClearColor( const BD_FLOAT32 p_Red,
 		const BD_FLOAT32 p_Green, const BD_FLOAT32 p_Blue,
 		const BD_FLOAT32 p_Alpha )
 	{
+		bglClearColor( p_Red, p_Green, p_Blue, 1.0f );
 	}
 	
 	void LinuxRendererOGL::SetClearDepth( const BD_FLOAT32 p_Depth )

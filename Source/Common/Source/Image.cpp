@@ -23,19 +23,19 @@ namespace BD
 
 	BD_UINT32 Image::ReadFile( char *p_pFileName )
 	{
-		char * pFileExtension = new char[ 4 ];
-		GetFileExtension( p_pFileName, pFileExtension, 4 );
+		char FileExtension[3];
+		GetFileExtension( p_pFileName, FileExtension, 3 );
 
-		if( strcmp( pFileExtension, "TGA" ) == 0 )
+		if( strcmp( FileExtension, "TGA" ) == 0 )
 		{
-			delete [ ] pFileExtension;
-			pFileExtension = BD_NULL;
+		//	delete [ ] pFileExtension;
+//			pFileExtension = BD_NULL;
 
 			return ReadTGA(p_pFileName);
 		}
 
-		delete [ ] pFileExtension;
-		pFileExtension = BD_NULL;
+		//delete [ ] pFileExtension;
+	//	pFileExtension = BD_NULL;
 
 		return BD_ERROR;
 	}

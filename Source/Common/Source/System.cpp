@@ -77,7 +77,12 @@ namespace BD
 			return BD_ERROR;
 		}
 
-		const BD_MEMSIZE ExtLen = PathLen-ExtPos-1;
+		BD_MEMSIZE ExtLen = PathLen-ExtPos-1;
+		// Make sure the extension length isn't longer than p_Size
+		if( ExtLen > p_Size )
+		{
+			ExtLen = p_Size;
+		}
 
 		// The allocated buffer isn't large enough for the extension
 		if( p_Size < ExtLen )
@@ -85,10 +90,12 @@ namespace BD
 			return BD_ERROR;
 		}
 
+		
+/*
 		// Extract the extension and null-terminate
 		char * Ext = new char[ ExtLen+1 ];
 		strncpy( Ext, p_pFilePath + ExtPos+1, PathLen-ExtPos );
-		Ext[ ExtLen ] = '\0';
+		Ext[ ExtLen+1 ] = '\0';
 
 		for( BD_MEMSIZE i = 0; i < strlen( Ext ); ++i )
 		{
@@ -99,6 +106,24 @@ namespace BD
 
 		// Cleaning up Ext
 		delete [] Ext;
+*/
+
+		char * Ext = new char[ ExtLen+1 ];
+		strncpy( Ext, p_pFilePath + ExtPos, PathLen-ExtPos );
+		Ext[ ExtLen+1] = '\0';
+
+		memset(p_pExt, 0, p_Size);
+		for( BD_MEMSIZE i = 0; i < ExtLen; ++i )
+		{
+			p_pExt[ i ] = toupper( Ext[ i ] );
+		}
+
+
+		// Cleaning up Ext
+		delete [] Ext;
+
+
+
 
 		return BD_OK;
 	}	

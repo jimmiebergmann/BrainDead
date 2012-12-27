@@ -21,11 +21,9 @@ namespace BD
 
 	private:
 
-		static GLenum s_ShaderObjectTypes[3];
+		static GLenum s_ShaderObjectTypes[ 3 ];
 
-		GLhandleARB m_ShaderObject;
-
-
+		GLuint m_ShaderObject;
 
 	};
 

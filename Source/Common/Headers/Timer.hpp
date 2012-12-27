@@ -8,14 +8,12 @@ namespace BD
 
 	class Timer
 	{
-
 	public:
 
 		Timer( );
 		void Start( );
 		void Stop( );
 		BD_FLOAT64 GetTime( );
-		
 
 	private:
 
@@ -24,7 +22,7 @@ namespace BD
 		BD_FLOAT64 m_Time;
 
 	};
-
 }
 
 #endif
+

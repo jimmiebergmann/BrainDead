@@ -19,7 +19,7 @@ namespace BD
 {
 
 
-	BD_UINT32 GetExecutablePath( char *p_pBuffer, BD_MEMSIZE p_Size )
+	BD_UINT32 GetExecutablePath( char **p_pBuffer, BD_MEMSIZE p_Size )
 	{
 		
 #ifdef PLATFORM_WINDOWS
@@ -36,11 +36,11 @@ namespace BD
 		BD_MEMSIZE SlashLoc = ExePath.find_last_of( "\\" );
 		ExePath.resize( SlashLoc+1 );
 
-		strncpy( p_pBuffer, ExePath.c_str( ), ExePath.size( ) );
+		strncpy( *p_pBuffer, ExePath.c_str( ), ExePath.size( ) );
 
 // ISSUE!
 // Need linux code for this.
-// ISSUE!
+// !ISSUE
 #else	
 
 		if( p_pBuffer != BD_NULL && p_Size > 0)
@@ -78,52 +78,26 @@ namespace BD
 		}
 
 		BD_MEMSIZE ExtLen = PathLen-ExtPos-1;
-		// Make sure the extension length isn't longer than p_Size
-		if( ExtLen > p_Size )
-		{
-			ExtLen = p_Size;
-		}
 
 		// The allocated buffer isn't large enough for the extension
-		if( p_Size < ExtLen )
+		if( p_Size < ExtLen + 1 ) // + 1 since we need space for the last 0
 		{
 			return BD_ERROR;
 		}
+	
+		// Create an array holding the extension data
+		char * Ext = new char[ p_Size ];
+		strncpy( Ext, p_pFilePath + ExtPos+1, ExtLen );
+		Ext[ ExtLen ] = '\0';
 
-		
-/*
-		// Extract the extension and null-terminate
-		char * Ext = new char[ ExtLen+1 ];
-		strncpy( Ext, p_pFilePath + ExtPos+1, PathLen-ExtPos );
-		Ext[ ExtLen+1 ] = '\0';
-
-		for( BD_MEMSIZE i = 0; i < strlen( Ext ); ++i )
-		{
-			Ext[ i ] = toupper( Ext[ i ] );
-		}
-
-		strcpy( p_pExt, Ext );
-
-		// Cleaning up Ext
-		delete [] Ext;
-*/
-
-		char * Ext = new char[ ExtLen+1 ];
-		strncpy( Ext, p_pFilePath + ExtPos, PathLen-ExtPos );
-		Ext[ ExtLen+1] = '\0';
-
-		memset(p_pExt, 0, p_Size);
-		for( BD_MEMSIZE i = 0; i < ExtLen; ++i )
+		// Now, set the user's variable p_pExt.
+		for( BD_MEMSIZE i = 0; i < p_Size; ++i )
 		{
 			p_pExt[ i ] = toupper( Ext[ i ] );
 		}
 
-
 		// Cleaning up Ext
-		delete [] Ext;
-
-
-
+		delete [ ] Ext;
 
 		return BD_OK;
 	}	

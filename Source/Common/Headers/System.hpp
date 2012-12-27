@@ -13,7 +13,7 @@
 
 namespace BD
 {
-	BD_UINT32 GetExecutablePath( char **p_pBuffer, BD_MEMSIZE p_Size );
+	BD_UINT32 GetExecutablePath( char *p_pBuffer, BD_MEMSIZE p_Size );
 	BD_UINT32 GetFileExtension( const char *p_pFilePath, char *p_pExt,
 		const BD_MEMSIZE p_Size );
 }

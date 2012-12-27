@@ -28,6 +28,9 @@ ipch
 *.swp
 *.swo
 
+# Diffing temporary files #
+*.orig
+
 # Documentation #
 *.~lock.*
 *.docstates

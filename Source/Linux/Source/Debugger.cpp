@@ -27,7 +27,7 @@ namespace BD
 			FILE *pFileHandle = BD_NULL;
 			// Save files as executable path-relative
 			char *pExeDir = new char[ 256 ];
-			BD::GetExecutablePath( &pExeDir, 256 );
+			BD::GetExecutablePath( pExeDir, 256 );
 
 			std::string FilePath( pExeDir );
 			FilePath.append( p_pFileName );

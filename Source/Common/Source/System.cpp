@@ -43,27 +43,28 @@ namespace BD
 			return BD_ERROR;
 		}
 
-		BD_MEMSIZE ExtLen = PathLen-ExtPos-1;
+		const BD_MEMSIZE ExtLen = PathLen-ExtPos-1;
 
 		// The allocated buffer isn't large enough for the extension
-		if( p_Size < ExtLen + 1 ) // + 1 since we need space for the last 0
+		if( p_Size < ExtLen )
 		{
 			return BD_ERROR;
 		}
-	
-		// Create an array holding the extension data
-		char * Ext = new char[ p_Size ];
-		strncpy( Ext, p_pFilePath + ExtPos+1, ExtLen );
-		Ext[ ExtLen ] = '\0';
 
-		// Now, set the user's variable p_pExt.
-		for( BD_MEMSIZE i = 0; i < p_Size; ++i )
+		// Extract the extension and null-terminate
+		char *pExt = new char[ ExtLen+1 ];
+		strncpy( pExt, p_pFilePath + ExtPos+1, PathLen-ExtPos );
+		pExt[ ExtLen ] = '\0';
+
+		for( BD_MEMSIZE i = 0; i < strlen( pExt ); ++i )
 		{
-			p_pExt[ i ] = toupper( Ext[ i ] );
+			pExt[ i ] = toupper( pExt[ i ] );
 		}
 
+		strcpy( p_pExt, pExt );
+
 		// Cleaning up Ext
-		delete [ ] Ext;
+		delete [ ] pExt;
 
 		return BD_OK;
 	}	

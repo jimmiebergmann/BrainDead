@@ -71,7 +71,6 @@ namespace BD
 			this->Render( );
 			m_pRenderer->EndScene( );
 		}
-		
 
 		// Unload the game
 		if( Unload( ) != BD_OK )

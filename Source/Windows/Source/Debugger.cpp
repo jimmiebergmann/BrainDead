@@ -24,7 +24,7 @@ namespace BD
 
 			char *pExeDir = new char[ MAX_PATH ];
 			memset( pExeDir, '\0', MAX_PATH );
-			BD::GetExecutablePath( &pExeDir, MAX_PATH );
+			BD::GetExecutablePath( pExeDir, MAX_PATH );
 
 			std::string FilePath( pExeDir );
 

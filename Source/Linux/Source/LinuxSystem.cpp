@@ -10,7 +10,7 @@ namespace BD
 	// Credit to:
 	// http://www.flipcode.com/archives/Path_To_Executable_On_Linux.shtml
 	// For the following function contents
-	BD_UINT32 GetExecutablePath( char **p_ppBuffer, size_t p_Size )
+	BD_UINT32 GetExecutablePath( char *p_pBuffer, size_t p_Size )
 	{
 		// /proc/[pid]/exe
 		char LinkName[ 64 ];
@@ -52,7 +52,7 @@ namespace BD
 		ExePath.append( "/" );
 
 		// Copy it, and we're done
-		strncpy( *p_ppBuffer, ExePath.c_str( ), ExePath.size( ) );
+		strncpy( p_pBuffer, ExePath.c_str( ), ExePath.size( ) );
 
 		return BD_OK;
 	}

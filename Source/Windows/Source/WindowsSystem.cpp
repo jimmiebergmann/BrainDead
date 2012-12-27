@@ -5,7 +5,7 @@
 
 namespace BD
 {
-	BD_UINT32 GetExecutablePath( char **p_ppBuffer, BD_MEMSIZE p_Size )
+	BD_UINT32 GetExecutablePath( char *p_pBuffer, BD_MEMSIZE p_Size )
 	{
 		HMODULE Module = GetModuleHandleA( BD_NULL );
 		char *pFullPath = new char[ p_Size ];
@@ -20,7 +20,7 @@ namespace BD
 		BD_MEMSIZE SlashLoc = ExePath.find_last_of( "\\" );
 		ExePath.resize( SlashLoc+1 );
 		
-		strncpy( *p_ppBuffer, ExePath.c_str( ), ExePath.size( ) );
+		strncpy( p_pBuffer, ExePath.c_str( ), ExePath.size( ) );
 
 		return BD_OK;
 	}

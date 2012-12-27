@@ -17,41 +17,6 @@
 
 namespace BD
 {
-
-
-	BD_UINT32 GetExecutablePath( char *p_pBuffer, BD_MEMSIZE p_Size )
-	{
-		
-#ifdef PLATFORM_WINDOWS
-		HMODULE Module = GetModuleHandleA( BD_NULL );
-		char *pFullPath = new char[ p_Size ];
-		memset( pFullPath, '\0', p_Size );
-		GetModuleFileNameA( Module, pFullPath, p_Size );
-
-		std::string ExePath( pFullPath );
-
-		delete [ ] pFullPath;
-		pFullPath = BD_NULL;
-
-		BD_MEMSIZE SlashLoc = ExePath.find_last_of( "\\" );
-		ExePath.resize( SlashLoc+1 );
-
-		strncpy( p_pBuffer, ExePath.c_str( ), ExePath.size( ) );
-
-// ISSUE!
-// Need linux code for this.
-// ISSUE!
-#else	
-
-		if( p_pBuffer != BD_NULL && p_Size > 0)
-		{
-			p_pBuffer[0] = 0;
-		}
-#endif
-		return BD_OK;
-	}
-
-
 	BD_UINT32 GetFileExtension( const char *p_pFilePath, char *p_pExt,
 		const BD_MEMSIZE p_Size )
 	{
@@ -86,19 +51,19 @@ namespace BD
 		}
 
 		// Extract the extension and null-terminate
-		char * Ext = new char[ ExtLen+1 ];
-		strncpy( Ext, p_pFilePath + ExtPos+1, PathLen-ExtPos );
-		Ext[ ExtLen ] = '\0';
+		char *pExt = new char[ ExtLen+1 ];
+		strncpy( pExt, p_pFilePath + ExtPos+1, PathLen-ExtPos );
+		pExt[ ExtLen ] = '\0';
 
-		for( BD_MEMSIZE i = 0; i < strlen( Ext ); ++i )
+		for( BD_MEMSIZE i = 0; i < strlen( pExt ); ++i )
 		{
-			Ext[ i ] = toupper( Ext[ i ] );
+			pExt[ i ] = toupper( pExt[ i ] );
 		}
 
-		strcpy( p_pExt, Ext );
+		strcpy( p_pExt, pExt );
 
 		// Cleaning up Ext
-		delete [] Ext;
+		delete [ ] pExt;
 
 		return BD_OK;
 	}	

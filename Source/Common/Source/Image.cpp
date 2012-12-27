@@ -24,8 +24,8 @@ namespace BD
 	BD_UINT32 Image::ReadFile( char *p_pFileName )
 	{
 		// Get the file's extension
-		char FileExtension[8];
-		GetFileExtension( p_pFileName, FileExtension, 8 );
+		char FileExtension[4];
+		GetFileExtension( p_pFileName, FileExtension, 4 );
 
 		if( strcmp( FileExtension, "TGA" ) == 0 )
 		{

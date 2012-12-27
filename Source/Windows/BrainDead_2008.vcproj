@@ -771,6 +771,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Source\WindowsSystem.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Source\WindowsWindow.cpp"
 					>
 				</File>

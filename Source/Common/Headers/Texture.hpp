@@ -6,6 +6,15 @@
 
 namespace BD
 {
+	// Texture filter
+	const BD_UINT32 BD_TEXTURE_FILTER_MAG = 1;
+	const BD_UINT32 BD_TEXTURE_FILTER_MIN = 2;
+	const BD_UINT32 BD_TEXTURE_FILTER_WRAP_X = 3;
+	const BD_UINT32 BD_TEXTURE_FILTER_WRAP_Y = 4;
+
+	const BD_UINT32 BD_TEXTURE_FILTER_NEAREST = 5;
+	const BD_UINT32 BD_TEXTURE_FILTER_LINEAR = 6;
+	const BD_UINT32 BD_TEXTURE_FILTER_REPEAT = 7;
 
 	class Texture 
 	{
@@ -26,6 +35,7 @@ namespace BD
 			const ePixelFormat p_PixelFormat, BD_BYTE * p_Data ) = 0;
 		virtual void Bind( BD_UINT32 p_Index ) = 0;
 		virtual void Unbind( ) = 0;
+		virtual BD_UINT32 SetFilters( BD_UINT32 * p_pFilters ) = 0;
 		// Filter functions
 		// ...
 

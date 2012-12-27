@@ -177,7 +177,7 @@ namespace BD
 
 		if( m_pVertexShader->Read("Data/Shader.vert") != BD_OK )
 		{
-			bdTrace( BD_NULL, "TESTGE\n" );
+			bdTrace( BD_NULL, "Can't find the vertex shader file\n" );
 			return BD_ERROR;
 		}
 		if( m_pVertexShader->Compile(VertexValidation) != BD_OK )
@@ -191,6 +191,7 @@ namespace BD
 		}
 		if( m_pFragmentShader->Read( "Data/Shader.frag" ) != BD_OK )
 		{
+			bdTrace( BD_NULL, "Can't find the fragment shader file\n" );
 			return BD_ERROR;
 		}
 		if( m_pFragmentShader->Compile( FragmentValidation ) != BD_OK )
@@ -248,6 +249,18 @@ namespace BD
 		{
 			return BD_ERROR;
 		}
+
+		// Set texture filters
+		BD_UINT32 TextureFilters[ ] =
+		{
+			BD_TEXTURE_FILTER_MAG, BD_TEXTURE_FILTER_NEAREST,
+			BD_TEXTURE_FILTER_MIN, BD_TEXTURE_FILTER_NEAREST,
+			BD_TEXTURE_FILTER_WRAP_X, BD_TEXTURE_FILTER_REPEAT,
+			BD_TEXTURE_FILTER_WRAP_Y, BD_TEXTURE_FILTER_REPEAT,
+			0, 0
+		};
+		m_pTexture->SetFilters( TextureFilters );
+
 
 
 		// Add some temporary object positions

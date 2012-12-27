@@ -48,17 +48,10 @@ namespace BD
 		glGenTextures( 1, &m_Id );
 		glBindTexture( GL_TEXTURE_2D, m_Id );
 
-		// !!! TEMPORARY!
-		// Filters
-		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST/*GL_FilerModesMag[m_filterMode]*/ );
-		glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST/*GL_FilerModesMin[m_filterMode]*/ );
-
-
 		glTexImage2D ( GL_TEXTURE_2D, 0, Format, p_Image.GetWidth(), p_Image.GetHeight(), 0,
 			(GLenum)Format, GL_UNSIGNED_BYTE, (GLvoid *)p_Image.GetData() );
 
+		// Unbind the texture
 		glBindTexture( GL_TEXTURE_2D, 0 );
 		
 		m_Loaded = BD_TRUE;
@@ -106,4 +99,80 @@ namespace BD
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	
+	BD_UINT32 TextureOGL::SetFilters( BD_UINT32 * p_pFilters )
+	{
+		// This code is working, but I don't know about it's efficiency...
+
+		if( p_pFilters == BD_NULL || *p_pFilters == 0 )
+		{
+			return BD_ERROR;
+		}
+
+		// Bind the texture
+		glBindTexture( GL_TEXTURE_2D, m_Id );
+
+		// Currently max 4 filters supported.
+		const BD_UINT32 MaxFilters = 4;
+		GLenum  Filter = 0;
+ 		GLint  	Param = 0;
+
+		for( BD_MEMSIZE i = 0; i < MaxFilters; i++ )
+		{
+			// Make sure the filter or param isn't 0
+			if( *p_pFilters == 0 || *( p_pFilters + 1 ) == 0 )
+			{
+				return BD_ERROR;
+			}
+
+			// Swtich the filter type
+			switch( *p_pFilters )
+			{
+			case BD_TEXTURE_FILTER_MAG:
+				Filter = GL_TEXTURE_MAG_FILTER;
+				break;
+			case BD_TEXTURE_FILTER_MIN:
+				Filter = GL_TEXTURE_MIN_FILTER;
+				break;
+			case BD_TEXTURE_FILTER_WRAP_X:
+				Filter = GL_TEXTURE_WRAP_S;
+				break;
+			case BD_TEXTURE_FILTER_WRAP_Y:
+				Filter = GL_TEXTURE_WRAP_T;
+				break;
+			default:
+				glBindTexture( GL_TEXTURE_2D, 0 );
+				return BD_ERROR;
+			}
+
+			// Swtich the filters value 
+			switch( *(p_pFilters + 1) )
+			{
+			case BD_TEXTURE_FILTER_NEAREST:
+				Param = GL_NEAREST;
+				break;
+			case BD_TEXTURE_FILTER_LINEAR:
+				Param = GL_LINEAR;
+				break;
+			case BD_TEXTURE_FILTER_REPEAT:
+				Param = GL_REPEAT;
+				break;
+			default:
+				glBindTexture( GL_TEXTURE_2D, 0 );
+				return BD_ERROR;
+			}
+
+			// Set the opengl texture filter.
+			glTexParameteri ( GL_TEXTURE_2D, Filter, Param );
+
+			// Increment the pointer by 2,
+			p_pFilters += 2;
+		}
+
+		// Unbind the texture
+		glBindTexture( GL_TEXTURE_2D, 0 );
+
+		return BD_OK;
+
+	}
+
 }

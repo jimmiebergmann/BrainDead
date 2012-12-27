@@ -48,8 +48,8 @@ namespace BD
 		// Find the last '/' and cull
 		std::string ExePath( FullPath );
 		BD_MEMSIZE SlashLoc = ExePath.find_last_of( "/" );
-		ExePath.resize( SlashLoc );// = ExePath.substr( 0, SlashLoc );
-		ExePath.append( "/" );
+		ExePath.resize( SlashLoc );
+		ExePath.append( "/\0" );
 
 		// Copy it, and we're done
 		strncpy( p_pBuffer, ExePath.c_str( ), ExePath.size( ) );

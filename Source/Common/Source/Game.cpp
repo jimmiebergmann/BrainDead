@@ -71,14 +71,6 @@ namespace BD
 			this->Render( );
 			m_pRenderer->EndScene( );
 		}
-		
-
-		char *pExt = new char [ 5 ];
-		GetFileExtension( "path.exten", pExt, 5 );
-		char *pPath = new char[ 256 ];
-		GetExecutablePath( pPath, 256 );
-		bdTrace( BD_NULL, "Path: %s\nExt: %s\n", pPath, pExt );
-		delete [ ] pExt;
 
 		// Unload the game
 		if( Unload( ) != BD_OK )

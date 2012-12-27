@@ -81,6 +81,5 @@ namespace BD
 
 		return StringBuffer;
 	}
-
 }
 

@@ -103,7 +103,8 @@ namespace BD
 	{
 		// This code is working, but I don't know about it's efficiency...
 
-		if( p_pFilters == BD_NULL || *p_pFilters == 0 )
+		if( p_pFilters == BD_NULL ||
+			*p_pFilters == 0 || *( p_pFilters + 1 ) == 0 )
 		{
 			return BD_ERROR;
 		}
@@ -121,7 +122,8 @@ namespace BD
 			// Make sure the filter or param isn't 0
 			if( *p_pFilters == 0 || *( p_pFilters + 1 ) == 0 )
 			{
-				return BD_ERROR;
+				// Break the for-loop.
+				break;
 			}
 
 			// Swtich the filter type

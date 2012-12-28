@@ -3,6 +3,7 @@
 
 #include <Renderer.hpp>
 #include <WindowsWindow.hpp>
+#include <OGL/OpenGL.hpp>
 
 namespace BD
 {

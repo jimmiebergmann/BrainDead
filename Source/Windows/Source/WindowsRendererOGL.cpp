@@ -1,4 +1,8 @@
 #include <WindowsRendererOGL.hpp>
+#include <OGL/TextureOGL.hpp>
+#include <OGL/VertexObjectOGL.hpp>
+#include <OGL/ShaderOGL.hpp>
+#include <OGL/ShaderProgramOGL.hpp>
 
 namespace BD
 {
@@ -130,6 +134,25 @@ namespace BD
 		return BD_OK;
 	}
 
+	Texture * WindowsRendererOGL::CreateTexture( )
+	{
+		return ( new TextureOGL( ) );
+	}
+
+	VertexObject * WindowsRendererOGL::CreateVertexObject( )
+	{
+		return ( new VertexObjectOGL( ) );
+	}
+
+	Shader * WindowsRendererOGL::CreateShader( const Shader::eShaderType p_ShaderType )
+	{
+		return ( new ShaderOGL( p_ShaderType ) );
+	}
+
+	ShaderProgram * WindowsRendererOGL::CreateShaderProgram( )
+	{
+		return ( new ShaderProgramOGL( ) );
+	}
 
 	void WindowsRendererOGL::StartScene( )
 	{

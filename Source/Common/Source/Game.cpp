@@ -130,7 +130,7 @@ namespace BD
 		// Loading the test rendering data.
 		// Load the vertex object
 		m_ObjectSize = 20;
-		m_pVertexObject = new VertexObjectOGL( );
+		m_pVertexObject = m_pRenderer->CreateVertexObject( );
 
 		BD_FLOAT32 ObjectSize = static_cast< BD_FLOAT32 >( m_ObjectSize );
 
@@ -171,8 +171,8 @@ namespace BD
 		// Load the shaders
 		std::string VertexValidation = "";
 		std::string FragmentValidation = "";
-		m_pVertexShader = new ShaderOGL(Shader::SHADERTYPE_VERTEX);
-		m_pFragmentShader = new ShaderOGL(Shader::SHADERTYPE_FRAGMENT);
+		m_pVertexShader = m_pRenderer->CreateShader( Shader::SHADERTYPE_VERTEX );
+		m_pFragmentShader = m_pRenderer->CreateShader( Shader::SHADERTYPE_FRAGMENT );
 
 		if( m_pVertexShader->Read("Data/Shader.vert") != BD_OK )
 		{
@@ -204,7 +204,7 @@ namespace BD
 		}
 		// Load the shader program
 		std::string ShaderProgramValidation = "";
-		m_pShaderProgram = new ShaderProgramOGL( );
+		m_pShaderProgram = m_pRenderer->CreateShaderProgram( );
 		if( m_pShaderProgram->Load( ) != BD_OK )
 		{
 			return BD_ERROR;
@@ -218,7 +218,6 @@ namespace BD
 			VertexAttributeLocation );
 		m_pShaderProgram->SetAttributeLocation( "Texture",
 			TextureAttributeLocation );
-
 
 		if( m_pShaderProgram->Link( ShaderProgramValidation ) != BD_OK )
 		{
@@ -243,7 +242,7 @@ namespace BD
 			return BD_ERROR;
 		}
 
-		m_pTexture = new TextureOGL( );
+		m_pTexture = m_pRenderer->CreateTexture( );
 		if( m_pTexture->Load( *m_pImage ) )
 		{
 			return BD_ERROR;

@@ -3,6 +3,10 @@
 
 #include <DataTypes.hpp>
 #include <Window.hpp>
+#include <Texture.hpp>
+#include <VertexObject.hpp>
+#include <Shader.hpp>
+#include <ShaderProgram.hpp>
 
 namespace BD
 {
@@ -21,6 +25,10 @@ namespace BD
 
 		virtual ~Renderer( ){ }
 		virtual BD_UINT32 Create( const Window & p_Window ) = 0;
+		virtual Texture * CreateTexture( ) = 0;
+		virtual VertexObject * CreateVertexObject( ) = 0;
+		virtual Shader * CreateShader( const Shader::eShaderType p_ShaderType) = 0;
+		virtual ShaderProgram * CreateShaderProgram( ) = 0;
 		virtual void StartScene( ) = 0;
 		virtual void EndScene( ) = 0;
 		virtual void SetClearColor( const BD_FLOAT32 p_R, const BD_FLOAT32 p_G, const BD_FLOAT32 p_B, const BD_FLOAT32 p_A ) = 0;

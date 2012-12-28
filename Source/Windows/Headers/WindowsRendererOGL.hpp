@@ -2,7 +2,6 @@
 #define __BRAINDEAD_WINDOWS_RENDERER_OGL_HPP__
 
 #include <Renderer.hpp>
-#include <WindowsWindow.hpp>
 #include <OGL/OpenGL.hpp>
 
 namespace BD

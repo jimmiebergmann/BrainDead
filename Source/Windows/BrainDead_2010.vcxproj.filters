@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{6be3904c-43fb-41c1-b2e4-0c901fcd63db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Common\Headers">
+      <UniqueIdentifier>{1bd2e62f-2d58-451b-b4af-2f565842fe8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Source">
+      <UniqueIdentifier>{b6fccc2e-7cea-4ab1-ae24-5e48258b78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Headers">
+      <UniqueIdentifier>{3445af0a-07ed-4cf8-935e-f051d7a9d48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Source">
+      <UniqueIdentifier>{9a6ddd85-a98d-456b-828b-b9aab6eacac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Headers\OAL">
+      <UniqueIdentifier>{1f5743b7-6d8f-4779-8435-9a3ba2e1f180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Headers\OGL">
+      <UniqueIdentifier>{e760ee04-d628-4ff9-ae36-946a4eeb5018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Source\OGL">
+      <UniqueIdentifier>{16443d2c-c914-4d12-bf82-cde52578cecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Source\OAL">
+      <UniqueIdentifier>{abee6cba-50e8-4979-b846-f64cf279502c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\Headers\OAL\OpenAL.hpp">
+      <Filter>Common\Headers\OAL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\OGL\OpenGL.hpp">
+      <Filter>Common\Headers\OGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\OGL\ShaderOGL.hpp">
+      <Filter>Common\Headers\OGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\OGL\ShaderProgramOGL.hpp">
+      <Filter>Common\Headers\OGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\OGL\TextureOGL.hpp">
+      <Filter>Common\Headers\OGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\OGL\VertexObjectOGL.hpp">
+      <Filter>Common\Headers\OGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Arithmetic.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Compiler.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Compiler_MSVC.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\DataTypes.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Debugger.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Game.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Image.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Matrix3x3.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Matrix4x4.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Quaternion.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Random.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Renderer.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Shader.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\ShaderProgram.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\System.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Texture.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Timer.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Vector3.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Vector4.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\VertexObject.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Headers\Window.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DataTypes_Windows_x86_32.hpp">
+      <Filter>Windows\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DataTypes_Windows_x86_64.hpp">
+      <Filter>Windows\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Main.hpp">
+      <Filter>Windows\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\WindowsRendererOGL.hpp">
+      <Filter>Windows\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\WindowsWindow.hpp">
+      <Filter>Windows\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\Source\OAL\OpenAL.cpp">
+      <Filter>Common\Source\OAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\OGL\OpenGL.cpp">
+      <Filter>Common\Source\OGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\OGL\ShaderOGL.cpp">
+      <Filter>Common\Source\OGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\OGL\ShaderProgramOGL.cpp">
+      <Filter>Common\Source\OGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\OGL\TextureOGL.cpp">
+      <Filter>Common\Source\OGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\OGL\VertexObjectOGL.cpp">
+      <Filter>Common\Source\OGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Arithmetic.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Game.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Image.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Matrix3x3.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Matrix4x4.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Quaternion.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Random.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Shader.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\ShaderProgram.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\System.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Texture.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Timer.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Vector3.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Vector4.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\VertexObject.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Debugger.cpp">
+      <Filter>Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowsRendererOGL.cpp">
+      <Filter>Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowsSystem.cpp">
+      <Filter>Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowsWindow.cpp">
+      <Filter>Windows\Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Source\Debugger_x86_64.asm">
+      <Filter>Windows\Source</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

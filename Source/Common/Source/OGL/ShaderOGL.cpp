@@ -54,32 +54,35 @@ namespace BD
 		// Compile the vertex shader using it's source
 		bglShaderSource( m_ShaderObject, 1, &pTextSource, 0 );
 		bglCompileShader( m_ShaderObject );
-		
-		// Validate the vertex shader
-		p_Validation = ValidateShader( m_ShaderObject ); 
 
+		// Did the shader compile without incident?
+		GLint Compiled = 0;
+		bglGetShaderiv( m_ShaderObject, GL_COMPILE_STATUS, &Compiled );
+
+		if( !Compiled )
+		{
+			GLint LogLength = 0;
+			bglGetShaderiv( m_ShaderObject, GL_INFO_LOG_LENGTH, &LogLength );
+
+			if( LogLength > 1 )
+			{
+				char *pLog = new char[ LogLength ];
+				bglGetShaderInfoLog( m_ShaderObject, LogLength, BD_NULL, pLog );
+				bdTrace( BD_NULL, "[BD::ShaderOGL::Compile] <ERROR> "
+					"Shader compiler error:\n%s\n", pLog );
+				delete [ ] pLog;
+			}
+
+			m_Compiled = BD_FALSE;
+			return BD_ERROR;
+		}
+		
 		m_Compiled = BD_TRUE;
 		return BD_OK;
 	}
 
-	GLhandleARB ShaderOGL::GetShaderObject( ) const
+	GLuint ShaderOGL::GetShaderObject( ) const
 	{
 		return m_ShaderObject;
 	}
-
-	std::string ShaderOGL::ValidateShader( GLuint p_Shader )
-	{
-		const BD_UINT32 BUFFER_SIZE = 512;
-		GLchar Buffer[BUFFER_SIZE];
-		memset(Buffer, 0, BUFFER_SIZE);
-		GLsizei Length = 0;
-
-		bglGetShaderInfoLog( p_Shader, BUFFER_SIZE, &Length, Buffer ); // Ask OpenGL to give us the log associated with the shader
-		
-		std::string StringBuffer = std::string( Buffer );
-		StringBuffer[ Length ] = '\0';
-
-		return StringBuffer;
-	}
 }
-

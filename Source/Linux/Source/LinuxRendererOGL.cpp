@@ -17,6 +17,26 @@ namespace BD
 
 		return BD_OK;
 	}
+	
+		Texture * LinuxRendererOGL::CreateTexture( )
+	{
+		return ( new TextureOGL( ) );
+	}
+
+	VertexObject * LinuxRendererOGL::CreateVertexObject( )
+	{
+		return ( new VertexObjectOGL( ) );
+	}
+
+	Shader * LinuxRendererOGL::CreateShader( const Shader::eShaderType p_ShaderType )
+	{
+		return ( new ShaderOGL( p_ShaderType ) );
+	}
+
+	ShaderProgram * LinuxRendererOGL::CreateShaderProgram( )
+	{
+		return ( new ShaderProgramOGL( ) );
+	}
 
 	void LinuxRendererOGL::StartScene( )
 	{

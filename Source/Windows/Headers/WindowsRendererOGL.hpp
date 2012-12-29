@@ -2,7 +2,7 @@
 #define __BRAINDEAD_WINDOWS_RENDERER_OGL_HPP__
 
 #include <Renderer.hpp>
-#include <WindowsWindow.hpp>
+#include <OGL/OpenGL.hpp>
 
 namespace BD
 {
@@ -14,6 +14,10 @@ namespace BD
 		virtual ~WindowsRendererOGL( );
 		WindowsRendererOGL( );
 		virtual BD_UINT32 Create( const Window & p_Window );
+		virtual Texture * CreateTexture( );
+		virtual VertexObject * CreateVertexObject( );
+		virtual Shader * CreateShader(  const Shader::eShaderType p_ShaderType );
+		virtual ShaderProgram * CreateShaderProgram( );
 		virtual void StartScene( ) ;
 		virtual void EndScene( );
 		virtual void SetClearColor( const BD_FLOAT32 p_R, const BD_FLOAT32 p_G, const BD_FLOAT32 p_B, const BD_FLOAT32 p_A );

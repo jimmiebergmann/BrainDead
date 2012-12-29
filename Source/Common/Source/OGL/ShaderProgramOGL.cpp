@@ -87,9 +87,6 @@ namespace BD
 			return BD_ERROR;
 		}
 
-		// Get the validation string (Useful for debugging shaders)
-//		p_Validation = ShaderOGL::ValidateShader( m_ProgramID );
-
 		m_Linked = BD_TRUE;
 		return BD_OK;
 	}

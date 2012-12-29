@@ -3,7 +3,7 @@
 
 #include <DataTypes.hpp>
 
-namespace Dawn
+namespace BD
 {
 	class Quaternion
 	{

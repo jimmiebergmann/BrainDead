@@ -6,18 +6,15 @@
 
 namespace BD
 {
-
 	class ShaderOGL : public Shader
 	{
-
 	public:
 
 		ShaderOGL(eShaderType p_ShaderType);
 		virtual ~ShaderOGL();
 		
 		virtual BD_UINT32 Compile(std::string & p_Validation);
-		GLhandleARB GetShaderObject() const;
-		static std::string ValidateShader(GLuint p_Shader);
+		GLuint GetShaderObject() const;
 
 	private:
 

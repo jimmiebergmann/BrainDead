@@ -22,6 +22,8 @@ BUILD_PLATFORM	:= WINDOWS
 CPP		:= cl.exe
 LD		:= link.exe
 AS		:= ml.exe
+RC		:= rc.exe
+CVTRES	:= cvtres.exe
 
 ##### Depending on the version of the compiler, use the 64- or 32-bit     #####
 ##### flags, and change the assembler if necessary                        #####
@@ -60,6 +62,8 @@ CPPFLAGS	=	/c /D"_UNICODE" /D"UNICODE" /D"BUILD_$(BUILD_DEF)" \
 ASFLAGS		=	/c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)"
 LINK		=	opengl32.lib kernel32.lib user32.lib gdi32.lib
 LINKFLAGS	=	/MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS
+RCFLAGS		=	/D"_UNICODE" /D"UNICODE" /I"Resources" /I"Headers" /l 0X0409
+CVTRESFLAGS	=	/DEFINE:_UNICODE /DEFINE:UNICODE /MACHINE:$(MACHINE_DEF)
 
 ##### Debug ###################################################################
 debug:		BUILD = Debug
@@ -94,18 +98,24 @@ TARGETDIR:
 OBJSDIR:
 	if not exist $(OBJSDIR) mkdir $(OBJSDIR)
 
+GITVERSION:
+	cscript GitVersion.jse
+
 ##### Seek out the C++ and Assembly files from the SOURCEDIR directories  #####
 ##### defined at the beginning of this Makefile                           #####
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 ASMFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.asm)))
+RESFILES	:= $(notdir $(wildcard *.rc))
+
 VPATH		:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 
 ##### Match file.[ext] and use it to generate file.obj ########################
-OBJS	= $(CPPFILES:.cpp=.obj)
-ASMOBJS = $(ASMFILES:.asm=.obj)
+OBJS	:=	$(CPPFILES:.cpp=.obj) \
+			$(ASMFILES:.asm=.obj) \
+			$(RESFILES:.rc=.obj)
 
 ##### The main attraction #####################################################
-$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(ASMOBJS)
+$(TARGET): GITVERSION OBJSDIR TARGETDIR $(OBJS)
 	cd $(OBJSDIR) && $(LD) /OUT:"$(OUTFILE)" *.obj $(LINKFLAGS) $(LINK)
 
 %.obj: %.cpp
@@ -114,3 +124,8 @@ $(TARGET): OBJSDIR TARGETDIR $(OBJS) $(ASMOBJS)
 %.obj: %.asm
 	$(AS) $(ASFLAGS) /Fo"$(OBJSDIR)\$@" /Zi "$<"
 
+%.obj: %.res
+	$(CVTRES) $(CVTRESFLAGS) /OUT:"$(OBJSDIR)\$@" "$(OBJSDIR)\$<"
+
+%.res: %.rc
+	$(RC) $(RCFLAGS) /Fo"$(OBJSDIR)\$@" $<

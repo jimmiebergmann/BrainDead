@@ -2,6 +2,7 @@ BUILD INSTRUCTIONS FOR MICROSOFT VISUAL C++
 
 Tools Required:
 	GNU Make [http://gnuwin32.sourceforge.net/packages/make.htm]
+	GNU Core Utils [http://gnuwin32.sourceforge.net/packages/coreutils.htm]
 	Microsoft Visual C++ [Tested with 2003-2010]
 
 ###############################################################################

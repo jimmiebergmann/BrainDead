@@ -15,12 +15,15 @@ TOPDIR = $(shell GetTopDir.bat %CD%)
 ##### Tools #####
 CPP		= cl.exe
 LD		= link.exe
+AS		:= ml.exe
+
 ARCH = X86
 BITTYPE := 32
 MACHINE_DEF := X86
 ifeq ($(shell 64Bit_Check.bat),1)
-BITTYPE := 64
-MACHINE_DEF :=X64
+BITTYPE		:= 64
+MACHINE_DEF	:=X64
+AS			:= ml64.exe
 endif
 
 VCVER := Unknown
@@ -42,7 +45,7 @@ CPPFLAGS = /D"_UNICODE" /D"UNICODE" /D"BUILD_$(BUILD_DEF)" /D"PLATFORM_$(BUILD_P
 ##### Debug #####
 debug:		BUILD = Debug
 debug:		BUILD_DEF = DEBUG
-debug:		CPPFLAGS += /Wall /MDd /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET).pdb"
+debug:		CPPFLAGS += /Wall /MDd /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
 debug:		LINKFLAGS = /DEBUG /INCREMENTAL
 debug:		TARGET := $(TARGET)D
 debug:		$(TARGET)
@@ -58,7 +61,7 @@ release:	$(TARGET)
 ##### Profile #####
 profile:	BUILD = Profile
 profile:	BUILD_DEF = PROFILE
-profile:	CPPFLAGS += /O2 /Wall /MDd /GL /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET).pdb"
+profile:	CPPFLAGS += /O2 /Wall /MDd /GL /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
 profile:	LINKFLAGS = /DEBUG /INCREMENTAL:NO /LTCG
 profile:	TARGET := $(TARGET)P
 profile:	$(TARGET)
@@ -75,14 +78,16 @@ CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
 COMFILES	:= $(foreach dir,..\Common\Source,$(notdir $(wildcard $(dir)/*.cpp)))
 OGLFILES	:= $(foreach dir,..\Common\Source\OGL,$(notdir $(wildcard $(dir)/*.cpp)))
 OALFILES	:= $(foreach dir,..\Common\Source\OAL,$(notdir $(wildcard $(dir)/*.cpp)))
+ASMFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.asm)))
 
 OBJS	= $(CPPFILES:.cpp=.obj)
 COBJS	= $(COMFILES:.cpp=.obj)
 OGLOBJS	= $(OGLFILES:.cpp=.obj)
 OALOBJS	= $(OALFILES:.cpp=.obj)
+ASMOBJS = $(ASMFILES:.asm=.obj)
 
-$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OALOBJS) $(OGLOBJS) $(COBJS)
-	cd $(OBJSDIR) && $(LD) $(LINKFLAGS) /OUT:"$(TARGETDIR)\$(TARGET).exe" *.obj $(LINKFLAGS) /MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS $(LINK)
+$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OALOBJS) $(OGLOBJS) $(COBJS) $(ASMOBJS)
+	cd $(OBJSDIR) && $(LD) $(LINKFLAGS) /OUT:"$(TARGETDIR)\$(TARGET)_$(VCVER).exe" *.obj $(LINKFLAGS) /MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS $(LINK)
 
 %.obj: $(SOURCEDIR)\%.cpp
 	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
@@ -95,4 +100,7 @@ $(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OALOBJS) $(OGLOBJS) $(COBJS)
 
 %.obj: ..\Common\Source\OAL\%.cpp
 	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
+
+%.obj: $(SOURCEDIR)\%.asm
+	$(AS) /c /Fo"$(OBJSDIR)\$@" /Zi "$<"
 

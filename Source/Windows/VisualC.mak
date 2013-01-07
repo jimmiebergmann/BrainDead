@@ -102,5 +102,5 @@ $(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OALOBJS) $(OGLOBJS) $(COBJS) $(ASMOBJS)
 	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
 
 %.obj: $(SOURCEDIR)\%.asm
-	$(AS) /c /Fo"$(OBJSDIR)\$@" /Zi "$<"
+	$(AS) /c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" /Fo"$(OBJSDIR)\$@" /Zi "$<"
 

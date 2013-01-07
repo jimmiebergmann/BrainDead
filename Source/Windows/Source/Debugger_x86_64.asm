@@ -1,3 +1,4 @@
+IFDEF PLATFORM_WINDOWS_X86_64
 PUBLIC bdDebugBreak_x86_64
 
 .CODE
@@ -11,4 +12,6 @@ RET
 
 bdDebugBreak_x86_64 ENDP
 
+ENDIF
 END
+

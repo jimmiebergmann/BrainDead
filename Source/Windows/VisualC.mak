@@ -1,31 +1,42 @@
 ###############################################################################
 ##                       BrainDead GNU Makefile [Windows|VisualC++] Ver. 1.0 ##
 ###############################################################################
+
+##### Define the output directories ###########################################
+TOPDIR		:= $(shell GetTopDir.bat %CD%)
 TARGETDIR	= $(TOPDIR)\Bin\Windows\$(ARCH)_$(BITTYPE)
 OBJSDIR		= $(TOPDIR)\Obj\Windows\$(ARCH)\$(BITTYPE)\VisualC\$(VCVER)\$(BUILD)
-SOURCEDIR	= Source
 
-TARGET := BrainDead
-PLATFORM = Windows
+##### Specify where the source code files are #################################
+SOURCEDIR	= Source ..\Common\Source ..\Common\Source\OGL ..\Common\Source\OAL
 
-BUILD_PLATFORM = WINDOWS
+##### The base name for the project to be augmented based on build type #######
+TARGET	:= BrainDead
+OUTFILE	= $(TARGETDIR)\$(TARGET)_$(VCVER).exe
 
-TOPDIR = $(shell GetTopDir.bat %CD%)
+##### Define the directory and directive versions of the platform #############
+PLATFORM		:= Windows
+BUILD_PLATFORM	:= WINDOWS
 
-##### Tools #####
-CPP		= cl.exe
-LD		= link.exe
+##### Tools ###################################################################
+CPP		:= cl.exe
+LD		:= link.exe
 AS		:= ml.exe
 
-ARCH = X86
-BITTYPE := 32
-MACHINE_DEF := X86
+##### Depending on the version of the compiler, use the 64- or 32-bit     #####
+##### flags, and change the assembler if necessary                        #####
+ARCH		:= X86
+BITTYPE		:= 32
+MACHINE_DEF	:= X86
+
 ifeq ($(shell 64Bit_Check.bat),1)
 BITTYPE		:= 64
-MACHINE_DEF	:=X64
+MACHINE_DEF	:= X64
 AS			:= ml64.exe
 endif
 
+##### Get the version of the compiler in use and map it to the Visual     #####
+##### Studio version                                                      #####
 VCVER := Unknown
 ifeq ($(shell CL_Ver_LE.bat 16),1)
 VCVER := 2010
@@ -39,68 +50,67 @@ endif
 ifeq ($(shell CL_Ver_LE.bat 13),1)
 VCVER := 2003
 endif
-LINK = opengl32.lib kernel32.lib user32.lib gdi32.lib
-CPPFLAGS = /D"_UNICODE" /D"UNICODE" /D"BUILD_$(BUILD_DEF)" /D"PLATFORM_$(BUILD_PLATFORM)" /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" /c /I"Headers" /I"..\Common\Headers"
 
-##### Debug #####
+##### Common flags to provide the compiler and linker with, as well as    #####
+##### libraries to link against                                           #####
+CPPFLAGS	=	/c /D"_UNICODE" /D"UNICODE" /D"BUILD_$(BUILD_DEF)" \
+				/D"PLATFORM_$(BUILD_PLATFORM)" \
+				/D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" \
+				/I"Headers" /I"..\Common\Headers"
+ASFLAGS		=	/c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)"
+LINK		=	opengl32.lib kernel32.lib user32.lib gdi32.lib
+LINKFLAGS	=	/MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS
+
+##### Debug ###################################################################
 debug:		BUILD = Debug
 debug:		BUILD_DEF = DEBUG
-debug:		CPPFLAGS += /Wall /MDd /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
-debug:		LINKFLAGS = /DEBUG /INCREMENTAL
+debug:		CPPFLAGS += /Wall /MDd /Zi /D"_DEBUG" \
+			/Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
+debug:		LINKFLAGS += /DEBUG /INCREMENTAL
 debug:		TARGET := $(TARGET)D
 debug:		$(TARGET)
 
-##### Release #####
+##### Release #################################################################
 release:	BUILD = Release
 release:	BUILD_DEF = RELEASE
 release:	CPPFLAGS += /O2 /MD /GL /D "NDEBUG"
-release:	LINKFLAGS = /INCREMENTAL:NO /LTCG
+release:	LINKFLAGS += /INCREMENTAL:NO /LTCG
 release:	TARGET := $(TARGET)
 release:	$(TARGET)
 
-##### Profile #####
+##### Profile #################################################################
 profile:	BUILD = Profile
 profile:	BUILD_DEF = PROFILE
-profile:	CPPFLAGS += /O2 /Wall /MDd /GL /Zi /D"_DEBUG" /Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
-profile:	LINKFLAGS = /DEBUG /INCREMENTAL:NO /LTCG
+profile:	CPPFLAGS += /O2 /Wall /MDd /GL /Zi /D"_DEBUG" \
+			/Fd"$(TARGETDIR)\$(TARGET)_$(VCVER).pdb"
+profile:	LINKFLAGS += /DEBUG /INCREMENTAL:NO /LTCG
 profile:	TARGET := $(TARGET)P
 profile:	$(TARGET)
 
-OBJS = $(OBJSDIR)\*.obj
-
+##### Create directories ######################################################
 TARGETDIR:
 	if not exist $(TARGETDIR) mkdir $(TARGETDIR)
 
 OBJSDIR:
 	if not exist $(OBJSDIR) mkdir $(OBJSDIR)
 
+##### Seek out the C++ and Assembly files from the SOURCEDIR directories  #####
+##### defined at the beginning of this Makefile                           #####
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
-COMFILES	:= $(foreach dir,..\Common\Source,$(notdir $(wildcard $(dir)/*.cpp)))
-OGLFILES	:= $(foreach dir,..\Common\Source\OGL,$(notdir $(wildcard $(dir)/*.cpp)))
-OALFILES	:= $(foreach dir,..\Common\Source\OAL,$(notdir $(wildcard $(dir)/*.cpp)))
 ASMFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.asm)))
+VPATH		:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 
+##### Match file.[ext] and use it to generate file.obj ########################
 OBJS	= $(CPPFILES:.cpp=.obj)
-COBJS	= $(COMFILES:.cpp=.obj)
-OGLOBJS	= $(OGLFILES:.cpp=.obj)
-OALOBJS	= $(OALFILES:.cpp=.obj)
 ASMOBJS = $(ASMFILES:.asm=.obj)
 
-$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(OALOBJS) $(OGLOBJS) $(COBJS) $(ASMOBJS)
-	cd $(OBJSDIR) && $(LD) $(LINKFLAGS) /OUT:"$(TARGETDIR)\$(TARGET)_$(VCVER).exe" *.obj $(LINKFLAGS) /MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS $(LINK)
+##### The main attraction #####################################################
+$(TARGET): OBJSDIR TARGETDIR $(OBJS) $(ASMOBJS)
+	cd $(OBJSDIR) && $(LD) /OUT:"$(OUTFILE)" *.obj $(LINKFLAGS) $(LINK)
 
-%.obj: $(SOURCEDIR)\%.cpp
+%.obj: %.cpp
 	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
 
-%.obj: ..\Common\Source\%.cpp
-	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
-
-%.obj: ..\Common\Source\OGL\%.cpp
-	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
-
-%.obj: ..\Common\Source\OAL\%.cpp
-	$(CPP) $(CPPFLAGS) /Fo"$(OBJSDIR)\$@" $<
-
-%.obj: $(SOURCEDIR)\%.asm
-	$(AS) /c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" /Fo"$(OBJSDIR)\$@" /Zi "$<"
+%.obj: %.asm
+	$(AS) $(ASFLAGS) /Fo"$(OBJSDIR)\$@" /Zi "$<"
 

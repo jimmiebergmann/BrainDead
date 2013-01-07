@@ -28,6 +28,9 @@ ipch
 *.swp
 *.swo
 
+# Vim sessions #
+*.vim
+
 # Diffing temporary files #
 *.orig
 

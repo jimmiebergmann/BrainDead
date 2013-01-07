@@ -1,0 +1,23 @@
+BUILD INSTRUCTIONS FOR MICROSOFT VISUAL C++
+
+Tools Required:
+	GNU Make [http://gnuwin32.sourceforge.net/packages/make.htm]
+	Microsoft Visual C++ [Tested with 2003-2010]
+
+###############################################################################
+## 1. BUILDING
+###############################################################################
+Begin by starting your Visual C++ Command Prompt (there should be an option
+under All Programs/Microsoft Visual Studio <Version>/Visual Studio Tools).
+
+Use the appropriate command prompt for the build you wish to create, such as
+the x64 environment or the x86 environment.
+
+Execute the following to create a build from the BrainDead\Source\Windows
+directory:
+$> SetPaths.bat
+$> make -f VisualC.mak [debug|release|profile]
+
+The build types are listed in the square brackets above.  Debug is the default
+build, release and profile have to be specified to generate their targets.
+

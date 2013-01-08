@@ -55,8 +55,9 @@ endif
 
 ##### Common flags to provide the compiler and linker with, as well as    #####
 ##### libraries to link against                                           #####
-CPPFLAGS	=	/c /D"_UNICODE" /D"UNICODE" /D"BUILD_$(BUILD_DEF)" \
-				/D"PLATFORM_$(BUILD_PLATFORM)" \
+CPPFLAGS	=	/c /D"WIN32" /D"_WINDOWS" /D"_UNICODE" /D"UNICODE" \
+				/D"BUILD_$(BUILD_DEF)" /D"PLATFORM_$(BUILD_PLATFORM)" \
+				/D"ARCH_$(ARCH)" \
 				/D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" \
 				/I"Headers" /I"..\Common\Headers"
 ASFLAGS		=	/c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)"

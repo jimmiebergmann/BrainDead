@@ -41,6 +41,7 @@ LINK		=	-lopengl32 -luser32 -lkernel32 -lgdi32 -lm -lgcc -lstdc++
 LINKFLAGS	=	-L/usr/$(MINGW_PREFIX)/sys-root/mingw/lib \
 				-L/lib/gcc/$(MINGW_PREFIX)/$(MINGWW64VER) \
 				-Wl,--subsystem,windows
+RCFLAGS		=	-D "UNICODE" -D "_UNICODE" -I"Resources" -I"Headers" -l 0x0409
 
 debug:		BUILD = Debug
 debug:		BUILD_DEF = DEBUG
@@ -70,14 +71,19 @@ GITVERSION:
 	cscript GitVersion.jse
 
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
+RCFILES		:= $(notdir $(wildcard *.rc))
 
 VPATH		:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 
-OBJS	= $(CPPFILES:.cpp=.o)
+OBJS		:=	$(CPPFILES:.cpp=.o) \
+				$(RCFILES:.rc=.o)
 
 $(TARGET): GITVERSION OBJSDIR TARGETDIR $(OBJS)
 	cd $(OBJSDIR) && $(CPP) -v -o "$(OUTFILE)" *.o -s $(LINKFLAGS) $(LINK)
 
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) -o "$(OBJSDIR)/$@" "$<"
+
+%.o: %.rc
+	$(RC) $(RCFLAGS) -o "$(OBJSDIR)/RC_$@" -i "$<"
 

@@ -38,3 +38,6 @@ Data
 # Documentation #
 *.~lock.*
 *.docstates
+
+# Git Version Headers #
+GitVersion.hpp

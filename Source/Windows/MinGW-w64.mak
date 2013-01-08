@@ -33,8 +33,9 @@ RC	= $(MINGW_PREFIX)-windres
 
 CPPFLAGS	=	-c -D "WIN32" -D "_WINDOWS" -D "_UNICODE" -D "UNICODE" \
 				-D "BUILD_$(BUILD_DEF)" -D "PLATFORM_$(BUILD_PLATFORM)" \
-				-D "ARCH_$(ARCH)" \
+				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)" \
 				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" \
+				-D "BITSIZE_$(BITTYPE)" -D "ARCH_$(ARCH)" \
 				-I"Headers" -I"$(TOPDIR)/Source/Common/Headers"
 LINK		=	-lopengl32 -luser32 -lkernel32 -lgdi32 -lm -lgcc -lstdc++
 LINKFLAGS	=	-L/usr/$(MINGW_PREFIX)/sys-root/mingw/lib \

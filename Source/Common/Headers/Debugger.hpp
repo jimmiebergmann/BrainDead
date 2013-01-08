@@ -6,10 +6,6 @@
 #ifdef BUILD_DEBUG
 #define bdTrace BD::Trace
 #ifdef __GNUC__
-// REMINDER!
-// Need to add ARCH_<ARCH> PLATFORM_<OS>_<ARCH> in addition to PLATFORM_<OS>
-// and PLATFORM_<OS>_<ARCH>_<BITSIZE>
-// !REMINDER
 #ifdef ARCH_X86
 #define bdDebugBreak( ) { BD_ASM( "INT $3;\n" ); }
 #endif // ARCH_X86

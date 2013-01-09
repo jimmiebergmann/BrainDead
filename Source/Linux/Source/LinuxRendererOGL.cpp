@@ -1,4 +1,8 @@
 #include <LinuxRendererOGL.hpp>
+#include <OGL/TextureOGL.hpp>
+#include <OGL/VertexObjectOGL.hpp>
+#include <OGL/ShaderOGL.hpp>
+#include <OGL/ShaderProgramOGL.hpp>
 #include <Debugger.hpp>
 
 namespace BD
@@ -18,7 +22,7 @@ namespace BD
 		return BD_OK;
 	}
 	
-		Texture * LinuxRendererOGL::CreateTexture( )
+	Texture * LinuxRendererOGL::CreateTexture( )
 	{
 		return ( new TextureOGL( ) );
 	}

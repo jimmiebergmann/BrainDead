@@ -137,8 +137,19 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	@printf "Compiling: $<... "
 	@$(CPP) -MMD -MP -MF $(OBJSDIR)/$*.d $(CPPFLAGS) $(SYSIPATH) $< \
-	-o $(OBJSDIR)/$@ > $(OBJSDIR)/$*.msgs 2>&1
-	@printf "[OK]\n"
+	-o $(OBJSDIR)/$@ 2> $(OBJSDIR)/$*.msgs;\
+	RETVAL=$$?;\
+	if [[ $$RETVAL == 0 ]]; then\
+		printf "[OK]\n";\
+	fi;\
+	if [[ $$RETVAL != 0 ]]; then\
+		printf "\n\n%s" "----------------------------------- ERROR ---------";\
+		printf "%s\n" "----------------------------------";\
+		cat $(OBJSDIR)/$*.msgs;\
+		printf "%s" "-------------------------------------------------------";\
+		printf "%s\n\n" "------------------------";\
+		exit 1;\
+	fi
 
 DEPENDS	:= $(OBJFILES:.o=.d)
 

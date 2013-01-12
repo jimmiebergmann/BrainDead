@@ -21,6 +21,8 @@ BITTYPE			:= 32
 
 GCCVER	= $(shell $(CPP) -dumpversion)
 
+BUILD_TYPE := debug
+
 32BIT ?= False
 64BIT ?= False
 
@@ -74,24 +76,27 @@ CPPFLAGS =	-c -DBUILD_$(BUILD_DEF) -DPLATFORM_$(BUILD_PLATFORM) \
 			-I$(TOPSRC)/Linux/Headers -I$(TOPSRC)/Common/Headers
 ##### Debug #######
 debug:		BUILD		= Debug
+debug:		BUILD_TYPE	= debug
 debug:		BUILD_DEF	= DEBUG
 debug:		TARGET		:= $(TARGET)D
-debug:		CPPFLAGS		+= -g -ggdb -Wall -D_DEBUG $(CPPFLAGS_EXT)
+debug:		CPPFLAGS	+= -g -ggdb -Wall -D_DEBUG $(CPPFLAGS_EXT)
 debug:		$(TARGET)
 
 ##### Release #####
 release:	BUILD		= Release
+release:	BUILD_TYPE	= release
 release:	BUILD_DEF	= RELEASE
 release:	TARGET		:= $(TARGET)
 release:	LINKFLAGS	+= -S
-release:	CPPFLAGS		+= -O3 $(CPPFLAGS_EXT)
+release:	CPPFLAGS	+= -O3 $(CPPFLAGS_EXT)
 release:	$(TARGET)
 
 ##### Profile #####
 profile:	BUILD		= Profile
+profile:	BUILD_TYPE	= profile
 profile:	BUILD_DEF	= PROFILE
 profile:	TARGET		:= $(TARGET)P
-profile:	CPPFLAGS		+= -O3 -g -ggdb -Wall -D_DEBUG $(CPPFLAGS_EXT)
+profile:	CPPFLAGS	+= -O3 -g -ggdb -Wall -D_DEBUG $(CPPFLAGS_EXT)
 profile:	$(TARGET)
 
 ##### Build the object files while not in the Obj directory ###################
@@ -119,7 +124,8 @@ export VPATH	:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 export OBJS	:= $(CPPFILES:.cpp=.o)
 
 $(TARGET): OBJSDIR TARGETDIR VERSIONINFO
-	@$(MAKE) --no-print-directory -C $(OBJSDIR) -f $(TOPSRC)/Linux/Makefile
+	@$(MAKE) --no-print-directory -C $(OBJSDIR) -f $(TOPSRC)/Linux/Makefile \
+	$(BUILD_TYPE)
 
 else
 ##### In the intermediate build directory #####################################

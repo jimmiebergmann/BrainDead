@@ -124,8 +124,15 @@ export VPATH	:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 export OBJS	:= $(CPPFILES:.cpp=.o)
 
 $(TARGET): OBJSDIR TARGETDIR VERSIONINFO
-	@$(MAKE) --no-print-directory -C $(OBJSDIR) -f $(TOPSRC)/Linux/Makefile \
+	@/usr/bin/time -f "%E" -o $(OBJSDIR)/compiletime $(MAKE) \
+	--no-print-directory -C $(OBJSDIR) -f $(TOPSRC)/Linux/Makefile \
 	$(BUILD_TYPE)
+	@printf "\n%s" "------------------------------------------------------------"
+	@printf "%s\n" "-------------------"
+	@printf "Compile time: "
+	@cat $(OBJSDIR)/compiletime
+	@printf "%s" "------------------------------------------------------------"
+	@printf "%s\n" "-------------------"
 
 else
 ##### In the intermediate build directory #####################################

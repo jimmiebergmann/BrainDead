@@ -106,6 +106,9 @@ $(TARGET): OBJSDIR TARGETDIR VERSIONINFO
 	@cat $(OBJSDIR)/compiletime
 	@printf "%s" "------------------------------------------------------------"
 	@printf "%s\n" "-------------------"
+	@echo deps: $(DEPENDS)
+	@printf "%s\n" "-----------------------------------------------------"
+	@echo objs: $(OBJS)
 
 else
 ##### In the intermediate build directory #####################################
@@ -121,7 +124,7 @@ $(TARGET): $(OBJS)
 
 %.o: %.cpp
 	@printf "Compiling $<... "
-	@$(CPP) -MMD -MP -MF $(OBJSDIR)/$*.d $(CPPFLAGS) -o "$(OBJSDIR)/$@" "$<" \
+	@$(CPP) -MMD -MP -MF $(OBJSDIR)/$*.d $(CPPFLAGS) -o "$@" "$<" \
 	2> $(OBJSDIR)/$*.msgs;\
 	RETVAL=$$?;\
 	if [[ $$RETVAL == 0 ]]; then\
@@ -149,6 +152,8 @@ $(TARGET): $(OBJS)
 		printf "%s\n\n" "------------------------";\
 		exit 1;\
 	fi
+
+-include $(OBJSDIR)/*.d
 
 endif
 

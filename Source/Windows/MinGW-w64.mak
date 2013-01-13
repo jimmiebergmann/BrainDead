@@ -2,30 +2,37 @@
 ##                        BrainDead GNU Makefile [Windows|MinGW-w64] Ver 1.0 ##
 ###############################################################################
 
-TOPDIR		:= $(shell cd ../../ && pwd)
-TARGETDIR	= $(TOPDIR)/Bin/Windows/$(ARCH)_$(BITTYPE)
-OBJSDIR		= $(TOPDIR)/Obj/Windows/$(ARCH)/$(BITTYPE)/MinGW-w64/$(MINGWW64VER)/$(BUILD)
+ifndef TOPDIR
+export TOPDIR		:= $(shell cd ../../ && pwd)
+export TOPSRC		= $(TOPDIR)/Source
+export TARGETDIR	= $(TOPDIR)/Bin/Windows/$(ARCH)_$(BITTYPE)
+export OBJSDIR		= $(TOPDIR)/Obj/Windows/$(ARCH)/$(BITTYPE)/MinGW-w64/$(MINGWW64VER)/$(BUILD)
+endif
 
-SOURCEDIR	= Source ../Common/Source ../Common/Source/OGL ../Common/Source/OAL
+SOURCEDIR	=	Source Resources ../Common/Source ../Common/Source/OGL \
+				../Common/Source/OAL
 
 TARGET	:= BrainDead
 OUTFILE = $(TARGETDIR)/$(TARGET)_$(MINGWW64VER).exe
 
 PLATFORM		:= Windows
 BUILD_PLATFORM	:= WINDOWS
-ARCH		:= X86
-BITTYPE		:= 32
+ARCH			:= X86
+BITTYPE			:= 32
+BUILD_TYPE		:= debug
 
 MINGWW64VER = $(shell $(CPP) -dumpversion)
 64BIT ?= False
 
 ifneq ($(64BIT), False)
-BITTYPE	= 64
+BITTYPE			= 64
 MINGW_PREFIX	= x86_64-w64-mingw32
 else
+BITTYPE			= 32
 MINGW_PREFIX	= i686-w64-mingw32
 endif
 
+##### Tools ###################################################################
 CPP	= $(MINGW_PREFIX)-g++
 LD	= $(MINGW_PREFIX)-ld
 AS	= $(MINGW_PREFIX)-as
@@ -36,54 +43,121 @@ CPPFLAGS	=	-c -D "WIN32" -D "_WINDOWS" -D "_UNICODE" -D "UNICODE" \
 				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)" \
 				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" \
 				-D "BITSIZE_$(BITTYPE)" -D "ARCH_$(ARCH)" \
-				-I"Headers" -I"$(TOPDIR)/Source/Common/Headers"
+				-I"$(TOPSRC)/Windows/Headers" -I"$(TOPSRC)/Common/Headers"
 LINK		=	-lopengl32 -luser32 -lkernel32 -lgdi32 -lm -lgcc -lstdc++
 LINKFLAGS	=	-L/usr/$(MINGW_PREFIX)/sys-root/mingw/lib \
 				-L/lib/gcc/$(MINGW_PREFIX)/$(MINGWW64VER) \
 				-Wl,--subsystem,windows
-RCFLAGS		=	-D "UNICODE" -D "_UNICODE" -I"Resources" -I"Headers" -l 0x0409
+RCFLAGS		=	-D "UNICODE" -D "_UNICODE" -I"$(TOPSRC)/Windows/Resources" \
+				-I"$(TOPSRC)/Windows/Headers" -l 0x0409
 
-debug:		BUILD = Debug
-debug:		BUILD_DEF = DEBUG
+debug:		BUILD		= Debug
+debug:		BUILD_TYPE	= debug
+debug:		BUILD_DEF	= DEBUG
 debug:		CPPFLAGS += -Wall -g -D "_DEBUG"
 debug:		TARGET := $(TARGET)D
 debug:		$(TARGET)
 
-release:	BUILD = Release
-release:	BUILD_DEF = RELEASE
+release:	BUILD		= Release
+release:	BUILD_TYPE	= release
+release:	BUILD_DEF	= RELEASE
 release:	CPPFLAGS += -O2 -D "NDEBUG"
 release:	LINKFLAGS += -S
 release:	$(TARGET)
 
-profile:	BUILD = Profile
-profile:	BUILD_DEF = PROFILE
+profile:	BUILD		= Profile
+profile:	BUILD_TYPE	= profile
+profile:	BUILD_DEF	= PROFILE
 profile:	CPPFLAGS += -Wall -g -D "_DEBUG" -O2
 profile:	TARGET := $(TARGET)P
 profile:	$(TARGET)
 
+
+##### Build the object files while not in the intermediate build directory ####
+ifneq ($(OBJSDIR), $(CURDIR))
 TARGETDIR:
-	-mkdir -p $(TARGETDIR)
+	@mkdir -p $(TARGETDIR)
 
 OBJSDIR:
-	-mkdir -p $(OBJSDIR)
+	@mkdir -p $(OBJSDIR)
 
-GITVERSION:
-	cscript GitVersion.jse
+VERSIONINFO:
+	@printf "%s" "-------------------------- Generating Version Information --"
+	@printf "%s\n" "-------------------"
+	@sh $(TOPSRC)/Windows/GitVersion.sh $(TOPSRC)/Windows/Headers/GitVersion.hpp
+	@printf "%s" "------------------------------------------------------------"
+	@printf "%s\n" "-------------------"
 
 CPPFILES	:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.cpp)))
-RCFILES		:= $(notdir $(wildcard *.rc))
+RCFILES		:= $(foreach dir,$(SOURCEDIR),$(notdir $(wildcard $(dir)/*.rc)))
 
-VPATH		:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
+export VPATH		:= $(foreach dir,$(SOURCEDIR),$(CURDIR)/$(dir))
 
-OBJS		:=	$(CPPFILES:.cpp=.o) \
-				$(RCFILES:.rc=.o)
+export OBJS		:=	$(CPPFILES:.cpp=.o) \
+					$(RCFILES:.rc=.o)
 
-$(TARGET): GITVERSION OBJSDIR TARGETDIR $(OBJS)
-	cd $(OBJSDIR) && $(CPP) -v -o "$(OUTFILE)" *.o -s $(LINKFLAGS) $(LINK)
+$(TARGET): OBJSDIR TARGETDIR VERSIONINFO
+	@/usr/bin/time -f "%E" -o $(OBJSDIR)/compiletime $(MAKE) \
+	--no-print-directory -C $(OBJSDIR) -f $(TOPSRC)/Windows/MinGW-w64.mak \
+	$(BUILD_TYPE)
+	@printf "\n%s" "----------------------------------------------------------"
+	@printf "%s\n" "---------------------"
+	@printf "Compile time: "
+	@cat $(OBJSDIR)/compiletime
+	@printf "%s" "------------------------------------------------------------"
+	@printf "%s\n" "-------------------"
+
+else
+##### In the intermediate build directory #####################################
+$(TARGET): $(OBJS)
+	@printf "\n\n%s" "------------------------ MESSAGES FROM THE COMPILER ----"
+	@printf "%s\n" "-----------------------"
+	@cat $(OBJSDIR)/*.msgs
+	@printf "%s" "------------------------------------------------------------"
+	@printf "%s\n" "-------------------"
+	@printf "Creating $(OUTFILE)... "
+	@cd $(OBJSDIR) && $(CPP) -o "$(OUTFILE)" $(OBJS) -s $(LINKFLAGS) $(LINK)
+	@printf "[OK]\n"
 
 %.o: %.cpp
-	$(CPP) $(CPPFLAGS) -o "$(OBJSDIR)/$@" "$<"
+	@printf "Compiling $<... "
+	@$(CPP) -MMD -MP -MF $(OBJSDIR)/$*.d $(CPPFLAGS) -o "$(OBJSDIR)/$@" "$<" \
+	2> $(OBJSDIR)/$*.msgs;\
+	RETVAL=$$?;\
+	if [[ $$RETVAL == 0 ]]; then\
+		printf "[OK]\n";\
+	else\
+		printf "\n\n%s" "----------------------------------- ERROR ---------";\
+		printf "%s\n" "----------------------------";\
+		cat $(OBJSDIR)/$*.msgs;\
+		printf "%s" "-------------------------------------------------------";\
+		printf "%s\n\n" "------------------------";\
+		exit 1;\
+	fi
 
 %.o: %.rc
-	$(RC) $(RCFLAGS) -o "$(OBJSDIR)/RC_$@" -i "$<"
+	@printf "Compiling $<... "
+	@$(RC) $(RCFLAGS) -o "$(OBJSDIR)/$*.o" -i "$<" 2> $(OBJSDIR)/$*.msgs;\
+	RETVAL=$$?;\
+	if [[ $$RETVAL == 0 ]]; then\
+		printf "[OK]\n";\
+	else\
+		printf "\n\n%s" "----------------------------------- ERROR ---------";\
+		printf "%s\n" "----------------------------";\
+		cat $(OBJSDIR)/$*.msgs;\
+		printf "%s" "-------------------------------------------------------";\
+		printf "%s\n\n" "------------------------";\
+		exit 1;\
+	fi
+
+endif
+
+.PHONY: clean
+clean:
+	@printf "Removing files from: $(TARGETDIR)... "
+	@cd $(TARGETDIR) && rm -rf ./*
+	@printf "[OK]\n"
+	@printf "Removing files from: $(OBJSDIR)... "
+	@cd $(OBJSDIR) && rm -rf ./*
+	@printf "[OK]\n"
 

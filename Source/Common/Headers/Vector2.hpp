@@ -23,7 +23,8 @@ namespace BD
 		BD_FLOAT32 DistanceSq( const Vector2 &p_Other ) const;
 
 		BD_FLOAT32 Dot( const Vector2 &p_Other ) const;
-		
+	
+		Vector2 &operator=( const Vector2 &p_Other );
 		BD_BOOL operator==( const Vector2 &p_Other ) const;
 		BD_BOOL operator!=( const Vector2 &p_Other ) const;
 

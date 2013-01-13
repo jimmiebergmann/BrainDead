@@ -8,6 +8,7 @@
 #include <ShaderProgram.hpp>
 #include <Shader.hpp>
 #include <Vector3.hpp>
+#include <ft2build.h>
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <map>

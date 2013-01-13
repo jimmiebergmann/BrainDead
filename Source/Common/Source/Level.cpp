@@ -8,7 +8,9 @@ namespace BD
 		m_pRenderer( p_pRenderer ),
 		m_Loaded( BD_FALSE ),
 		m_Generated( BD_FALSE ),
-		m_pFont( BD_NULL )
+		m_pFont( BD_NULL ),
+		m_pHealthText( BD_NULL ),
+		m_AmmoText( BD_NULL )
 	{
 	}
 
@@ -19,7 +21,16 @@ namespace BD
 			delete m_pFont;
 			m_pFont = BD_NULL;
 		}
-	
+		if( m_pHealthText )
+		{
+			delete m_pHealthText;
+			m_pHealthText = BD_NULL;
+		}
+		if( m_AmmoText )
+		{
+			delete m_AmmoText;
+			m_AmmoText = BD_NULL;
+		}
 
 		m_Loaded = BD_FALSE;
 	}
@@ -33,6 +44,22 @@ namespace BD
 			bdTrace( BD_NULL, "[Level::Load] <ERROR> Can not load the font.\n" );
 			return BD_ERROR;
 		}
+
+		// Load texts
+		m_pHealthText = new Text( m_pFont );
+		m_pHealthText->SetString( "Health: 100"  );
+		m_pHealthText->SetPosition( Vector3( 30, 30, 0 ) );
+		m_pHealthText->SetColor( Vector3( 1.0f, 0.0f, 0.0f ) );
+		m_pHealthText->SetAlpha( 0.7f );
+		m_pHealthText->SetScale( 4 );
+
+		m_AmmoText = new Text( m_pFont );
+		m_AmmoText->SetString( "Ammo: 32"  );
+		m_AmmoText->SetPosition( Vector3( 560, 30, 0 ) );
+		m_AmmoText->SetColor( Vector3( 1.0f, 0.0f, 0.0f ) );
+		m_AmmoText->SetAlpha( 0.7f );
+		m_AmmoText->SetScale( 4 );
+
 
 		m_Loaded = BD_TRUE;
 		return BD_OK;
@@ -68,8 +95,13 @@ namespace BD
 
 	BD_UINT32 Level::Render( )
 	{
+		if( m_Loaded != BD_TRUE )
+		{
+			return BD_ERROR;
+		}
 
-		m_pFont->Render( "Test string.", Vector3( 100, 100, 0 ), 4.0f, Vector3( 1.0f, 1.0f, 1.0f ), 0.7f );
+		m_pHealthText->Render();
+		m_AmmoText->Render();
 
 		return BD_OK;
 	}

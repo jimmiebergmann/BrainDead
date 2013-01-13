@@ -5,6 +5,7 @@
 #include <Renderer.hpp>
 #include <Random.hpp>
 #include <Font.hpp>
+#include <Text.hpp>
 
 #define BD_LEVEL_TILE_SIZE 32
 #define BD_LEVEL_TILE_ZOOM 3
@@ -32,6 +33,8 @@ namespace BD
 		BD_BOOL m_Generated;
 		Renderer * m_pRenderer;
 		Font * m_pFont;
+		Text * m_pHealthText;
+		Text * m_AmmoText;
 
 	};
 

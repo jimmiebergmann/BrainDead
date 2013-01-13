@@ -583,6 +583,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\Common\Headers\Text.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\Common\Headers\Texture.hpp"
 					>
 				</File>
@@ -688,6 +692,10 @@
 				</File>
 				<File
 					RelativePath="..\Common\Source\System.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\Common\Source\Text.cpp"
 					>
 				</File>
 				<File

@@ -130,6 +130,9 @@
     <ClInclude Include="Headers\WindowsWindow.hpp">
       <Filter>Windows\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Common\Headers\Level.hpp">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\Source\OAL\OpenAL.cpp">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="Source\WindowsWindow.cpp">
       <Filter>Windows\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Source\Level.cpp">
+      <Filter>Common\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

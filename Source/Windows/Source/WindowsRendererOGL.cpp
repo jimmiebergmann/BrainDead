@@ -24,6 +24,7 @@ namespace BD
 		m_Context( BD_NULL ),
 		m_HDC( BD_NULL )
 	{
+		m_Created = BD_FALSE;
 	}
 
 	BD_UINT32 WindowsRendererOGL::Create( const Window & p_Window )
@@ -130,6 +131,11 @@ namespace BD
 			return BD_ERROR;
 		}
 
+		// Get some opengl variables
+		GLint MaxTextureSize = 0;
+		glGetIntegerv( GL_MAX_TEXTURE_SIZE, &MaxTextureSize );
+		m_MaxTextureSize = static_cast< BD_UINT32 >( MaxTextureSize );
+
 		m_Created = BD_TRUE;
 		return BD_OK;
 	}
@@ -176,6 +182,11 @@ namespace BD
 
 	void WindowsRendererOGL::SetViewport( const BD_UINT32 p_LX, const BD_UINT32 p_LY, const BD_UINT32 p_HX, const BD_UINT32 p_HY )
 	{
+		m_ViewPortLow[ 0 ] = p_LX;
+		m_ViewPortLow[ 1 ] = p_LY;
+		m_ViewPortHigh[ 0 ] = p_HX;
+		m_ViewPortHigh[ 1 ] = p_HY;
+
 		glViewport( p_LX, p_LY, p_HX, p_HY );
 	}
 

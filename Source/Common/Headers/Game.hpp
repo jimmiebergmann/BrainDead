@@ -12,6 +12,7 @@
 #include <Matrix4x4.hpp>
 #include <Vector3.hpp>
 #include <Timer.hpp>
+#include <Level.hpp>
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
@@ -40,9 +41,10 @@ namespace BD
 		Window * m_pWindow;
 		Renderer * m_pRenderer;
 
-		// Test rendering.
 		Timer m_DeltaTimer;
-		Shader * m_pVertexShader;
+		Level * m_pLevel;
+
+	/*	Shader * m_pVertexShader;
 		Shader * m_pFragmentShader;
 		ShaderProgram * m_pShaderProgram;
 		Matrix4x4 m_Matrix;
@@ -50,9 +52,12 @@ namespace BD
 		Image * m_pImage;
 		Texture * m_pTexture;
 		BD_UINT32 m_ObjectSize;
+*/
+
+
 		// TODO!
 		// Vector2 class here instead, yes please
-		std::vector<Vector3> m_ObjectPositions;
+		//std::vector<Vector3> m_ObjectPositions;
 		// !TODO
 
 	};

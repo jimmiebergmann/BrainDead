@@ -272,6 +272,7 @@
     <ClInclude Include="..\Common\Headers\Debugger.hpp" />
     <ClInclude Include="..\Common\Headers\Game.hpp" />
     <ClInclude Include="..\Common\Headers\Image.hpp" />
+    <ClInclude Include="..\Common\Headers\Level.hpp" />
     <ClInclude Include="..\Common\Headers\Matrix3x3.hpp" />
     <ClInclude Include="..\Common\Headers\Matrix4x4.hpp" />
     <ClInclude Include="..\Common\Headers\OAL\OpenAL.hpp" />
@@ -302,6 +303,7 @@
     <ClCompile Include="..\Common\Source\Arithmetic.cpp" />
     <ClCompile Include="..\Common\Source\Game.cpp" />
     <ClCompile Include="..\Common\Source\Image.cpp" />
+    <ClCompile Include="..\Common\Source\Level.cpp" />
     <ClCompile Include="..\Common\Source\Matrix3x3.cpp" />
     <ClCompile Include="..\Common\Source\Matrix4x4.cpp" />
     <ClCompile Include="..\Common\Source\OAL\OpenAL.cpp" />

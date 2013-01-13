@@ -130,8 +130,14 @@
     <ClInclude Include="Headers\WindowsWindow.hpp">
       <Filter>Windows\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\Headers\Level.hpp">
-      <Filter>Common\Headers</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\GitVersion.hpp">
+      <Filter>Windows\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,5 +227,10 @@
     <CustomBuild Include="Source\Debugger_x86_64.asm">
       <Filter>Windows\Source</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BrainDead_2010.rc">
+      <Filter>Windows</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

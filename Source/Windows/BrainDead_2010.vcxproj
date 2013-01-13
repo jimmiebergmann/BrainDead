@@ -144,6 +144,9 @@
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
       <MapExports>true</MapExports>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -167,6 +170,9 @@
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
       <MapExports>true</MapExports>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -188,6 +194,9 @@
       <AdditionalDependencies>opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>winmm.lib</IgnoreSpecificDefaultLibraries>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -209,6 +218,9 @@
       <AdditionalDependencies>opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>winmm.lib</IgnoreSpecificDefaultLibraries>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
     <ClCompile>
@@ -236,6 +248,9 @@
       <MapExports>true</MapExports>
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <ClCompile>
@@ -263,6 +278,9 @@
       <MapExports>true</MapExports>
       <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
     </Link>
+    <PreBuildEvent>
+      <Command>cscript GitVersion.jse</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Headers\Arithmetic.hpp" />
@@ -295,9 +313,12 @@
     <ClInclude Include="..\Common\Headers\Window.hpp" />
     <ClInclude Include="Headers\DataTypes_Windows_x86_32.hpp" />
     <ClInclude Include="Headers\DataTypes_Windows_x86_64.hpp" />
+    <ClInclude Include="Headers\GitVersion.hpp" />
     <ClInclude Include="Headers\Main.hpp" />
     <ClInclude Include="Headers\WindowsRendererOGL.hpp" />
     <ClInclude Include="Headers\WindowsWindow.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\Source\Arithmetic.cpp" />
@@ -337,6 +358,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BrainDead_2010.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

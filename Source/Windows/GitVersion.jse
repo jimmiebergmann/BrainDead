@@ -1,0 +1,30 @@
+// Credit for code goes to Zach Burlingame
+// http://www.zachburlingame.com/2011/02/integrating-the-mercurial-revision-into-the-version-automatically
+var FileSystem =	new ActiveXObject( "Scripting.FileSystemObject" );
+var Shell =	new ActiveXObject( "WScript.Shell" );
+
+var OutFile = FileSystem.CreateTextFile( "./Headers/GitVersion.hpp", true );
+
+var GitCommitHash			= Shell.Exec( 'git log --pretty=format:"%H" -1' );
+var CommitHash				= GitCommitHash.StdOut.ReadAll( );
+var GitCommitHashShort		= Shell.Exec( 'git log --pretty=format:"%h" -1' );
+var CommitHashShort			= GitCommitHashShort.StdOut.ReadAll( );
+var GitDate					= Shell.Exec( 'git log --pretty=format:"%cd" -1' );
+var Date					= GitDate.StdOut.ReadAll( );
+var GitRollingCount			= Shell.Exec( "cmd /c git log --pretty=format:'' | wc -l" );
+var RollingCount			= GitRollingCount.StdOut.ReadAll( );
+
+OutFile.WriteLine( "#ifndef __BRAINDEAD_GITVERSION_HPP__" );
+OutFile.WriteLine( "#define __BRAINDEAD_GITVERSION_HPP__" );
+OutFile.WriteLine( "" );
+OutFile.WriteLine( "#define GIT_COMMITHASH			\"" + CommitHash + "\"" );
+OutFile.WriteLine( "#define GIT_COMMITHASHSHORT		\"" + CommitHashShort + "\"" );
+OutFile.WriteLine( "#define GIT_COMMITTERDATE		\"" + Date + "\"" );
+OutFile.WriteLine( "#define GIT_ROLLINGCOUNT		" + RollingCount );
+OutFile.WriteLine( "" );
+OutFile.WriteLine( "#endif" );
+OutFile.WriteLine( "" );
+
+OutFile.Close( );
+
+WSH.Quit( );

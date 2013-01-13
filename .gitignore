@@ -12,6 +12,7 @@ release
 Profile
 profile
 ipch
+Data
 
 # Compiled #
 *.obj
@@ -28,9 +29,15 @@ ipch
 *.swp
 *.swo
 
+# Vim sessions #
+*.vim
+
 # Diffing temporary files #
 *.orig
 
 # Documentation #
 *.~lock.*
 *.docstates
+
+# Git Version Headers #
+GitVersion.hpp

@@ -3,26 +3,33 @@
 
 #include <DataTypes.hpp>
 
-#if BUILD_DEBUG
+#ifdef BUILD_DEBUG
 #define bdTrace BD::Trace
-#ifdef PLATFORM_WINDOWS_X86_64
-// x86_64 cannot have in-lined assembly
+#ifdef __GNUC__
+#ifdef ARCH_X86
+#define bdDebugBreak( ) { BD_ASM( "INT $3;\n" ); }
+#endif // ARCH_X86
+#endif // __GNUC__
+#ifdef _MSC_VER
+#ifdef ARCH_X86
+#ifdef PLATFORM_WINDOWS
+#ifdef BITSIZE_64
+// x86_64 cannot have in-lined assembly with MSVC
 #ifdef __cplusplus
 extern "C"
 {
-#endif
+#endif // __cplusplua
 void bdDebugBreak_x86_64( );
 #define bdDebugBreak bdDebugBreak_x86_64
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 #elif PLATFORM_WINDOWS_X86_32
 #define bdDebugBreak( ) { BD_ASM { int 3 } }
-#elif PLATFORM_LINUX
-#define bdDebugBreak( ) { BD_ASM( "INT $3;\n" ); }
-#else
-#error No platform specified as a pre-processor directive
-#endif
+#endif // BITSIZE_64
+#endif // PLATFORM_WINDOWS
+#endif // ARCH_X86
+#endif // _MSC_VER
 
 #define bdAssertToFile( p_Expr, p_LogFile ) \
 	if( p_Expr ) { } \
@@ -38,7 +45,7 @@ void bdDebugBreak_x86_64( );
 #define bdDebugBreak( )
 #define bdAssert( p_Expr )
 #define bdAssertToFile( p_Expr, p_LogFile )
-#endif
+#endif // BUILD_DEBUG
 
 namespace BD
 {
@@ -47,4 +54,4 @@ namespace BD
 	BD_UINT32 Trace( const char *p_pFileName, const char *p_pMessage, ... );
 }
 
-#endif
+#endif // __BRAINDEAD_DEBUGGER_DEBUGLOG_HPP__

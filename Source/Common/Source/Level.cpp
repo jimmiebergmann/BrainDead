@@ -78,6 +78,7 @@ namespace BD
 		{
 			for( BD_MEMSIZE x = 0; x < MapSizeX; x++ )
 			{
+				MapData[ x ][ y ] = bdRandom( 0, 1 );
 				bdTrace( NULL, "%i", static_cast< int >( MapData[ x ][ y ] ) );
 			}
 

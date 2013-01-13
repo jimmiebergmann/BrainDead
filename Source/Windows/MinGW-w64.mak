@@ -150,6 +150,9 @@ $(TARGET): $(OBJS)
 		exit 1;\
 	fi
 
+DEPENDS := $(OBJS:.o=.d)
+-include $(DEPENDS)
+
 endif
 
 .PHONY: clean

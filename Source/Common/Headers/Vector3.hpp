@@ -11,6 +11,9 @@ namespace BD
 	class Vector3
 	{
 	public:
+
+		BD_EXPLICIT Vector3( );
+
 		BD_EXPLICIT Vector3( const BD_FLOAT32 p_X, const BD_FLOAT32 p_Y,
 			const BD_FLOAT32 p_Z );
 		BD_INLINE ~Vector3( ){ }

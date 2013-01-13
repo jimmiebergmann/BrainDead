@@ -110,4 +110,17 @@ namespace BD
 		bglBindVertexArray(0);
 	}
 
+	void VertexObjectOGL::RenderParts(eRenderMode p_Mode, BD_UINT32 p_Start, BD_UINT32 p_Length )
+	{
+		// Make sure the vertex object is loaded.
+		if(m_Loaded == BD_FALSE)
+		{
+			return;
+		}
+
+		bglBindVertexArray(m_VertexArrayObject);
+		glDrawArrays(GL_TRIANGLES /*s_RenderModes[ (int)( p_Mode ) ]*/, p_Start, p_Length);
+		bglBindVertexArray(0);
+	}
+
 }

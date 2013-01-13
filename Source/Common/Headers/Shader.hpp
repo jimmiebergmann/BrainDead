@@ -23,11 +23,9 @@ namespace BD
 		friend class ShaderProgram;
 
 		virtual ~Shader() { }
-		//Shader(eShaderType p_ShaderType);
 		BD_UINT32 Read( const char * p_FileName );
-		//virtual BD_UINT32 Load( ) = 0;
+		BD_INLINE void SetSource( std::string p_Source ) { m_ShaderSource = p_Source; };
 		virtual BD_UINT32 Compile( std::string & p_Validation ) = 0;
-		//virtual BD_UINT32 Reload() = 0; // Read and Load the last file.
 		BD_BOOL IsCompiled( ) const;
 		std::string GetSource( ) const;
 

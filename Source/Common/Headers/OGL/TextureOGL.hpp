@@ -19,7 +19,7 @@ namespace BD
 			const ePixelFormat p_PixelFormat, BD_BYTE * p_Data );
 		virtual void Bind( BD_UINT32 p_Index );
 		virtual void Unbind( );
-		virtual BD_UINT32 SetFilters( BD_UINT32 * p_pFilters );
+		virtual BD_UINT32 SetFilters( eFilter * p_pFilters );
 
 	private:
 

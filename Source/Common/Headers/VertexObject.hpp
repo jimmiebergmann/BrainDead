@@ -24,6 +24,7 @@ namespace BD
 			BD_UINT32 & p_VertexIndex ) = 0;
 		virtual BD_UINT32 Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize ) = 0;
 		virtual void Render(eRenderMode p_Mode) = 0;
+		virtual void RenderParts(eRenderMode p_Mode, BD_UINT32 p_Start, BD_UINT32 p_Length ) = 0;
 
 		BD_INLINE BD_BOOL IsLoaded( ) const { return m_Loaded; }
 

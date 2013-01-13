@@ -17,6 +17,7 @@ namespace BD
 			BD_UINT32 & p_VertexIndex );
 		virtual BD_UINT32 Load( BD_UINT32 p_PieceCount, BD_UINT32 p_PieceSize );
 		virtual void Render(eRenderMode p_Mode);
+		virtual void VertexObjectOGL::RenderParts(eRenderMode p_Mode, BD_UINT32 p_Start, BD_UINT32 p_Length );
 
 	private:
 

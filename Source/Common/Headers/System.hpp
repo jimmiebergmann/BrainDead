@@ -11,6 +11,10 @@
 #define bdSleep(x) ( usleep( x * 1000 ) )
 #endif
 
+// Very useful macro for check single bits
+#define bdBit(n)       (1 << (n))
+#define bdCheckBit(n,i) ((bool)(((n) & bdBit(i)) != 0)) // <- Use this
+
 namespace BD
 {
 	BD_UINT32 GetExecutablePath( char *p_pBuffer, BD_MEMSIZE p_Size );

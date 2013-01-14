@@ -1,5 +1,5 @@
-#ifndef __DAWN_ARITHMETIC_HPP__
-#define __DAWN_ARITHMETIC_HPP__
+#ifndef __BRAINDEAD_ARITHMETIC_HPP__
+#define __BRAINDEAD_ARITHMETIC_HPP__
 
 #include <DataTypes.hpp>
 

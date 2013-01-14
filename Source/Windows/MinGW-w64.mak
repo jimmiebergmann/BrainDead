@@ -43,8 +43,10 @@ CPPFLAGS	=	-c -D "WIN32" -D "_WINDOWS" -D "_UNICODE" -D "UNICODE" \
 				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)" \
 				-D "PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)" \
 				-D "BITSIZE_$(BITTYPE)" -D "ARCH_$(ARCH)" \
-				-I"$(TOPSRC)/Windows/Headers" -I"$(TOPSRC)/Common/Headers"
-LINK		=	-lopengl32 -luser32 -lkernel32 -lgdi32 -lm -lgcc -lstdc++
+				-I"$(TOPSRC)/Windows/Headers" -I"$(TOPSRC)/Common/Headers" \
+				-I"/usr/$(MINGWW64VER)/usr/include" -std=c++0x
+LINK		=	-lopengl32 -luser32 -lkernel32 -lgdi32 -lm -lgcc -lstdc++ \
+				-lfreetype
 LINKFLAGS	=	-L/usr/$(MINGW_PREFIX)/sys-root/mingw/lib \
 				-L/lib/gcc/$(MINGW_PREFIX)/$(MINGWW64VER) \
 				-Wl,--subsystem,windows
@@ -106,9 +108,6 @@ $(TARGET): OBJSDIR TARGETDIR VERSIONINFO
 	@cat $(OBJSDIR)/compiletime
 	@printf "%s" "------------------------------------------------------------"
 	@printf "%s\n" "-------------------"
-	@echo deps: $(DEPENDS)
-	@printf "%s\n" "-----------------------------------------------------"
-	@echo objs: $(OBJS)
 
 else
 ##### In the intermediate build directory #####################################

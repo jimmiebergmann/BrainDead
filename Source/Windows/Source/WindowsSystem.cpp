@@ -1,5 +1,5 @@
 #include <System.hpp>
-#include <Windows.h>
+#include <windows.h>
 #include <string>
 #include <cstring>
 

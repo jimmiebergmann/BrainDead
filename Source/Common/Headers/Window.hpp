@@ -4,7 +4,7 @@
 #include <DataTypes.hpp>
 
 #ifdef PLATFORM_WINDOWS
-#include <Windows.h>
+#include <windows.h>
 typedef struct __WINDATA
 {
 	HDC DeviceContext;

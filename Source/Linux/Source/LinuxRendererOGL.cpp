@@ -32,7 +32,8 @@ namespace BD
 		return ( new VertexObjectOGL( ) );
 	}
 
-	Shader * LinuxRendererOGL::CreateShader( const Shader::eShaderType p_ShaderType )
+	Shader * LinuxRendererOGL::CreateShader(
+		const Shader::eShaderType p_ShaderType )
 	{
 		return ( new ShaderOGL( p_ShaderType ) );
 	}
@@ -70,6 +71,11 @@ namespace BD
 		const BD_UINT32 p_Y, const BD_UINT32 p_Width,
 		const BD_UINT32 p_Height )
 	{
+		m_ViewPortLow[ 0 ] = p_X;
+		m_ViewPortLow[ 1 ] = p_Y;
+		m_ViewPortHigh[ 0 ] = p_Width;
+		m_ViewPortHigh[ 1 ] = p_Height;
+		bglViewport( p_X, p_Y, p_Width, p_Height );
 	}
 
 	void LinuxRendererOGL::SetLineWidth( const BD_FLOAT32 p_Width )

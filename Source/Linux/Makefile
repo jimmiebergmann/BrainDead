@@ -31,8 +31,8 @@ UNAME_MACHINE	= $(shell uname -m)
 
 ifeq ($(UNAME), Linux)
 	CPPFLAGS_EXT	= -ffriend-injection -std=gnu++0x
-	SYSIPATH	= -I/usr/include/xorg
-	SYSLIBS		= -lX11 -lGL -lrt
+	SYSIPATH	= -I/usr/include/xorg -I/usr/include/freetype2
+	SYSLIBS		= -lX11 -lGL -lrt -lfreetype
 	LINKFLAGS	=
 ##### Check for forced 32-bit or 64-bit builds ################################
 ifneq ($(64BIT), False)

@@ -15,7 +15,8 @@ namespace BD
 		virtual BD_UINT32 Create( const Window &p_Window );
 		virtual Texture * CreateTexture( );
 		virtual VertexObject * CreateVertexObject( );
-		virtual Shader * CreateShader(  const Shader::eShaderType p_ShaderType );
+		virtual Shader * CreateShader(
+			const Shader::eShaderType p_ShaderType );
 		virtual ShaderProgram * CreateShaderProgram( );
 		virtual void StartScene( );
 		virtual void EndScene( );

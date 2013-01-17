@@ -1,6 +1,6 @@
 #include <Debugger.hpp>
 #include <System.hpp>
-#include <Windows.h>
+#include <windows.h>
 #include <cstdio>
 #include <string>
 

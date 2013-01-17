@@ -7,7 +7,6 @@ export TOPDIR		:= $(shell cd ../../ && pwd)
 export TOPSRC		= $(TOPDIR)/Source
 export TARGETDIR	= $(TOPDIR)/Bin/Linux/$(ARCH)_$(BITTYPE)
 export OBJSDIR		= $(TOPDIR)/Obj/Linux/$(ARCH)/$(BITTYPE)/GCC/$(GCCVER)/$(BUILD)
-export DEPSDIR		= $(TOPDIR)/Deps/Linux/$(ARCH)/$(BITTYPE)/GCC/$(GCCVER)
 endif
 SOURCEDIR	= Source ../Common/Source ../Common/Source/OGL ../Common/Source/OAL
 
@@ -32,8 +31,8 @@ UNAME_MACHINE	= $(shell uname -m)
 
 ifeq ($(UNAME), Linux)
 	CPPFLAGS_EXT	= -ffriend-injection -std=gnu++0x
-	SYSIPATH	= -I/usr/include/xorg
-	SYSLIBS		= -lX11 -lGL -lrt
+	SYSIPATH	= -I/usr/include/xorg -I/usr/include/freetype2
+	SYSLIBS		= -lX11 -lGL -lrt -lfreetype
 	LINKFLAGS	=
 ##### Check for forced 32-bit or 64-bit builds ################################
 ifneq ($(64BIT), False)
@@ -150,7 +149,7 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	@printf "Compiling: $<... "
 	@$(CPP) -MMD -MP -MF $(OBJSDIR)/$*.d $(CPPFLAGS) $(SYSIPATH) $< \
-	-o $(OBJSDIR)/$@ 2> $(OBJSDIR)/$*.msgs;\
+	-o $@ 2> $(OBJSDIR)/$*.msgs;\
 	RETVAL=$$?;\
 	if [[ $$RETVAL == 0 ]]; then\
 		printf "[OK]\n";\
@@ -164,9 +163,7 @@ $(TARGET): $(OBJS)
 		exit 1;\
 	fi
 
-DEPENDS	:= $(OBJFILES:.o=.d)
-
--include $(DEPENDS)
+-include $(OBJSDIR)/*.d
 
 endif
 

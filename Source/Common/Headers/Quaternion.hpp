@@ -1,5 +1,5 @@
-#ifndef __DAWN_QUATERNION_HPP__
-#define __DAWN_QUATERNION_HPP__
+#ifndef __BRAINDEAD_QUATERNION_HPP__
+#define __BRAINDEAD_QUATERNION_HPP__
 
 #include <DataTypes.hpp>
 

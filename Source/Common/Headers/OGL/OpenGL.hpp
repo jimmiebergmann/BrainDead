@@ -3,9 +3,9 @@
 
 #include <DataTypes.hpp>
 #ifdef PLATFORM_WINDOWS
-#include <Windows.h>
+#include <windows.h>
 #include <GL/gl.h>
-#include <gl/glext.h>
+#include <GL/glext.h>
 #include <GL/wglext.h>
 #elif PLATFORM_LINUX
 #include <X11/Xlib.h>

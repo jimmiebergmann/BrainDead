@@ -255,8 +255,9 @@ namespace BD
 		// for drawing.
 
 		// Create a buffer holding 
-		BD_BYTE * pPixelBuffer = new BD_BYTE[ TextureSize[ 0 ] * TextureSize[ 1 ] * 4];
-		memset( pPixelBuffer, 0, ( TextureSize[ 0 ] * TextureSize[ 1 ] * 4 ) ); 
+		BD_MEMSIZE PixelBuffSize = TextureSize[ 0 ]*TextureSize[ 1 ]*4;
+		BD_BYTE * pPixelBuffer = new BD_BYTE[ PixelBuffSize ];
+		memset( pPixelBuffer, 0, PixelBuffSize ); 
 
 		// Create two buffers holding vertex and texture coordinates
 		// Those are generated in the LoadFontPixelData[X] function, to gain performance
@@ -291,7 +292,9 @@ namespace BD
 
 		// Delete the buffers holding vertex and texture coordinates
 		delete [] pVertexCoords;
+		pVertexCoords = BD_NULL;
 		delete [] pTextureCoords;
+		pTextureCoords = BD_NULL;
 
 		// Create the texture and load it, set the filters as well.
 		m_pTexture = m_Renderer.CreateTexture( );
@@ -317,7 +320,7 @@ namespace BD
 
 		// Delete the pixel data
 		delete [] pPixelBuffer;
-
+		pPixelBuffer = BD_NULL;
 
 		// The texture and the vertex is created, finally.
 		// Now just load the shaders
@@ -739,6 +742,7 @@ namespace BD
 		m_pShaderProgram->SetUniform1i( "Texture", 0 );
 		m_pShaderProgram->SetUniform4f( "Color", 1.0f, 0.0f, 1.0f, 1.0f );
 		m_pShaderProgram->SetUniform3f( "VertexPosition", 0, 0, 0.0f );
+
 		m_pShaderProgram->SetUniformMatrix4x4f( "Matrix", Matrix );
 		m_pShaderProgram->Unbind( );
 

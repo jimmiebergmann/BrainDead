@@ -1,5 +1,5 @@
-#ifndef __DAWN_MATRIX3X3_HPP__
-#define __DAWN_MATRIX3X3_HPP__
+#ifndef __BRAINDEAD_MATRIX3X3_HPP__
+#define __BRAINDEAD_MATRIX3X3_HPP__
 
 #include <DataTypes.hpp>
 

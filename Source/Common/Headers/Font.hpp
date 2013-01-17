@@ -1,5 +1,5 @@
-#ifndef __BRAINDEAD_FRONT_HPP__
-#define __BRAINDEAD_FRONT_HPP__
+#ifndef __BRAINDEAD_FONT_HPP__
+#define __BRAINDEAD_FONT_HPP__
 
 #include <DataTypes.hpp>
 #include <Renderer.hpp>
@@ -9,6 +9,7 @@
 #include <Shader.hpp>
 #include <Vector3.hpp>
 #include <ft2build.h>
+#include FT_FREETYPE_H
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <map>

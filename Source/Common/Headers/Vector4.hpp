@@ -1,5 +1,5 @@
-#ifndef __DAWN_VECTOR4_HPP__
-#define __DAWN_VECTOR4_HPP__
+#ifndef __BRAINDEAD_VECTOR4_HPP__
+#define __BRAINDEAD_VECTOR4_HPP__
 
 #include <DataTypes.hpp>
 

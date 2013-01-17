@@ -15,7 +15,7 @@
 #include <Level.hpp>
 
 #ifdef PLATFORM_WINDOWS
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 namespace BD

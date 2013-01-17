@@ -1,5 +1,5 @@
-#ifndef __DAWN_MATRIX4X4_HPP__
-#define __DAWN_MATRIX4X4_HPP__
+#ifndef __BRAINDEAD_MATRIX4X4_HPP__
+#define __BRAINDEAD_MATRIX4X4_HPP__
 
 #include <DataTypes.hpp>
 
@@ -44,7 +44,8 @@ namespace BD
 			}
 		}
 
-		Matrix4x4 &Orthographic( const BD_FLOAT32 p_Left, const BD_FLOAT32 p_Right,
+		Matrix4x4 &Orthographic( const BD_FLOAT32 p_Left,
+			const BD_FLOAT32 p_Right,
 			const BD_FLOAT32 p_Bottom, const BD_FLOAT32 p_Top,
 			const BD_FLOAT32 p_ZNear, const BD_FLOAT32 p_ZFar );
 

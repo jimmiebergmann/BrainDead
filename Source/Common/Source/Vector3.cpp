@@ -5,6 +5,10 @@
 
 namespace BD
 {
+	Vector3::Vector3( )
+	{
+	}
+
 	Vector3::Vector3( const BD_FLOAT32 p_X, const BD_FLOAT32 p_Y,
 		const BD_FLOAT32 p_Z )
 	{
@@ -223,3 +227,4 @@ namespace BD
 		return *this;
 	}
 }
+

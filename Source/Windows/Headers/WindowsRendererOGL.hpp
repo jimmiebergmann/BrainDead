@@ -39,10 +39,8 @@ namespace BD
 		
 	private:
 
-		BD_BOOL m_Created;
 		HGLRC m_Context;
 		HDC m_HDC;
-		eRendererType m_eRendererType;
 
 	};
 

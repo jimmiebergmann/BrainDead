@@ -219,6 +219,9 @@
     <ClCompile Include="Source\WindowsWindow.cpp">
       <Filter>Windows\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Common\Source\Level.cpp">
+      <Filter>Common\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\Debugger_x86_64.asm">

@@ -1,5 +1,5 @@
-#ifndef __DAWN_VECTOR3_HPP__
-#define __DAWN_VECTOR3_HPP__
+#ifndef __BRAINDEAD_VECTOR3_HPP__
+#define __BRAINDEAD_VECTOR3_HPP__
 
 #include <DataTypes.hpp>
 
@@ -11,8 +11,12 @@ namespace BD
 	class Vector3
 	{
 	public:
+
+		BD_EXPLICIT Vector3( );
+
 		BD_EXPLICIT Vector3( const BD_FLOAT32 p_X, const BD_FLOAT32 p_Y,
 			const BD_FLOAT32 p_Z );
+		BD_INLINE ~Vector3( ){ }
 		
 		void Zero( );
 		void Clean( );
@@ -62,3 +66,4 @@ namespace BD
 }
 
 #endif
+

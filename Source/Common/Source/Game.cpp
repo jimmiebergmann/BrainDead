@@ -28,13 +28,14 @@ namespace BD
 		m_Running( BD_FALSE ),
 		m_pWindow( BD_NULL ),
 		m_pRenderer( BD_NULL ),
+		m_pLevel( BD_NULL )
 
-		m_pVertexShader( BD_NULL ),
+		/*m_pVertexShader( BD_NULL ),
 		m_pFragmentShader( BD_NULL ),
 		m_pShaderProgram( BD_NULL ),
 		m_pVertexObject( BD_NULL ),
 		m_pImage( BD_NULL ),
-		m_pTexture( BD_NULL )
+		m_pTexture( BD_NULL )*/
 	{
 	}
 
@@ -127,6 +128,10 @@ namespace BD
 		m_pRenderer->EnableAlpha( );
 		m_pRenderer->DisableDepthTest( );
 		
+
+/*
+
+
 		// Loading the test rendering data.
 		// Load the vertex object
 		m_ObjectSize = 20;
@@ -269,6 +274,20 @@ namespace BD
 			m_ObjectPositions.push_back( ObjectPosition );
 		}
 
+*/
+
+
+		// Test level generation
+		m_pLevel = new Level( m_pRenderer );
+
+		if( m_pLevel->Load( ) != BD_OK )
+		{
+			bdTrace( BD_NULL, "Can't load the map.\n" );
+			return BD_ERROR;
+		}
+
+		m_pLevel->Generate( );
+
 
 		m_Loaded = BD_TRUE;
 		return BD_OK;
@@ -276,7 +295,7 @@ namespace BD
 
 	BD_UINT32 Game::Unload( )
 	{
-		if( m_pVertexShader )
+		/*if( m_pVertexShader )
 		{
 			delete m_pVertexShader;
 			m_pVertexShader = BD_NULL;
@@ -307,6 +326,13 @@ namespace BD
 		{
 			delete m_pTexture;
 			m_pTexture = BD_NULL;
+		}*/
+
+
+		if( m_pLevel )
+		{
+			delete m_pLevel;
+			m_pLevel = BD_NULL;
 		}
 
 		if( m_pRenderer )
@@ -325,8 +351,11 @@ namespace BD
 
 	BD_UINT32 Game::Update( BD_FLOAT64 p_DeltaTime )
 	{
+
+		m_pLevel->Update( p_DeltaTime );
+
 		// Sink the object on the screen
-		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
+		/*for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
 		{
 			m_ObjectPositions[ i ][ 1 ] -= 100.0f * p_DeltaTime;
 
@@ -339,14 +368,16 @@ namespace BD
 				m_ObjectPositions[ i ][ 1 ] = 600 + HeightPositionOffset +
 					bdRandom( 0, 30 );
 			}
-		}
+		}*/
 
 		return BD_OK;
 	}
 
 	void Game::Render( )
 	{
-		m_pShaderProgram->Bind( );
+		m_pLevel->Render( );
+
+		/*m_pShaderProgram->Bind( );
 		m_pTexture->Bind( 0 );
 
 		for( BD_MEMSIZE i = 0; i < m_ObjectPositions.size( ); i++ )
@@ -359,7 +390,7 @@ namespace BD
 		}
 
 		m_pTexture->Unbind( );
-		m_pShaderProgram->Unbind( );
+		m_pShaderProgram->Unbind( );*/
 	}
 }
 

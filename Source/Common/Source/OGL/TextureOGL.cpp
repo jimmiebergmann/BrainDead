@@ -1,4 +1,5 @@
 #include <OGL/TextureOGL.hpp>
+#include <Debugger.hpp>
 
 namespace BD
 {
@@ -99,13 +100,14 @@ namespace BD
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	
-	BD_UINT32 TextureOGL::SetFilters( BD_UINT32 * p_pFilters )
+	BD_UINT32 TextureOGL::SetFilters( eFilter * p_pFilters )
 	{
-		// This code is working, but I don't know about it's efficiency...
-
+				// This code is working, but I don't know about it's efficiency...
 		if( p_pFilters == BD_NULL ||
-			*p_pFilters == 0 || *( p_pFilters + 1 ) == 0 )
+			*p_pFilters == FILTER_NONE || *( p_pFilters + 1 ) == FILTER_NONE )
 		{
+			bdTrace( BD_NULL, "[BD::TextureOGL::Load] <ERROR> "
+				"No filters are passed.\n" );
 			return BD_ERROR;
 		}
 
@@ -129,16 +131,16 @@ namespace BD
 			// Swtich the filter type
 			switch( *p_pFilters )
 			{
-			case BD_TEXTURE_FILTER_MAG:
+			case FILTER_MAG:
 				Filter = GL_TEXTURE_MAG_FILTER;
 				break;
-			case BD_TEXTURE_FILTER_MIN:
+			case FILTER_MIN:
 				Filter = GL_TEXTURE_MIN_FILTER;
 				break;
-			case BD_TEXTURE_FILTER_WRAP_X:
+			case FILTER_WRAP_X:
 				Filter = GL_TEXTURE_WRAP_S;
 				break;
-			case BD_TEXTURE_FILTER_WRAP_Y:
+			case FILTER_WRAP_Y:
 				Filter = GL_TEXTURE_WRAP_T;
 				break;
 			default:
@@ -149,14 +151,17 @@ namespace BD
 			// Swtich the filters value 
 			switch( *(p_pFilters + 1) )
 			{
-			case BD_TEXTURE_FILTER_NEAREST:
+			case FILTER_NEAREST:
 				Param = GL_NEAREST;
 				break;
-			case BD_TEXTURE_FILTER_LINEAR:
+			case FILTER_LINEAR:
 				Param = GL_LINEAR;
 				break;
-			case BD_TEXTURE_FILTER_REPEAT:
+			case FILTER_REPEAT:
 				Param = GL_REPEAT;
+				break;
+			case FILTER_CLAMP:
+				Param = GL_CLAMP;
 				break;
 			default:
 				glBindTexture( GL_TEXTURE_2D, 0 );

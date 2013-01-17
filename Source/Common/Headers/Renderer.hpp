@@ -7,6 +7,7 @@
 #include <VertexObject.hpp>
 #include <Shader.hpp>
 #include <ShaderProgram.hpp>
+#include <Vector3.hpp>
 
 namespace BD
 {
@@ -45,8 +46,21 @@ namespace BD
 		virtual void DisableDepthTest( ) = 0;
 		virtual void EnableSmoothLines( ) = 0;
 		virtual void DisableSmoothLines( ) = 0;
-		virtual BD_BOOL IsCreated( ) const = 0;
-		virtual eRendererType GetRendererType( ) const = 0;
+		BD_INLINE Vector3 GetViewPortSize() const { return m_ViewPortHigh - m_ViewPortLow; }
+		BD_INLINE Vector3 GetViewPortLow( ) const { return m_ViewPortLow; };
+		BD_INLINE Vector3 GetViewPortHigh( ) const { return m_ViewPortHigh; };
+		BD_INLINE BD_UINT32 GetMaxTextureSize( ) const { return m_MaxTextureSize; };
+		BD_INLINE BD_BOOL IsCreated( ) const { return m_Created; }
+		BD_INLINE eRendererType GetRendererType( ) const { return m_eRendererType; }
+
+	protected:
+
+		BD_BOOL m_Created;
+		eRendererType m_eRendererType;
+		Vector3 m_ViewPortLow;
+		Vector3 m_ViewPortHigh;
+		BD_UINT32 m_MaxTextureSize;
+	
 	};
 }
 

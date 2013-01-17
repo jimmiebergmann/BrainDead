@@ -62,7 +62,7 @@ CPPFLAGS	=	/c /D"WIN32" /D"_WINDOWS" /D"_UNICODE" /D"UNICODE" \
 				/D"BITSIZE_$(BITTYPE)" /D"ARCH_$(ARCH)" \
 				/I"Headers" /I"..\Common\Headers"
 ASFLAGS		=	/c /D"PLATFORM_$(BUILD_PLATFORM)_$(ARCH)_$(BITTYPE)"
-LINK		=	opengl32.lib kernel32.lib user32.lib gdi32.lib
+LINK		=	opengl32.lib kernel32.lib user32.lib gdi32.lib freetype.lib
 LINKFLAGS	=	/MACHINE:$(MACHINE_DEF) /SUBSYSTEM:WINDOWS
 RCFLAGS		=	/D"_UNICODE" /D"UNICODE" /I"Resources" /I"Headers" /l 0X0409
 CVTRESFLAGS	=	/DEFINE:_UNICODE /DEFINE:UNICODE /MACHINE:$(MACHINE_DEF)

@@ -62,7 +62,8 @@ release:	BUILD		= Release
 release:	BUILD_TYPE	= release
 release:	BUILD_DEF	= RELEASE
 release:	CPPFLAGS += -O2 -D "NDEBUG"
-release:	LINKFLAGS += -S
+release:	LINKFLAGS += -Wl,-S
+release:	TARGET := $(TARGET)
 release:	$(TARGET)
 
 profile:	BUILD		= Profile
@@ -106,9 +107,6 @@ $(TARGET): OBJSDIR TARGETDIR VERSIONINFO
 	@cat $(OBJSDIR)/compiletime
 	@printf "%s" "------------------------------------------------------------"
 	@printf "%s\n" "-------------------"
-	@echo deps: $(DEPENDS)
-	@printf "%s\n" "-----------------------------------------------------"
-	@echo objs: $(OBJS)
 
 else
 ##### In the intermediate build directory #####################################
@@ -117,7 +115,7 @@ $(TARGET): $(OBJS)
 	@printf "%s\n" "-----------------------"
 	@cat $(OBJSDIR)/*.msgs
 	@printf "%s" "------------------------------------------------------------"
-	@printf "%s\n" "-------------------"
+	@printf "%s\n\n" "-------------------"
 	@printf "Creating $(OUTFILE)... "
 	@cd $(OBJSDIR) && $(CPP) -o "$(OUTFILE)" $(OBJS) -s $(LINKFLAGS) $(LINK)
 	@printf "[OK]\n"

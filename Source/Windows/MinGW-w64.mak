@@ -157,10 +157,19 @@ endif
 
 .PHONY: clean
 clean:
-	@printf "Removing files from: $(TARGETDIR)... "
-	@cd $(TARGETDIR) && rm -rf ./*
-	@printf "[OK]\n"
-	@printf "Removing files from: $(OBJSDIR)... "
-	@cd $(OBJSDIR) && rm -rf ./*
-	@printf "[OK]\n"
+	@if [ ! -d "$(TARGETDIR)" ]; then\
+		printf "Directory: $(TARGETDIR) does not exist\n";\
+	else\
+		printf "Removing files from: $(TARGETDIR)... ";\
+		cd $(TARGETDIR) && rm -rf ./*;\
+		printf "[OK]\n";\
+	fi
+	@if [ ! -d "$(OBJSDIR)" ]; then\
+		printf "Directory: $(OBJSDIR) does not exist\n";\
+	else\
+		printf "Removing files from: $(OBJSDIR)... ";\
+		cd $(OBJSDIR) && rm -rf ./*;\
+		printf "[OK]\n";\
+	fi
+
 
